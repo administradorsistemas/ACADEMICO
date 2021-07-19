@@ -936,6 +936,9 @@ namespace Core.Data.Facturacion
                     var Caja = dbCaj.caj_Caja.Where(q => q.IdEmpresa == info.IdEmpresa && q.IdCaja == ptoVta.IdCaja).FirstOrDefault();
                     if (Caja == null)
                         return null;
+
+                    var TipoCobroCuenta = dbCxc.cxc_cobro_tipo_Param_conta_x_sucursal.Where(q => q.IdEmpresa == info.IdEmpresa && q.IdSucursal == info.IdSucursal && q.IdCobro_tipo == TipoCobro.IdCobro_tipo).FirstOrDefault();
+                    
                     
                     #region Cabecera
                     ct_cbtecble_Info diario = new ct_cbtecble_Info
@@ -964,7 +967,7 @@ namespace Core.Data.Facturacion
                     IdTipoCbte = diario.IdTipoCbte,
                     IdCbteCble = diario.IdCbteCble,
                     secuencia = secuencia++,
-                    IdCtaCble = TipoCobro.tc_Tomar_Cta_Cble_De == "CAJA" ? Caja.IdCtaCble : NCND.IdCtaCbleDebe,
+                    IdCtaCble = TipoCobro.tc_Tomar_Cta_Cble_De == "CAJA" ? Caja.IdCtaCble : (TipoCobro.tc_Tomar_Cta_Cble_De == "TIP_COBRO" ? (TipoCobroCuenta != null ? TipoCobroCuenta.IdCtaCble : NCND.IdCtaCbleDebe): NCND.IdCtaCbleDebe),
                     dc_Valor = Math.Round(lst.Sum(q => q.Valor),2,MidpointRounding.AwayFromZero),
                 });
                 #endregion
