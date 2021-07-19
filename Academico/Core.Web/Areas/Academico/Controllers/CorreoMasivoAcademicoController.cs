@@ -244,41 +244,72 @@ namespace Core.Web.Areas.Academico.Controllers
                     var IdNivel = Convert.ToInt32(item.IdString.Substring(6, 3));
                     var IdCurso = Convert.ToInt32(item.IdString.Substring(9, 3));
                     var IdParalelo = Convert.ToInt32(item.IdString.Substring(12, 3));
-                    //var IdAlumnoDeudor = Convert.ToInt32(item.IdString.Substring(15, 6));
+                    var IdAlumnoParalelo = Convert.ToInt32(item.IdString.Substring(15, 6));
 
-                    var lstAlumnosPorParalelos = ListaAlumnosCorreo.Where(q => q.IdEmpresa == IdEmpresa && q.IdSede == IdSede && q.IdJornada == IdJornada && q.IdNivel == IdNivel && q.IdCurso == IdCurso && q.IdParalelo == IdParalelo).ToList();
+                    var DatosAlumno = ListaAlumnosCorreo.Where(q => q.IdEmpresa == IdEmpresa && q.IdSede == IdSede && q.IdJornada == IdJornada && q.IdNivel == IdNivel && q.IdCurso == IdCurso && q.IdParalelo == IdParalelo && q.IdAlumno==IdAlumnoParalelo).FirstOrDefault();
+                    //var CorreoXAlumno = lstAlumnosPorParalelos.Where(q => q.IdEmpresa == IdEmpresa && q.IdAlumno == IdAlumnoParalelo).FirstOrDefault();
+                    var Destinatarios = (RepLegal == true ? (DatosAlumno == null ? "" : (string.IsNullOrEmpty(DatosAlumno.CorreoRepLegal) ? "" : DatosAlumno.CorreoRepLegal + ";")) : "") + (RepEconomico == true ? (DatosAlumno == null ? "" : (string.IsNullOrEmpty(DatosAlumno.correoRepEconomico) ? "" : DatosAlumno.correoRepEconomico + ";")) : "") + (!string.IsNullOrEmpty(Copia) ? Copia + ";" : "");
 
-                    foreach (var item1 in lstAlumnosPorParalelos)
+                    if (CodigoCorreo == "ACA_013")
+                        ParametrosCorreo = IdEmpresa.ToString() + ";" + IdAnio.ToString() + ";" + IdSedeSession.ToString() + ";" + DatosAlumno.IdAlumno.ToString() + ";" + IdCatalogoTipo.ToString() + ";" + IdCatalogoParcial.ToString() + ";" + (MostrarRetirados == true ? "1" : "0") + ";" + (MostrarPromedios == true ? "1" : "0");
+
+                    if (CodigoCorreo == "ACA_014")
+                        ParametrosCorreo = IdEmpresa.ToString() + ";" + IdAnio.ToString() + ";" + IdSedeSession.ToString() + ";" + DatosAlumno.IdAlumno.ToString() + ";" + IdCatalogoTipo.ToString() + ";" + (MostrarRetirados == true ? "1" : "0") + ";" + (MostrarPromedios == true ? "1" : "0");
+
+                    if (CodigoCorreo == "ACA_052")
+                        ParametrosCorreo = IdEmpresa.ToString() + ";" + IdAnio.ToString() + ";" + IdSedeSession.ToString() + ";" + DatosAlumno.IdAlumno.ToString();
+
+                    var info = new tb_ColaCorreo_Info
                     {
-                        var CorreoXAlumno = lstAlumnosPorParalelos.Where(q => q.IdEmpresa == IdEmpresa && q.IdAlumno == item1.IdAlumno).FirstOrDefault();
-                        var Destinatarios = (RepLegal == true ? (CorreoXAlumno == null ? "" : (string.IsNullOrEmpty(CorreoXAlumno.CorreoRepLegal) ? "" : CorreoXAlumno.CorreoRepLegal + ";")) : "") + (RepEconomico == true ? (CorreoXAlumno == null ? "" : (string.IsNullOrEmpty(CorreoXAlumno.correoRepEconomico) ? "" : CorreoXAlumno.correoRepEconomico + ";")) : "") + (!string.IsNullOrEmpty(Copia) ? Copia + ";" : "");
+                        IdEmpresa = IdEmpresa,
+                        Asunto = AsuntoCorreo,
+                        Cuerpo = CuerpoCorreo,
+                        Destinatarios = Destinatarios,
+                        Codigo = CodigoCorreo,
+                        Parametros = ParametrosCorreo,
+                        IdUsuarioCreacion = SessionFixed.IdUsuario
+                    };
 
-                        if (CodigoCorreo == "ACA_013")
-                            ParametrosCorreo = IdEmpresa.ToString() + ";" + IdAnio.ToString() + ";" + IdSedeSession.ToString() + ";" + CorreoXAlumno.IdAlumno.ToString() + ";" + IdCatalogoTipo.ToString() + ";" + IdCatalogoParcial.ToString() + ";" + (MostrarRetirados == true ? "1" : "0") + ";" + (MostrarPromedios == true ? "1" : "0");
-
-                        if (CodigoCorreo == "ACA_014")
-                            ParametrosCorreo = IdEmpresa.ToString() + ";" + IdAnio.ToString() + ";" + IdSedeSession.ToString() + ";" + CorreoXAlumno.IdAlumno.ToString() + ";" + IdCatalogoTipo.ToString() + ";" + (MostrarRetirados == true ? "1" : "0") + ";" + (MostrarPromedios == true ? "1" : "0");
-
-                        if (CodigoCorreo == "ACA_052")
-                            ParametrosCorreo = IdEmpresa.ToString() + ";" + IdAnio.ToString() + ";" + IdSedeSession.ToString() + ";" + CorreoXAlumno.IdAlumno.ToString();
-
-
-                        var info = new tb_ColaCorreo_Info
-                        {
-                            IdEmpresa = IdEmpresa,
-                            Asunto = AsuntoCorreo,
-                            Cuerpo = CuerpoCorreo,
-                            Destinatarios = Destinatarios,
-                            Codigo = CodigoCorreo,
-                            Parametros = ParametrosCorreo,
-                            IdUsuarioCreacion = SessionFixed.IdUsuario
-                        };
-
-                        if (!bus_cola.GuardarDB(info))
-                        {
-                            mensaje = "Ha ocurrido un error al guardar los registros";
-                        }
+                    if (!bus_cola.GuardarDB(info))
+                    {
+                        mensaje = "Ha ocurrido un error al guardar los registros";
                     }
+
+
+
+                    //var lstAlumnosPorParalelos = ListaAlumnosCorreo.Where(q => q.IdEmpresa == IdEmpresa && q.IdSede == IdSede && q.IdJornada == IdJornada && q.IdNivel == IdNivel && q.IdCurso == IdCurso && q.IdParalelo == IdParalelo).ToList();
+
+                    //foreach (var item1 in lstAlumnosPorParalelos)
+                    //{
+                    //    var CorreoXAlumno = lstAlumnosPorParalelos.Where(q => q.IdEmpresa == IdEmpresa && q.IdAlumno == item1.IdAlumno).FirstOrDefault();
+                    //    var Destinatarios = (RepLegal == true ? (CorreoXAlumno == null ? "" : (string.IsNullOrEmpty(CorreoXAlumno.CorreoRepLegal) ? "" : CorreoXAlumno.CorreoRepLegal + ";")) : "") + (RepEconomico == true ? (CorreoXAlumno == null ? "" : (string.IsNullOrEmpty(CorreoXAlumno.correoRepEconomico) ? "" : CorreoXAlumno.correoRepEconomico + ";")) : "") + (!string.IsNullOrEmpty(Copia) ? Copia + ";" : "");
+
+                    //    if (CodigoCorreo == "ACA_013")
+                    //        ParametrosCorreo = IdEmpresa.ToString() + ";" + IdAnio.ToString() + ";" + IdSedeSession.ToString() + ";" + CorreoXAlumno.IdAlumno.ToString() + ";" + IdCatalogoTipo.ToString() + ";" + IdCatalogoParcial.ToString() + ";" + (MostrarRetirados == true ? "1" : "0") + ";" + (MostrarPromedios == true ? "1" : "0");
+
+                    //    if (CodigoCorreo == "ACA_014")
+                    //        ParametrosCorreo = IdEmpresa.ToString() + ";" + IdAnio.ToString() + ";" + IdSedeSession.ToString() + ";" + CorreoXAlumno.IdAlumno.ToString() + ";" + IdCatalogoTipo.ToString() + ";" + (MostrarRetirados == true ? "1" : "0") + ";" + (MostrarPromedios == true ? "1" : "0");
+
+                    //    if (CodigoCorreo == "ACA_052")
+                    //        ParametrosCorreo = IdEmpresa.ToString() + ";" + IdAnio.ToString() + ";" + IdSedeSession.ToString() + ";" + CorreoXAlumno.IdAlumno.ToString();
+
+
+                    //    var info = new tb_ColaCorreo_Info
+                    //    {
+                    //        IdEmpresa = IdEmpresa,
+                    //        Asunto = AsuntoCorreo,
+                    //        Cuerpo = CuerpoCorreo,
+                    //        Destinatarios = Destinatarios,
+                    //        Codigo = CodigoCorreo,
+                    //        Parametros = ParametrosCorreo,
+                    //        IdUsuarioCreacion = SessionFixed.IdUsuario
+                    //    };
+
+                    //    if (!bus_cola.GuardarDB(info))
+                    //    {
+                    //        mensaje = "Ha ocurrido un error al guardar los registros";
+                    //    }
+                    //}
                 }
                 if (IdAlumno > 0)
                 {
