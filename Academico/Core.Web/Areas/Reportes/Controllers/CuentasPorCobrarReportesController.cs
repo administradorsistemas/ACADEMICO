@@ -1097,5 +1097,43 @@ namespace Core.Web.Areas.Reportes.Controllers
             return View(model);
         }
         #endregion
+
+        #region CXC_022
+        public ActionResult CXC_022()
+        {
+            cl_filtros_facturacion_Info model = new cl_filtros_facturacion_Info
+            {
+                IdEmpresa = Convert.ToInt32(SessionFixed.IdEmpresa),
+                IdSucursal = Convert.ToInt32(SessionFixed.IdSucursal),
+                IdCliente = 0,
+                fecha_corte = DateTime.Now
+            };
+
+            CXC_022_Rpt report = new CXC_022_Rpt();
+
+            report.p_IdEmpresa.Value = model.IdEmpresa;
+            report.p_IdUsuario.Value = SessionFixed.IdUsuario;
+            report.p_FechaCorte.Value = model.fecha_corte;
+            report.usuario = SessionFixed.IdUsuario;
+            report.empresa = SessionFixed.NomEmpresa;
+            ViewBag.Report = report;
+            
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult CXC_022(cl_filtros_facturacion_Info model)
+        {
+            CXC_022_Rpt report = new CXC_022_Rpt();
+
+            report.p_IdEmpresa.Value = model.IdEmpresa;
+            report.p_IdUsuario.Value = SessionFixed.IdUsuario;
+            report.p_FechaCorte.Value = model.fecha_corte;
+            report.usuario = SessionFixed.IdUsuario;
+            report.empresa = SessionFixed.NomEmpresa;
+            ViewBag.Report = report;
+
+            return View(model);
+        }
+        #endregion
     }
 }

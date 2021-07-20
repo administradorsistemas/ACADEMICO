@@ -432,6 +432,7 @@
     <Compile Include="Reportes\CuentasPorCobrar\CXC_017_Info.cs" />
     <Compile Include="Reportes\CuentasPorCobrar\CXC_016_Info.cs" />
     <Compile Include="Reportes\CuentasPorCobrar\CXC_015_Info.cs" />
+    <Compile Include="Reportes\CuentasPorCobrar\CXC_022_Info.cs" />
     <Compile Include="Reportes\Facturacion\FAC_001_Info.cs" />
     <Compile Include="Reportes\Facturacion\FAC_002_PendientePago_Info.cs" />
     <Compile Include="Reportes\Facturacion\FAC_002_Info.cs" />

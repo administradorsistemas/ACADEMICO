@@ -2179,6 +2179,7 @@
     <Compile Include="Reportes\CuentasPorCobrar\CXC_013_Data.cs" />
     <Compile Include="Reportes\CuentasPorCobrar\CXC_014_Data.cs" />
     <Compile Include="Reportes\CuentasPorCobrar\CXC_015_Data.cs" />
+    <Compile Include="Reportes\CuentasPorCobrar\CXC_022_Data.cs" />
     <Compile Include="Reportes\Facturacion\FAC_001_Data.cs" />
     <Compile Include="Reportes\Facturacion\FAC_002_Pendiente_Pago_Data.cs" />
     <Compile Include="Reportes\Facturacion\FAC_002_Data.cs" />

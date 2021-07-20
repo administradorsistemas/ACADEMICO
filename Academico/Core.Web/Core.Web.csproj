@@ -1190,6 +1190,12 @@
     <Compile Include="Reportes\CuentasPorCobrar\CXC_003_Rpt.Designer.cs">
       <DependentUpon>CXC_003_Rpt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reportes\CuentasPorCobrar\CXC_022_Rpt.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\CuentasPorCobrar\CXC_022_Rpt.Designer.cs">
+      <DependentUpon>CXC_022_Rpt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reportes\CuentasPorCobrar\CXC_004_Saldo_Rpt.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -9829,6 +9835,7 @@
     <Content Include="Areas\Academico\Views\ProcesarAdmision\_CmbAlumno_ReadOnly.cshtml" />
     <Content Include="Areas\Academico\Views\ConductaEquivalencia\_ComboBoxPartial_AnioModificar.cshtml" />
     <Content Include="Areas\Academico\Views\EquivalenciaPromedio\_ComboBoxPartial_AnioModificar.cshtml" />
+    <Content Include="Areas\Reportes\Views\CuentasPorCobrarReportes\CXC_022.cshtml" />
     <None Include="Properties\PublishProfiles\p1.pubxml" />
     <None Include="Properties\PublishProfiles\Publicacion.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -10327,6 +10334,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\CuentasPorCobrar\CXC_003_Rpt.resx">
       <DependentUpon>CXC_003_Rpt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\CuentasPorCobrar\CXC_022_Rpt.resx">
+      <DependentUpon>CXC_022_Rpt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\CuentasPorCobrar\CXC_004_Saldo_Rpt.resx">
       <DependentUpon>CXC_004_Saldo_Rpt.cs</DependentUpon>
