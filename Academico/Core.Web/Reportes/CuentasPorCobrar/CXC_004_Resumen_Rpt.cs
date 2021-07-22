@@ -14,6 +14,7 @@ namespace Core.Web.Reportes.CuentasPorCobrar
         CXC_004_Bus bus_rpt = new CXC_004_Bus();
         public string usuario { get; set; }
         public string empresa { get; set; }
+        public List<CXC_004_Info> Lista { get; set; }
         public CXC_004_Resumen_Rpt()
         {
             InitializeComponent();
@@ -23,13 +24,7 @@ namespace Core.Web.Reportes.CuentasPorCobrar
         {
             lbl_fecha.Text = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
             lbl_empresa.Text = empresa;
-            lbl_usuario.Text = usuario;
-
-            int IdEmpresa = string.IsNullOrEmpty(p_IdEmpresa.Value.ToString()) ? 0 : Convert.ToInt32(p_IdEmpresa.Value);
-            string IdUsuario = string.IsNullOrEmpty(p_IdUsuario.Value.ToString()) ? null : Convert.ToString(p_IdUsuario.Value);
-            DateTime FechaCorte = string.IsNullOrEmpty(p_FechaCorte.Value.ToString()) ? DateTime.Now.Date : Convert.ToDateTime(p_FechaCorte.Value);
-            List<CXC_004_Info> Lista = new List<CXC_004_Info>();
-            Lista = bus_rpt.Getlist_Resumen(IdEmpresa, IdUsuario,FechaCorte);
+            lbl_usuario.Text = usuario;            
             xrCrossTab1.DataSource = Lista;
         }
     }

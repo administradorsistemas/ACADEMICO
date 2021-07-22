@@ -66,7 +66,8 @@ namespace Core.Data.Reportes.CuentasPorCobrar
                     connection.Open();
                     SqlCommand command = new SqlCommand();
                     command.Connection = connection;
-                    command.CommandText = "SELECT IdEmpresa, IdAlumno, IdUsuario, NomAnio, CodigoAlumno, NombreAlumno, SaldoDeudor, SaldoAcreedor, SaldoFinal, NombreJornada FROM Academico.cxc_SPCXC_004 WHERE IdUsuario = '" + IdUsuario + "'";
+                    command.CommandText = "DECLARE @Fecha date = DATEFROMPARTS(" + FechaCorte.Year.ToString() + "," + FechaCorte.Month.ToString() + "," + FechaCorte.Day.ToString() + ") "
+                        + " exec Academico.SPCXC_004 " + IdEmpresa.ToString() + ", '" + IdUsuario + "',@Fecha";
                     command.CommandTimeout = 5000;
                     SqlDataReader reader = command.ExecuteReader();
 

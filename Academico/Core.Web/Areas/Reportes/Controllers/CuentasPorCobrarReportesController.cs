@@ -2,6 +2,7 @@
 using Core.Bus.CuentasPorCobrar;
 using Core.Bus.Facturacion;
 using Core.Bus.General;
+using Core.Bus.Reportes.CuentasPorCobrar;
 using Core.Bus.SeguridadAcceso;
 using Core.Info.Academico;
 using Core.Info.CuentasPorCobrar;
@@ -244,8 +245,10 @@ namespace Core.Web.Areas.Reportes.Controllers
 
         #endregion
 
+        #region CXC_004
         public ActionResult CXC_004()
         {
+            CXC_004_Bus busrpt = new CXC_004_Bus();
             cl_filtros_facturacion_Info model = new cl_filtros_facturacion_Info
             {
                 IdEmpresa = Convert.ToInt32(SessionFixed.IdEmpresa),
@@ -253,14 +256,16 @@ namespace Core.Web.Areas.Reportes.Controllers
                 IdCliente = 0,
                 fecha_corte = DateTime.Now
             };
-           
+            var Lista = busrpt.Getlist_Reporte(model.IdEmpresa, SessionFixed.IdUsuario, model.fecha_corte);
+
             CXC_004_Rpt report = new CXC_004_Rpt();
-            
+
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdUsuario.Value = SessionFixed.IdUsuario;
             report.p_FechaCorte.Value = model.fecha_corte;
             report.usuario = SessionFixed.IdUsuario;
             report.empresa = SessionFixed.NomEmpresa;
+            report.Lista = Lista;
             ViewBag.Report = report;
 
             CXC_004_Resumen_Rpt report2 = new CXC_004_Resumen_Rpt();
@@ -270,6 +275,7 @@ namespace Core.Web.Areas.Reportes.Controllers
             report2.usuario = SessionFixed.IdUsuario;
             report2.empresa = SessionFixed.NomEmpresa;
             report2.p_FechaCorte.Value = model.fecha_corte;
+            report2.Lista = Lista;
             ViewBag.ReportResumen = report2;
 
 
@@ -285,13 +291,16 @@ namespace Core.Web.Areas.Reportes.Controllers
         [HttpPost]
         public ActionResult CXC_004(cl_filtros_facturacion_Info model)
         {
+            CXC_004_Bus busrpt = new CXC_004_Bus();
+            var Lista = busrpt.Getlist_Reporte(model.IdEmpresa, SessionFixed.IdUsuario, model.fecha_corte);
             CXC_004_Rpt report = new CXC_004_Rpt();
-            
+
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdUsuario.Value = SessionFixed.IdUsuario;
             report.p_FechaCorte.Value = model.fecha_corte;
             report.usuario = SessionFixed.IdUsuario;
             report.empresa = SessionFixed.NomEmpresa;
+            report.Lista = Lista;
             ViewBag.Report = report;
 
             CXC_004_Resumen_Rpt report2 = new CXC_004_Resumen_Rpt();
@@ -301,6 +310,7 @@ namespace Core.Web.Areas.Reportes.Controllers
             report2.usuario = SessionFixed.IdUsuario;
             report2.p_FechaCorte.Value = model.fecha_corte;
             report2.empresa = SessionFixed.NomEmpresa;
+            report2.Lista = Lista;
             ViewBag.ReportResumen = report2;
 
             CXC_004_Saldo_Rpt report3 = new CXC_004_Saldo_Rpt();
@@ -313,6 +323,8 @@ namespace Core.Web.Areas.Reportes.Controllers
 
             return View(model);
         }
+        #endregion
+
         public ActionResult CXC_005(int IdSucursal = 0, decimal IdLiquidacion = 0)
         {
             CXC_005_Rpt report = new CXC_005_Rpt();
