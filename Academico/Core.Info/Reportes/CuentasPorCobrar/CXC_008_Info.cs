@@ -42,5 +42,6 @@ namespace Core.Info.Reportes.CuentasPorCobrar
         public string NomParalelo { get; set; }
 
         public int Num { get; set; }
+        public string Anio { get; set; }
     }
 }

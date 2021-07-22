@@ -446,7 +446,7 @@ namespace Core.Web.Areas.Reportes.Controllers
             model.IdAnio = info_anio == null ? 0 : info_anio.IdAnio;
             model.mostrarAnulados = true;
             model.CantMinima = 0;
-            model.CantMaxima = 10;
+            model.CantMaxima = 9999;
             CXC_008_Rpt report = new CXC_008_Rpt();
 
             report.p_IdEmpresa.Value = model.IdEmpresa;

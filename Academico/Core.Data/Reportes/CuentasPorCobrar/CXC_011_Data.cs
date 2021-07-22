@@ -43,7 +43,7 @@ namespace Core.Data.Reportes.CuentasPorCobrar
                                         + " @IdCursoFin int = " + IdCursoFin.ToString() + ","
                                         + " @IdParaleloIni int = " + IdParaleloIni.ToString() + ","
                                         + " @IdParaleloFin int = " + IdParaleloFin.ToString() + ","
-                                        + " @IdAlumno int = " + IdAlumno.ToString() + ""
+                                        + " @IdAlumno numeric = " + IdAlumno.ToString() + ""
 
                                         + " ; with UltMat as ("
                                         + " select a.IdEmpresa, a.IdAlumno, max(A.IdMatricula) IdMatricula"
