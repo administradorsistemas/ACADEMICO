@@ -490,7 +490,7 @@
             this.groupFooterBand1.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
             this.xrPictureBox3,
             this.xrPictureBox2});
-            this.groupFooterBand1.HeightF = 120F;
+            this.groupFooterBand1.HeightF = 150F;
             this.groupFooterBand1.Name = "groupFooterBand1";
             // 
             // xrPictureBox3
@@ -498,15 +498,15 @@
             this.xrPictureBox3.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource("img", resources.GetString("xrPictureBox3.ImageSource"));
             this.xrPictureBox3.LocationFloat = new DevExpress.Utils.PointFloat(0F, 0F);
             this.xrPictureBox3.Name = "xrPictureBox3";
-            this.xrPictureBox3.SizeF = new System.Drawing.SizeF(260F, 120F);
+            this.xrPictureBox3.SizeF = new System.Drawing.SizeF(290F, 150F);
             this.xrPictureBox3.Sizing = DevExpress.XtraPrinting.ImageSizeMode.StretchImage;
             // 
             // xrPictureBox2
             // 
             this.xrPictureBox2.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource("img", resources.GetString("xrPictureBox2.ImageSource"));
-            this.xrPictureBox2.LocationFloat = new DevExpress.Utils.PointFloat(477F, 0F);
+            this.xrPictureBox2.LocationFloat = new DevExpress.Utils.PointFloat(436.9999F, 0F);
             this.xrPictureBox2.Name = "xrPictureBox2";
-            this.xrPictureBox2.SizeF = new System.Drawing.SizeF(200F, 120F);
+            this.xrPictureBox2.SizeF = new System.Drawing.SizeF(240F, 150F);
             this.xrPictureBox2.Sizing = DevExpress.XtraPrinting.ImageSizeMode.StretchImage;
             // 
             // p_IdAnio
