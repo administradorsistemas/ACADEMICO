@@ -274,6 +274,8 @@
         <EntityTypeShape EntityType="ModelAcademico.vwaca_Matricula_Rubro_FacturaMasiva" Width="1.5" PointX="12.375" PointY="28.75" />
         <EntityTypeShape EntityType="ModelAcademico.vwaca_Matricula_Rubro_PorFacturar" Width="1.5" PointX="8.375" PointY="35.75" />
         <EntityTypeShape EntityType="ModelAcademico.vwaca_Matricula_Rubro_PorFacturarMasiva" Width="1.5" PointX="10.375" PointY="35.75" />
+        <EntityTypeShape EntityType="ModelAcademico.aca_MatriculaGrado" Width="1.5" PointX="51.875" PointY="26.875" />
+        <AssociationConnector Association="ModelAcademico.FK_aca_MatriculaGrado_aca_Matricula" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

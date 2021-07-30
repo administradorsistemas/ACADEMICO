@@ -17,6 +17,7 @@
         settings.Properties.Columns.Add("CodAlumno", "Codigo", 10);
         settings.Properties.Columns.Add("pe_cedulaRuc", "Identificacion", 15);
         settings.Properties.Columns.Add("pe_nombreCompleto", "Alumno", 65);
+        settings.ReadOnly = true;
     })
     .BindList(new Core.Web.Areas.Academico.Controllers.CalificacionHistoricoController().get_list_bajo_demanda_alumno, new Core.Web.Areas.Academico.Controllers.CalificacionHistoricoController().get_info_bajo_demanda_alumno)
     .Bind(Model.GetType() == typeof(Core.Info.Academico.aca_AnioLectivoCalificacionHistorico_Info) ? "" : (Model == 0 ? "" : Model));

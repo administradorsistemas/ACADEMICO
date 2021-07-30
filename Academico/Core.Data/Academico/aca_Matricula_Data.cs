@@ -680,6 +680,19 @@ namespace Core.Data.Academico
                     }
                     #endregion
 
+                    #region Nota de Grado
+                    aca_AnioLectivo Entity_Anio = Context.aca_AnioLectivo.FirstOrDefault(q=>q.IdEmpresa==info.IdEmpresa && q.IdAnio == info.IdAnio);
+                    if (Entity_Anio.IdCursoBachiller == info.IdCurso)
+                    {
+                        aca_MatriculaGrado Entity_Grado = new aca_MatriculaGrado
+                        {
+                            IdEmpresa = info.IdEmpresa,
+                            IdMatricula = info.IdMatricula
+                        };
+                        Context.aca_MatriculaGrado.Add(Entity_Grado);
+                    }
+                    #endregion
+
                     aca_Alumno Entity_Alumno = Context.aca_Alumno.FirstOrDefault(q => q.IdEmpresa == info.IdEmpresa && q.IdAlumno == info.IdAlumno);
                     Entity_Alumno.IdCatalogoESTMAT = Convert.ToInt32(cl_enumeradores.eCatalogoAcademicoMatricula.MATRICULADO);
                     Entity_Alumno.IdCurso = info.IdCurso;
@@ -1041,6 +1054,26 @@ namespace Core.Data.Academico
                         };
 
                         Context.aca_MatriculaCalificacionCualitativaPromedio.Add(Entity_ParcialCualitativaPromedio);
+                    }
+                    #endregion
+
+                    #region Grado
+                    var lst_MatriculaGrado = Context.aca_MatriculaGrado.Where(q => q.IdEmpresa == info.IdEmpresa && q.IdMatricula == info.IdMatricula).ToList();
+                    Context.aca_MatriculaGrado.RemoveRange(lst_MatriculaGrado);
+                    foreach (var grado in info.lst_MatriculaGrado)
+                    {
+                        aca_MatriculaGrado Entity_MatriculaGrado = new aca_MatriculaGrado
+                        {
+                            IdEmpresa = grado.IdEmpresa,
+                            IdMatricula = grado.IdMatricula,
+                            CalificacionGrado = grado.CalificacionGrado,
+                            IdUsuarioCreacion = grado.IdUsuarioCreacion,
+                            FechaCreacion = grado.FechaCreacion,
+                            IdUsuarioModificacion = grado.IdUsuarioModificacion,
+                            FechaModificacion = grado.FechaModificacion,
+                        };
+
+                        Context.aca_MatriculaGrado.Add(Entity_MatriculaGrado);
                     }
                     #endregion
 

@@ -61,5 +61,17 @@ namespace Core.Bus.Academico
                 throw;
             }
         }
+        public bool EliminarDB(aca_AnioLectivoCalificacionHistorico_Info info)
+        {
+            try
+            {
+                return odata.EliminarDB(info);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

@@ -255,6 +255,7 @@
     <Compile Include="Areas\Academico\Controllers\MatriculaConductaController.cs" />
     <Compile Include="Areas\Academico\Controllers\MatriculaConductaQuimestralController.cs" />
     <Compile Include="Areas\Academico\Controllers\MatriculaController.cs" />
+    <Compile Include="Areas\Academico\Controllers\MatriculaGradoController.cs" />
     <Compile Include="Areas\Academico\Controllers\MatriculaPaseAnioController.cs" />
     <Compile Include="Areas\Academico\Controllers\MecanismoDePagoController.cs" />
     <Compile Include="Areas\Academico\Controllers\MenuController.cs" />
@@ -9842,6 +9843,16 @@
     <Content Include="Areas\Academico\Views\ConductaEquivalencia\_ComboBoxPartial_AnioModificar.cshtml" />
     <Content Include="Areas\Academico\Views\EquivalenciaPromedio\_ComboBoxPartial_AnioModificar.cshtml" />
     <Content Include="Areas\Reportes\Views\CuentasPorCobrarReportes\CXC_022.cshtml" />
+    <Content Include="Areas\Academico\Views\CalificacionHistorico\_ComboBoxPartial_AnioReadOnly.cshtml" />
+    <Content Include="Areas\Academico\Views\MatriculaGrado\Index.cshtml" />
+    <Content Include="Areas\Academico\Views\MatriculaGrado\_ComboBoxPartial_Anio.cshtml" />
+    <Content Include="Areas\Academico\Views\MatriculaGrado\_ComboBoxPartial_Curso.cshtml" />
+    <Content Include="Areas\Academico\Views\MatriculaGrado\_ComboBoxPartial_Jornada.cshtml" />
+    <Content Include="Areas\Academico\Views\MatriculaGrado\_ComboBoxPartial_Materia.cshtml" />
+    <Content Include="Areas\Academico\Views\MatriculaGrado\_ComboBoxPartial_Nivel.cshtml" />
+    <Content Include="Areas\Academico\Views\MatriculaGrado\_ComboBoxPartial_Paralelo.cshtml" />
+    <Content Include="Areas\Academico\Views\MatriculaGrado\_ComboBoxPartial_Sede.cshtml" />
+    <Content Include="Areas\Academico\Views\MatriculaGrado\_GridViewPartial_MatriculaGrado.cshtml" />
     <None Include="Properties\PublishProfiles\p1.pubxml" />
     <None Include="Properties\PublishProfiles\Publicacion.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

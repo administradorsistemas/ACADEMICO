@@ -801,6 +801,7 @@ namespace Core.Web.Areas.Academico.Controllers
                 info_matricula.lst_conducta = new List<aca_MatriculaConducta_Info>();
                 info_matricula.lst_asistencia = new List<aca_MatriculaAsistencia_Info>();
                 info_matricula.lst_MatriculaCalificacionCualitativaPromedio = new List<aca_MatriculaCalificacionCualitativaPromedio_Info>();
+                info_matricula.lst_MatriculaGrado = new List<aca_MatriculaGrado_Info>();
 
                 #region Cuantitativas
                 if (lst_materias_cuantitativas != null && lst_materias_cuantitativas.Count > 0)
@@ -831,7 +832,7 @@ namespace Core.Web.Areas.Academico.Controllers
 
                         info_matricula.lst_calificacion.Add(info_calificacion);
                     }
-                }
+                }                
                 #endregion
 
                 #region Cualitativas

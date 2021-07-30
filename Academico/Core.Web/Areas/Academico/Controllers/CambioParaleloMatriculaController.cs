@@ -48,6 +48,7 @@ namespace Core.Web.Areas.Academico.Controllers
         aca_AnioLectivoParcial_Bus bus_parcial = new aca_AnioLectivoParcial_Bus();
         aca_MatriculaConducta_Bus bus_conducta = new aca_MatriculaConducta_Bus();
         aca_MatriculaAsistencia_Bus bus_asistencia = new aca_MatriculaAsistencia_Bus();
+        aca_MatriculaGrado_Bus bus_grado = new aca_MatriculaGrado_Bus();
         #endregion
 
         #region Combos bajo demanada
@@ -326,6 +327,7 @@ namespace Core.Web.Areas.Academico.Controllers
             aca_MatriculaConducta_Info info_conducta = new aca_MatriculaConducta_Info();
             aca_MatriculaAsistencia_Info info_asistencia = new aca_MatriculaAsistencia_Info();
             List<aca_MatriculaCalificacionParticipacion_Info> lst_participacion = new List<aca_MatriculaCalificacionParticipacion_Info>();
+            aca_MatriculaGrado_Info info_CalificacionGrado = new aca_MatriculaGrado_Info();
 
             var lst_parcial = bus_parcial.GetList_x_Tipo(model.IdEmpresa, model.IdSede, model.IdAnio, Convert.ToInt32(cl_enumeradores.eTipoCatalogoAcademico.QUIM1));
             lst_parcial.AddRange(bus_parcial.GetList_x_Tipo(model.IdEmpresa, model.IdSede, model.IdAnio, Convert.ToInt32(cl_enumeradores.eTipoCatalogoAcademico.QUIM2)));
@@ -341,6 +343,38 @@ namespace Core.Web.Areas.Academico.Controllers
             lst_calificacion_cualitativa_promedio_existente = bus_calificacion_cualitativa_promedio.GetList(model.IdEmpresa, model.IdMatricula);
 
             #region Cualitativas
+            var info_Grado = bus_grado.getInfo_X_Matricula(model.IdEmpresa, model.IdMatricula);
+            var info_anio = bus_anio.GetInfo(model.IdEmpresa, model.IdAnio);
+            model.lst_MatriculaGrado = new List<aca_MatriculaGrado_Info>();
+            if (info_anio.IdCursoBachiller == model.IdCurso)
+            {
+                if (info_Grado==null)
+                {
+                    info_CalificacionGrado = new aca_MatriculaGrado_Info{
+                        IdEmpresa = model.IdEmpresa,
+                        IdMatricula=model.IdMatricula,
+                        CalificacionGrado = (decimal?)null,
+                        IdUsuarioCreacion = SessionFixed.IdUsuario,
+                        FechaCreacion = DateTime.Now,
+                    };
+                }
+                else
+                {
+                    info_CalificacionGrado = new aca_MatriculaGrado_Info
+                    {
+                        IdEmpresa = model.IdEmpresa,
+                        IdMatricula = model.IdMatricula,
+                        CalificacionGrado = info_Grado.CalificacionGrado,
+                        IdUsuarioCreacion = info_Grado.IdUsuarioCreacion,
+                        FechaCreacion = info_Grado.FechaCreacion,
+                        IdUsuarioModificacion = SessionFixed.IdUsuario,
+                        FechaModificacion = DateTime.Now,
+                    };
+                }
+                
+                model.lst_MatriculaGrado.Add(info_CalificacionGrado);
+            }
+
             if (lst_materias_cualitativas != null && lst_materias_cualitativas.Count > 0)
             {
                 foreach (var item_materias_cualit in lst_materias_cualitativas)

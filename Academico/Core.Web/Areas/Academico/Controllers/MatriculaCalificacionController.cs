@@ -33,6 +33,7 @@ namespace Core.Web.Areas.Academico.Controllers
         aca_MatriculaCalificacionCualitativa_Bus bus_calificacion_cualitativa = new aca_MatriculaCalificacionCualitativa_Bus();
         aca_MatriculaCalificacionCualitativaPromedio_Bus bus_calificacion_cualitativa_promedio = new aca_MatriculaCalificacionCualitativaPromedio_Bus();
         aca_MatriculaAsistencia_Bus bus_asistencia = new aca_MatriculaAsistencia_Bus();
+        aca_MatriculaGrado_Bus bus_grado = new aca_MatriculaGrado_Bus();
         string mensaje = string.Empty;
         string MensajeSuccess = string.Empty;
         #endregion
@@ -85,6 +86,7 @@ namespace Core.Web.Areas.Academico.Controllers
             List<aca_MatriculaCalificacion_Info> lst_calificacion = new List<aca_MatriculaCalificacion_Info>();
             List<aca_MatriculaConducta_Info> lst_conducta = new List<aca_MatriculaConducta_Info>();
             List<aca_MatriculaAsistencia_Info> lst_asistencia = new List<aca_MatriculaAsistencia_Info>();
+            List<aca_MatriculaGrado_Info> lst_MatriculaGrado = new List<aca_MatriculaGrado_Info>();
 
             if (lista.Count()>0)
             {
@@ -105,6 +107,42 @@ namespace Core.Web.Areas.Academico.Controllers
                     lst_parcial.AddRange(bus_parcial.GetList_x_Tipo(model.IdEmpresa, model.IdSede, model.IdAnio, Convert.ToInt32(cl_enumeradores.eTipoCatalogoAcademico.QUIM2)));
 
                     var conducta = lst_conducta_existente.Where(q => q.IdMatricula == item.IdMatricula).FirstOrDefault();
+
+                    #region Grado
+                    var info_Grado = bus_grado.getInfo_X_Matricula(model.IdEmpresa, item.IdMatricula);
+                    var info_anio = bus_anio.GetInfo(model.IdEmpresa, model.IdAnio);                    
+                    var info_CalificacionGrado = new aca_MatriculaGrado_Info();
+
+                    if (info_anio.IdCursoBachiller == model.IdCurso)
+                    {
+                        if (info_Grado == null)
+                        {
+                            info_CalificacionGrado = new aca_MatriculaGrado_Info
+                            {
+                                IdEmpresa = model.IdEmpresa,
+                                IdMatricula = item.IdMatricula,
+                                CalificacionGrado = (decimal?)null,
+                                IdUsuarioCreacion = SessionFixed.IdUsuario,
+                                FechaCreacion = DateTime.Now,
+                            };
+                        }
+                        else
+                        {
+                            info_CalificacionGrado = new aca_MatriculaGrado_Info
+                            {
+                                IdEmpresa = model.IdEmpresa,
+                                IdMatricula = item.IdMatricula,
+                                CalificacionGrado = info_Grado.CalificacionGrado,
+                                IdUsuarioCreacion = info_Grado.IdUsuarioCreacion,
+                                FechaCreacion = info_Grado.FechaCreacion,
+                                IdUsuarioModificacion = SessionFixed.IdUsuario,
+                                FechaModificacion = DateTime.Now,
+                            };
+                        }
+
+                        lst_MatriculaGrado.Add(info_CalificacionGrado);
+                    }
+                    #endregion
 
                     #region Cualitativas
                     if (lst_materias_cualitativas != null && lst_materias_cualitativas.Count > 0)
@@ -335,32 +373,35 @@ namespace Core.Web.Areas.Academico.Controllers
                                 {
                                     if (bus_asistencia.GenerarCalificacion(lst_asistencia))
                                     {
-                                        MensajeSuccess = "Registros generados exitosamente";
-                                        ViewBag.MensajeSuccess = MensajeSuccess;
-                                        var ListaGenerada = new List<aca_Matricula_Info>();
-                                        //var ListaGenerada = bus_calificacion.GetList(model.IdEmpresa, model.IdAnio, model.IdSede, model.IdNivel, model.IdJornada, model.IdCurso, model.IdParalelo, model.IdAlumno);
-
-                                        var lst_matricula = (from q in lst_asistencia
-                                                             group q by new
-                                                             {
-                                                                 q.IdEmpresa,
-                                                                 q.IdMatricula
-                                                             } into mat
-                                                             select new aca_Matricula_Info
-                                                             {
-                                                                 IdEmpresa = mat.Key.IdEmpresa,
-                                                                 IdMatricula = mat.Key.IdMatricula
-                                                             }).ToList();
-
-                                        foreach (var item in lst_matricula)
+                                        if (bus_grado.GenerarCalificacion(lst_MatriculaGrado))
                                         {
-                                            var matricula = lista.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdMatricula == item.IdMatricula).FirstOrDefault();
-                                            if (matricula != null)
+                                            MensajeSuccess = "Registros generados exitosamente";
+                                            ViewBag.MensajeSuccess = MensajeSuccess;
+                                            var ListaGenerada = new List<aca_Matricula_Info>();
+                                            //var ListaGenerada = bus_calificacion.GetList(model.IdEmpresa, model.IdAnio, model.IdSede, model.IdNivel, model.IdJornada, model.IdCurso, model.IdParalelo, model.IdAlumno);
+
+                                            var lst_matricula = (from q in lst_asistencia
+                                                                 group q by new
+                                                                 {
+                                                                     q.IdEmpresa,
+                                                                     q.IdMatricula
+                                                                 } into mat
+                                                                 select new aca_Matricula_Info
+                                                                 {
+                                                                     IdEmpresa = mat.Key.IdEmpresa,
+                                                                     IdMatricula = mat.Key.IdMatricula
+                                                                 }).ToList();
+
+                                            foreach (var item in lst_matricula)
                                             {
-                                                ListaGenerada.Add(matricula);
+                                                var matricula = lista.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdMatricula == item.IdMatricula).FirstOrDefault();
+                                                if (matricula != null)
+                                                {
+                                                    ListaGenerada.Add(matricula);
+                                                }
                                             }
-                                        }
-                                        Lista_MatriculaCalificaciones.set_list(ListaGenerada, Convert.ToDecimal(SessionFixed.IdTransaccionSessionActual));
+                                            Lista_MatriculaCalificaciones.set_list(ListaGenerada, Convert.ToDecimal(SessionFixed.IdTransaccionSessionActual));
+                                        }                                        
                                     }
                                 }
                                 else

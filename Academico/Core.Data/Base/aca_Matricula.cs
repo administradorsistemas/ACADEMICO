@@ -76,5 +76,6 @@ namespace Core.Data.Base
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<aca_MatriculaCambios> aca_MatriculaCambios { get; set; }
         public virtual aca_MatriculaConducta aca_MatriculaConducta { get; set; }
+        public virtual aca_MatriculaGrado aca_MatriculaGrado { get; set; }
     }
 }

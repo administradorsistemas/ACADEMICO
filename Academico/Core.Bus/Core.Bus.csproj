@@ -90,6 +90,7 @@
     <Compile Include="Academico\aca_MatriculaCondicionalParrafo_Bus.cs" />
     <Compile Include="Academico\aca_MatriculaCondicional_Det_Bus.cs" />
     <Compile Include="Academico\aca_MatriculaConducta_Bus.cs" />
+    <Compile Include="Academico\aca_MatriculaGrado_Bus.cs" />
     <Compile Include="Academico\aca_Matricula_Bus.cs" />
     <Compile Include="Academico\aca_PreMatricula_Rubro_Bus.cs" />
     <Compile Include="Academico\aca_Matricula_Rubro_Bus.cs" />

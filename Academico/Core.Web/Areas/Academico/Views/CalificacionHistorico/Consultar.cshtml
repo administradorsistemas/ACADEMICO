@@ -65,7 +65,7 @@
             <div class="col-md-2">
                 <div class="form-group">
                     <label for="IdEmpresa">Año Lectivo</label>
-                    @Html.Partial("_ComboBoxPartial_Anio", Model)
+                    @Html.Partial("_ComboBoxPartial_AnioReadOnly", Model)
                     @Html.ValidationMessageFor(q => q.IdAnio, "", new { @class = "text-danger" })
                 </div>
             </div>

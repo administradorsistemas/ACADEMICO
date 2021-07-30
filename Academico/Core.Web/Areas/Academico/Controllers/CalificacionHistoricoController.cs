@@ -271,6 +271,16 @@ namespace Core.Web.Areas.Academico.Controllers
             SessionFixed.IdTransaccionSessionActual = IdTransaccionSession.ToString();
             return Json(retorno, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult EliminarCalificacion(int IdEmpresa = 0, int IdAnio=0, decimal IdAlumno = 0)
+        {
+            string retorno = string.Empty;
+            var info_historico = bus_CalificacionHistorico.GetInfo(IdEmpresa, IdAnio, IdAlumno);
+            if (!bus_CalificacionHistorico.EliminarDB(info_historico))
+            {
+                retorno = "No se ha podido eliminar el registro";
+            }
+            return Json(retorno, JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         #region Importacion

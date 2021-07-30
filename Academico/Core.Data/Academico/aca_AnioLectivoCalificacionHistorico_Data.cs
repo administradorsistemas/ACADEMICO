@@ -181,5 +181,29 @@ namespace Core.Data.Academico
                 throw;
             }
         }
+        
+        public bool EliminarDB(aca_AnioLectivoCalificacionHistorico_Info info)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CadenaDeConexion.GetConnectionString()))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = connection;
+                    command.CommandText += "Delete from aca_AnioLectivoCalificacionHistorico where IdEmpresa= " + info.IdEmpresa.ToString()
+                        + " and IdAnio=" + info.IdAnio.ToString() + " and IdAlumno=" + info.IdAlumno.ToString();
+                    
+                    var ResultValue = command.ExecuteNonQuery();
+                }
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

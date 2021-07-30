@@ -104,6 +104,7 @@
     <Compile Include="Academico\aca_MatriculaCondicionalParrafo_Data.cs" />
     <Compile Include="Academico\aca_MatriculaCondicional_Det_Data.cs" />
     <Compile Include="Academico\aca_MatriculaConducta_Data.cs" />
+    <Compile Include="Academico\aca_MatriculaGrado_Data.cs" />
     <Compile Include="Academico\aca_Matricula_Data.cs" />
     <Compile Include="Academico\aca_PreMatricula_Rubro_Data.cs" />
     <Compile Include="Academico\aca_Matricula_Rubro_Data.cs" />
@@ -187,6 +188,9 @@
       <DependentUpon>ModelAcademico.tt</DependentUpon>
     </Compile>
     <Compile Include="Base\aca_MatriculaCondicional_Det.cs">
+      <DependentUpon>ModelAcademico.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Base\aca_MatriculaGrado.cs">
       <DependentUpon>ModelAcademico.tt</DependentUpon>
     </Compile>
     <Compile Include="Base\aca_parametro.cs">

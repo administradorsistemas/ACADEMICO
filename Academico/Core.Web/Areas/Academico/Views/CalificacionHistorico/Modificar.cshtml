@@ -38,7 +38,7 @@
             <div class="col-md-2">
                 <div class="form-group">
                     <label for="IdEmpresa">Año Lectivo</label>
-                    @Html.Partial("_ComboBoxPartial_Anio", Model)
+                    @Html.Partial("_ComboBoxPartial_AnioReadOnly", Model)
                     @Html.ValidationMessageFor(q => q.IdAnio, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -81,6 +81,11 @@
                    }).BindList(ViewBag.lst_curso).GetHtml()
                     @Html.ValidationMessageFor(q => q.IdCurso, "", new { @class = "text-danger" })
                 </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" onclick="EliminarCalificacion();">Eliminar</button>
+                </div>                    
             </div>
         </div>
     </div>
@@ -133,3 +138,32 @@
         }
     }
 
+<script type="text/javascript">
+    function EliminarCalificacion() {
+        var location = GetPathServer();
+        var datos = {
+            IdEmpresa: $("#IdEmpresa").val(),
+            IdAnio: IdAnio.GetValue(),
+            IdAlumno: IdAlumno.GetValue(),
+        }
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify(datos),
+            url: '@Url.Action("EliminarCalificacion", "CalificacionHistorico", new { Area = "Academico" })',
+            async: false,
+            bDeferRender: true,
+            bProcessing: true,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                if(data!=""){
+                    alert(data);
+                }
+                var win = window.open(location + "/Academico/CalificacionHistorico/Index?IdAlumno=" + IdAlumno.GetValue(), '_self');
+                win.focus();
+            },
+            error: function (error) {
+            }
+        });
+    }
+</script>

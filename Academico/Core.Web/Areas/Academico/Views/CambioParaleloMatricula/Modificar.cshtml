@@ -61,14 +61,14 @@
             </div>
             <div class="col-md-2">
                 <div class="form-group">
-                    <label for="IdEmpresa">Año lectivo</label>
+                    <label for="IdEmpresa">Año lectivo*</label>
                     @Html.Partial("_ComboBoxPartial_Anio", Model)
                     @Html.ValidationMessageFor(q => q.IdAnio, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="IdEmpresa">Sede</label>
+                    <label for="IdEmpresa">Sede*</label>
                     @Html.Partial("_ComboBoxPartial_Sede", Model)
                     @Html.ValidationMessageFor(q => q.IdSede, "", new { @class = "text-danger" })
                 </div>
@@ -79,21 +79,21 @@
         <div class="col-md-12">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="IdEmpresa">Nivel Académico</label>
+                    <label for="IdEmpresa">Nivel Académico*</label>
                     @Html.Partial("_ComboBoxPartial_Nivel", Model)
                     @Html.ValidationMessageFor(q => q.IdNivel, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-group">
-                    <label for="IdEmpresa">Jornada</label>
+                    <label for="IdEmpresa">Jornada*</label>
                     @Html.Partial("_ComboBoxPartial_Jornada", Model)
                     @Html.ValidationMessageFor(q => q.IdJornada, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="IdEmpresa">Curso</label>
+                    <label for="IdEmpresa">Curso*</label>
                     @Html.Partial("_ComboBoxPartial_Curso", Model)
                     @Html.ValidationMessageFor(q => q.IdCurso, "", new { @class = "text-danger" })
                 </div>
@@ -110,7 +110,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-12">
-                <label for="IdEmpresa">Observación</label>
+                <label for="IdEmpresa">Observación*</label>
                 @Html.TextBoxFor(q => q.ObservacionCambio, new { @class = "form-control", id = "ObservacionCambio" })
                 @Html.ValidationMessageFor(q => q.ObservacionCambio, "", new { @class = "text-danger" })
             </div>

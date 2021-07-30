@@ -1,0 +1,19 @@
+﻿@Html.DevExpress().ComboBox(settings =>
+{
+    settings.Name = "IdJornada";
+    settings.CallbackRouteValues = new { Controller = "MatriculaGrado", Action = "ComboBoxPartial_Jornada", Area = "Academico" };
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Properties.DisplayFormatString = "[{0}] - {1}";
+    settings.Properties.Columns.Add("IdJornada", "ID").Width = System.Web.UI.WebControls.Unit.Percentage(20);
+    settings.Properties.Columns.Add("NomJornada", "Jornada").Width = System.Web.UI.WebControls.Unit.Percentage(80);
+    //Campo ID
+    settings.Properties.ValueField = "IdJornada";
+    settings.Properties.ValueType = typeof(int);
+    settings.Properties.TextField = "NomJornada";
+    settings.Properties.NullText = "== Seleccione ==";
+    settings.Properties.DropDownStyle = DropDownStyle.DropDown;
+    settings.Properties.ClearButton.DisplayMode = ClearButtonDisplayMode.Always;
+    settings.Properties.ClientSideEvents.BeginCallback = "function(s, e) { e.customArgs['IdAnio'] = IdAnio.GetValue(); e.customArgs['IdSede'] = IdSede.GetValue(); e.customArgs['IdNivel'] = IdNivel.GetValue();}";
+    settings.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) { IdNivel.PerformCallback(); IdCurso.PerformCallback(); IdParalelo.PerformCallback(); LimpiarLista();}";
+    /*}).BindList(new Core.Bus.Academico.aca_Jornada_Bus().GetList(Convert.ToInt32(Core.Web.Helps.SessionFixed.IdEmpresa), Model.IdAnio, Model.IdSede, Model.IdNivel)).Bind(Model.IdJornada).GetHtml()*/
+}).BindList(new Core.Web.Areas.Academico.Controllers.MatriculaGradoController().CargarJornada(Convert.ToInt32(Core.Web.Helps.SessionFixed.IdEmpresa), Model.IdAnio, Model.IdSede)).Bind(Model.IdJornada).GetHtml()
