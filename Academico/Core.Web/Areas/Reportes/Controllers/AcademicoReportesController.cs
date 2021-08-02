@@ -4632,8 +4632,8 @@ namespace Core.Web.Areas.Reportes.Controllers
             var info_anio = bus_anio.GetInfo_AnioEnCurso(model.IdEmpresa, 0);
             model.IdAnio = (info_anio == null ? 0 : info_anio.IdAnio);
             model.mostrarAnulados = false;
-            ACA_073_Rpt report = new ACA_073_Rpt();
 
+            ACA_073_Rpt report = new ACA_073_Rpt();
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdSede.Value = model.IdSede;
             report.p_IdAnio.Value = model.IdAnio;
@@ -4645,13 +4645,26 @@ namespace Core.Web.Areas.Reportes.Controllers
             report.usuario = SessionFixed.IdUsuario;
             report.empresa = SessionFixed.NomEmpresa;
             ViewBag.Report = report;
+
+            ACA_073_Ministerio_Rpt reportMinisterio = new ACA_073_Ministerio_Rpt();
+            reportMinisterio.p_IdEmpresa.Value = model.IdEmpresa;
+            reportMinisterio.p_IdSede.Value = model.IdSede;
+            reportMinisterio.p_IdAnio.Value = model.IdAnio;
+            reportMinisterio.p_IdNivel.Value = model.IdNivel;
+            reportMinisterio.p_IdJornada.Value = model.IdJornada;
+            reportMinisterio.p_IdCurso.Value = model.IdCurso;
+            reportMinisterio.p_IdParalelo.Value = model.IdParalelo;
+            reportMinisterio.p_MostrarRetirados.Value = model.mostrarAnulados;
+            reportMinisterio.usuario = SessionFixed.IdUsuario;
+            reportMinisterio.empresa = SessionFixed.NomEmpresa;
+            ViewBag.ReportMinisterio = reportMinisterio;
+
             return View(model);
         }
         [HttpPost]
         public ActionResult ACA_073(cl_filtros_Info model)
         {
             ACA_073_Rpt report = new ACA_073_Rpt();
-
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdSede.Value = model.IdSede;
             report.p_IdAnio.Value = model.IdAnio;
@@ -4663,6 +4676,20 @@ namespace Core.Web.Areas.Reportes.Controllers
             report.usuario = SessionFixed.IdUsuario;
             report.empresa = SessionFixed.NomEmpresa;
             ViewBag.Report = report;
+
+            ACA_073_Ministerio_Rpt reportMinisterio = new ACA_073_Ministerio_Rpt();
+            reportMinisterio.p_IdEmpresa.Value = model.IdEmpresa;
+            reportMinisterio.p_IdSede.Value = model.IdSede;
+            reportMinisterio.p_IdAnio.Value = model.IdAnio;
+            reportMinisterio.p_IdNivel.Value = model.IdNivel;
+            reportMinisterio.p_IdJornada.Value = model.IdJornada;
+            reportMinisterio.p_IdCurso.Value = model.IdCurso;
+            reportMinisterio.p_IdParalelo.Value = model.IdParalelo;
+            reportMinisterio.p_MostrarRetirados.Value = model.mostrarAnulados;
+            reportMinisterio.usuario = SessionFixed.IdUsuario;
+            reportMinisterio.empresa = SessionFixed.NomEmpresa;
+            ViewBag.ReportMinisterio = reportMinisterio;
+
             return View(model);
         }
 
@@ -4722,8 +4749,8 @@ namespace Core.Web.Areas.Reportes.Controllers
             var info_anio = bus_anio.GetInfo_AnioEnCurso(model.IdEmpresa, 0);
             model.IdAnio = (info_anio == null ? 0 : info_anio.IdAnio);
             model.mostrarAnulados = false;
-            ACA_075_Rpt report = new ACA_075_Rpt();
 
+            ACA_075_Rpt report = new ACA_075_Rpt();
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdSede.Value = model.IdSede;
             report.p_IdAnio.Value = model.IdAnio;
@@ -4735,13 +4762,26 @@ namespace Core.Web.Areas.Reportes.Controllers
             report.usuario = SessionFixed.IdUsuario;
             report.empresa = SessionFixed.NomEmpresa;
             ViewBag.Report = report;
+
+            ACA_075_Ministerio_Rpt reportMinisterio = new ACA_075_Ministerio_Rpt();
+            reportMinisterio.p_IdEmpresa.Value = model.IdEmpresa;
+            reportMinisterio.p_IdSede.Value = model.IdSede;
+            reportMinisterio.p_IdAnio.Value = model.IdAnio;
+            reportMinisterio.p_IdNivel.Value = model.IdNivel;
+            reportMinisterio.p_IdJornada.Value = model.IdJornada;
+            reportMinisterio.p_IdCurso.Value = model.IdCurso;
+            reportMinisterio.p_IdParalelo.Value = model.IdParalelo;
+            reportMinisterio.p_MostrarRetirados.Value = model.mostrarAnulados;
+            reportMinisterio.usuario = SessionFixed.IdUsuario;
+            reportMinisterio.empresa = SessionFixed.NomEmpresa;
+            ViewBag.ReportMinisterio = reportMinisterio;
+
             return View(model);
         }
         [HttpPost]
         public ActionResult ACA_075(cl_filtros_Info model)
         {
             ACA_075_Rpt report = new ACA_075_Rpt();
-
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdSede.Value = model.IdSede;
             report.p_IdAnio.Value = model.IdAnio;
@@ -4753,6 +4793,20 @@ namespace Core.Web.Areas.Reportes.Controllers
             report.usuario = SessionFixed.IdUsuario;
             report.empresa = SessionFixed.NomEmpresa;
             ViewBag.Report = report;
+
+            ACA_075_Ministerio_Rpt reportMinisterio = new ACA_075_Ministerio_Rpt();
+            reportMinisterio.p_IdEmpresa.Value = model.IdEmpresa;
+            reportMinisterio.p_IdSede.Value = model.IdSede;
+            reportMinisterio.p_IdAnio.Value = model.IdAnio;
+            reportMinisterio.p_IdNivel.Value = model.IdNivel;
+            reportMinisterio.p_IdJornada.Value = model.IdJornada;
+            reportMinisterio.p_IdCurso.Value = model.IdCurso;
+            reportMinisterio.p_IdParalelo.Value = model.IdParalelo;
+            reportMinisterio.p_MostrarRetirados.Value = model.mostrarAnulados;
+            reportMinisterio.usuario = SessionFixed.IdUsuario;
+            reportMinisterio.empresa = SessionFixed.NomEmpresa;
+            ViewBag.ReportMinisterio = reportMinisterio;
+
             return View(model);
         }
 

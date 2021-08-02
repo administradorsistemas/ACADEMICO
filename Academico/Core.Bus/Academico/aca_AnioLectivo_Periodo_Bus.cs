@@ -96,12 +96,24 @@ namespace Core.Bus.Academico
             }
         }
 
+        public bool ModificarPeriodoDB(aca_AnioLectivo_Periodo_Info info)
+        {
+            try
+            {
+                return odata.modificar_FacturacionMasiva(info);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         public bool Modificar_FacturacionMasiva(aca_AnioLectivo_Periodo_Info info)
         {
             try
             {
-                if(odata.modificar_FacturacionMasiva(info))
-                {
+                //if(odata.modificar_FacturacionMasiva(info))
+                //{
                     var punto_venta = odata_punto_venta.get_info(info.IdEmpresa, Convert.ToInt32(info.IdSucursal), Convert.ToInt32(info.IdPuntoVta));
 
                     #region Factura
@@ -202,7 +214,7 @@ namespace Core.Bus.Academico
                         odata_factura.guardarDB(info_factura);
                     }
                     #endregion
-                }
+                //}
 
                 return true;
             }

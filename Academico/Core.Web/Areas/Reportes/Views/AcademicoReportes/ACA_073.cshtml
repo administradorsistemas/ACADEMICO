@@ -79,25 +79,35 @@
         </div>
     </div>
 
-    <div class="box">
-        <div class="box-header with-border">
-            <h3 class="box-title">@ViewBag.Title</h3>
-            <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                    <i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                    <i class="fa fa-times"></i>
-                </button>
+    <div id="Tabs" role="tabpanel">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="active">
+                <a href="#tab_liceo" aria-controls="estadistica" role="tab" data-toggle="tab">Formato Liceo</a>
+            </li>
+            <li>
+                <a href="#tab_ministerio" aria-controls="resumen" role="tab" data-toggle="tab">Formato Ministerio</a>
+            </li>
+        </ul>
+        <div class="tab-content" style="padding-top: 20px">
+            <div role="tabpanel" class="tab-pane active" style="margin-left: 1em;" id="tab_liceo">
+                @Html.DevExpress().WebDocumentViewer(settings =>
+               {
+                   settings.ClientSideEvents.Init = "function(s, e) {s.previewModel.reportPreview.zoom(1);}";
+                   settings.MobileMode = false;
+                   settings.Name = "webDocumentViewer";
+               }).Bind(ViewBag.Report).GetHtml()
             </div>
-        </div>
-        <div class="box-body">
-            @Html.DevExpress().WebDocumentViewer(settings =>
-       {
-           settings.ClientSideEvents.Init = "function(s, e) {s.previewModel.reportPreview.zoom(1);}";
-           settings.MobileMode = false;
-           settings.Name = "webDocumentViewer";
-       }).Bind(ViewBag.Report).GetHtml()
+
+            <div role="tabpanel" class="tab-pane" style="margin-left: 1em;" id="tab_ministerio">
+
+                @Html.DevExpress().WebDocumentViewer(settings =>
+               {
+                   settings.ClientSideEvents.Init = "function(s, e) {s.previewModel.reportPreview.zoom(1);}";
+                   settings.MobileMode = false;
+                   settings.Name = "webDocumentViewer2";
+               }).Bind(ViewBag.ReportMinisterio).GetHtml()
+            </div>
+
         </div>
         <!-- /.box-body -->
         <div class="box-footer">

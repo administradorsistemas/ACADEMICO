@@ -23,5 +23,18 @@ namespace Core.Bus.Reportes.Academico
                 throw;
             }
         }
+
+        public List<ACA_075_Info> GetListMinisterio(int IdEmpresa, int IdAnio, int IdSede, int IdNivel, int IdJornada, int IdCurso, int IdParalelo, bool MostrarRetirados)
+        {
+            try
+            {
+                return odata.get_listMinisterio(IdEmpresa, IdAnio, IdSede, IdNivel, IdJornada, IdCurso, IdParalelo, MostrarRetirados);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

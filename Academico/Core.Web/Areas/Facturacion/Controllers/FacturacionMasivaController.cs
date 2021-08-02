@@ -228,7 +228,8 @@ namespace Core.Web.Areas.Facturacion.Controllers
                     return View(model);
                 }
             }
-            //Ponga aqui el metodo de cerrar periodo
+            bus_periodo.ModificarPeriodoDB(model);
+
             return RedirectToAction("Consultar", new { IdEmpresa = model.IdEmpresa, IdAnio = model.IdAnio, IdPeriodo=model.IdPeriodo, Exito = true });
         }
         #endregion
