@@ -327,8 +327,8 @@ namespace Core.Data.Academico
                             FechaProntoPago = Convert.ToDateTime(reader_PorFacturar["FechaProntoPago"]),
                             IdTerminoPago = string.IsNullOrEmpty(reader_PorFacturar["IdTerminoPago"].ToString()) ? null : reader_PorFacturar["IdTerminoPago"].ToString(),
                             IdCliente = Convert.ToDecimal(reader_PorFacturar["IdCliente"]),
-                            IdEmpresa_rol = string.IsNullOrEmpty(reader_PorFacturar["IdEmpresa_rol"].ToString()) ? (int?)null : Convert.ToInt32(reader_PorFacturar["IdEmpresa_rol"]),
-                            IdEmpleado = string.IsNullOrEmpty(reader_PorFacturar["IdEmpleado"].ToString()) ? (decimal?)null : Convert.ToDecimal(reader_PorFacturar["IdEmpleado"]),
+                            IdEmpresa_rol = reader_PorFacturar["IdEmpresa_rol"] == DBNull.Value ? null : (int?)(reader_PorFacturar["IdEmpresa_rol"]),
+                            IdEmpleado = reader_PorFacturar["IdEmpleado"] == DBNull.Value ? null : (decimal?)(reader_PorFacturar["IdEmpleado"]),
                         });
                     }
                     reader_PorFacturar.Close();
@@ -386,64 +386,6 @@ namespace Core.Data.Academico
                     reader_FacturaMasiva.Close();
 
                 }
-                /*
-                using (EntitiesAcademico Context = new EntitiesAcademico())
-                {
-                    var lst = Context.vwaca_Matricula_Rubro_PorFacturarMasiva.Where(q => q.IdEmpresa == IdEmpresa && q.IdAnio == IdAnio && q.IdPeriodo == IdPeriodo).ToList();
-
-                    foreach (var q in lst)
-                    {
-                        var info = new aca_Matricula_Rubro_Info
-                        {
-                            IdEmpresa = q.IdEmpresa,
-                            IdMatricula = q.IdMatricula,
-                            IdAnio = q.IdAnio,
-                            IdPeriodo = q.IdPeriodo,
-                            IdPlantilla = q.IdPlantilla,
-                            IdRubro = q.IdRubro,
-                            IdProducto = q.IdProducto,
-                            Subtotal = q.Subtotal,
-                            IdCod_Impuesto_Iva = q.IdCod_Impuesto_Iva,
-                            ValorIVA = q.ValorIVA,
-                            Porcentaje = q.Porcentaje,
-                            Total = q.Total,
-                            ValorProntoPago = Convert.ToDecimal(q.ValorProntoPago),
-                            vt_Observacion = q.Observacion,
-                            IdAlumno = q.IdAlumno,
-                            FechaDesde = Convert.ToDateTime(q.FechaDesde),
-                            FechaProntoPago = Convert.ToDateTime(q.FechaProntoPago),
-                            IdTerminoPago = q.IdTerminoPago,
-                            IdCliente = q.IdCliente ?? 0,
-                            Codigo = q.Codigo,
-                            pe_nombreCompleto = q.Alumno,
-                            Procesado = false,
-                            IdEmpresa_rol = q.IdEmpresa_rol,
-                            IdEmpleado = q.IdEmpleado,
-                        };
-                        Lista.Add(info);
-                    }
-
-                    var lstProcesado = Context.vwaca_Matricula_Rubro_FacturaMasiva.Where(q => q.IdEmpresa == IdEmpresa && q.IdAnio == IdAnio && q.IdPeriodo == IdPeriodo).ToList();
-                    foreach (var item in lstProcesado)
-                    {
-                        Lista.Add(new aca_Matricula_Rubro_Info
-                        {
-                            IdEmpresa = item.IdEmpresa,
-                            IdAnio = item.IdAnio,
-                            IdPeriodo = item.IdPeriodo,
-                            IdAlumno = item.IdAlumno,
-                            pe_nombreCompleto = item.pe_nombreCompleto,
-                            Total = item.Total,
-                            IdSucursal = item.IdSucursal,
-                            IdBodega = item.IdBodega,
-                            IdCbteVta = item.IdCbteVta,
-                            Correo = item.Correo,
-                            vt_autorizacion = item.vt_autorizacion,
-                            Procesado = true
-                        });
-                    }
-                }
-                */
                 Lista.ForEach(q => q.IdString = q.IdEmpresa.ToString("0000") + q.IdMatricula.ToString("000000") + q.IdPeriodo.ToString("0000") + q.IdRubro.ToString("000000"));
                 return Lista;
             }

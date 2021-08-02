@@ -268,10 +268,14 @@ namespace Core.Data.Academico
                     connection.Open();
                     SqlCommand command = new SqlCommand();
                     command.Connection = connection;
-                    command.CommandText = "SELECT COUNT(IdEmpresa) IdEmpresa "
-                                        + " FROM aca_Matricula_Rubro WITH (nolock) "
-                                        + " WHERE IdEmpresa = "+info.IdEmpresa.ToString()+" AND IdPeriodo = "+info.IdPeriodo.ToString()+" AND IdAnio = "+info.IdAnio.ToString()
-                                        +" AND FechaFacturacion IS NULL";
+                    command.CommandText = "  SELECT IdEmpresa  "
+                        + " FROM aca_Matricula_Rubro WITH (nolock)"
+                        + " WHERE IdEmpresa = " + info.IdEmpresa.ToString() + " AND IdPeriodo = " + info.IdPeriodo.ToString() + " AND IdAnio = " + info.IdAnio.ToString()
+                        + " AND FechaFacturacion IS NULL and not exists("
+                        + " select x.IdEmpresa from aca_AlumnoRetiro as x with (nolock)"
+                        + " where aca_Matricula_Rubro.IdEmpresa = x.IdEmpresa"
+                        + " and aca_Matricula_Rubro.IdMatricula = x.IdMatricula"
+                        + " and x.Estado = 1)";
                     
                     var ResultValue = command.ExecuteScalar();
                     if( ResultValue == null)
