@@ -153,7 +153,7 @@ namespace Core.Data.Reportes.CuentasPorCobrar
                             pe_nombreCompleto = Convert.ToString(reader["pe_nombreCompleto"]),
                             IdAnio = Convert.ToInt32(reader["IdAnio"]),
                             Periodo = Convert.ToInt32(reader["Periodo"]),
-                            Saldo = Convert.ToInt32(reader["Saldo"]),
+                            Saldo = Convert.ToDouble(reader["Saldo"]),
                             IdMatricula = Convert.ToInt32(reader["IdMatricula"]),
                             IdSede = Convert.ToInt32(reader["IdSede"]),
                             IdNivel = Convert.ToInt32(reader["IdNivel"]),
