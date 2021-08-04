@@ -490,7 +490,7 @@
             this.groupFooterBand1.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
             this.xrPictureBox3,
             this.xrPictureBox2});
-            this.groupFooterBand1.HeightF = 150F;
+            this.groupFooterBand1.HeightF = 160F;
             this.groupFooterBand1.Name = "groupFooterBand1";
             // 
             // xrPictureBox3
@@ -504,9 +504,9 @@
             // xrPictureBox2
             // 
             this.xrPictureBox2.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource("img", resources.GetString("xrPictureBox2.ImageSource"));
-            this.xrPictureBox2.LocationFloat = new DevExpress.Utils.PointFloat(436.9999F, 0F);
+            this.xrPictureBox2.LocationFloat = new DevExpress.Utils.PointFloat(427.0001F, 0F);
             this.xrPictureBox2.Name = "xrPictureBox2";
-            this.xrPictureBox2.SizeF = new System.Drawing.SizeF(240F, 150F);
+            this.xrPictureBox2.SizeF = new System.Drawing.SizeF(250F, 160F);
             this.xrPictureBox2.Sizing = DevExpress.XtraPrinting.ImageSizeMode.StretchImage;
             // 
             // p_IdAnio

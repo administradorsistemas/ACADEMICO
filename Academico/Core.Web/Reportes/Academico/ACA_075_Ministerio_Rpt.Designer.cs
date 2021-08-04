@@ -92,7 +92,6 @@
             this.groupHeaderBand3 = new DevExpress.XtraReports.UI.GroupHeaderBand();
             this.groupHeaderBand4 = new DevExpress.XtraReports.UI.GroupHeaderBand();
             this.groupFooterBand1 = new DevExpress.XtraReports.UI.GroupFooterBand();
-            this.objectDataSource1 = new DevExpress.DataAccess.ObjectBinding.ObjectDataSource(this.components);
             this.xrCrossTab1 = new DevExpress.XtraReports.UI.XRCrossTab();
             this.crossTabDataCell1 = new DevExpress.XtraReports.UI.CrossTab.XRCrossTabCell();
             this.crossTabHeaderCell2 = new DevExpress.XtraReports.UI.CrossTab.XRCrossTabCell();
@@ -139,10 +138,6 @@
             this.crossTabTotalCell11 = new DevExpress.XtraReports.UI.CrossTab.XRCrossTabCell();
             this.crossTabTotalCell13 = new DevExpress.XtraReports.UI.CrossTab.XRCrossTabCell();
             this.crossTabTotalCell18 = new DevExpress.XtraReports.UI.CrossTab.XRCrossTabCell();
-            this.crossTabGeneralStyle1 = new DevExpress.XtraReports.UI.XRControlStyle();
-            this.crossTabHeaderStyle1 = new DevExpress.XtraReports.UI.XRControlStyle();
-            this.crossTabDataStyle1 = new DevExpress.XtraReports.UI.XRControlStyle();
-            this.crossTabTotalStyle1 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.crossTabHeaderCell18 = new DevExpress.XtraReports.UI.CrossTab.XRCrossTabCell();
             this.crossTabHeaderCell22 = new DevExpress.XtraReports.UI.CrossTab.XRCrossTabCell();
             this.crossTabHeaderCell23 = new DevExpress.XtraReports.UI.CrossTab.XRCrossTabCell();
@@ -151,11 +146,16 @@
             this.crossTabTotalCell27 = new DevExpress.XtraReports.UI.CrossTab.XRCrossTabCell();
             this.crossTabTotalCell28 = new DevExpress.XtraReports.UI.CrossTab.XRCrossTabCell();
             this.crossTabTotalCell29 = new DevExpress.XtraReports.UI.CrossTab.XRCrossTabCell();
+            this.objectDataSource1 = new DevExpress.DataAccess.ObjectBinding.ObjectDataSource(this.components);
+            this.crossTabGeneralStyle1 = new DevExpress.XtraReports.UI.XRControlStyle();
+            this.crossTabHeaderStyle1 = new DevExpress.XtraReports.UI.XRControlStyle();
+            this.crossTabDataStyle1 = new DevExpress.XtraReports.UI.XRControlStyle();
+            this.crossTabTotalStyle1 = new DevExpress.XtraReports.UI.XRControlStyle();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.objectDataSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrCrossTab1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.objectDataSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // TopMargin
@@ -528,11 +528,6 @@
             this.groupFooterBand1.HeightF = 178.4999F;
             this.groupFooterBand1.Name = "groupFooterBand1";
             // 
-            // objectDataSource1
-            // 
-            this.objectDataSource1.DataSource = typeof(Core.Info.Reportes.Academico.ACA_075_Info);
-            this.objectDataSource1.Name = "objectDataSource1";
-            // 
             // xrCrossTab1
             // 
             this.xrCrossTab1.Cells.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
@@ -599,7 +594,7 @@
             new DevExpress.XtraReports.UI.CrossTab.CrossTabColumnDefinition(60F),
             new DevExpress.XtraReports.UI.CrossTab.CrossTabColumnDefinition(100F),
             new DevExpress.XtraReports.UI.CrossTab.CrossTabColumnDefinition(250F),
-            new DevExpress.XtraReports.UI.CrossTab.CrossTabColumnDefinition(50F),
+            new DevExpress.XtraReports.UI.CrossTab.CrossTabColumnDefinition(58F),
             crossTabColumnDefinition1,
             crossTabColumnDefinition2,
             crossTabColumnDefinition3,
@@ -670,7 +665,7 @@
             crossTabRowField3,
             crossTabRowField4,
             crossTabRowField5});
-            this.xrCrossTab1.SizeF = new System.Drawing.SizeF(696.3903F, 176F);
+            this.xrCrossTab1.SizeF = new System.Drawing.SizeF(704.3903F, 176F);
             this.xrCrossTab1.TotalAreaStyleName = "crossTabTotalStyle1";
             // 
             // crossTabDataCell1
@@ -963,6 +958,7 @@
             this.crossTabHeaderCell13.Name = "crossTabHeaderCell13";
             this.crossTabHeaderCell13.RowIndex = 4;
             this.crossTabHeaderCell13.RowSpan = 3;
+            this.crossTabHeaderCell13.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
             // 
             // crossTabHeaderCell17
             // 
@@ -1002,34 +998,6 @@
             this.crossTabTotalCell18.Name = "crossTabTotalCell18";
             this.crossTabTotalCell18.RowIndex = 7;
             // 
-            // crossTabGeneralStyle1
-            // 
-            this.crossTabGeneralStyle1.BackColor = System.Drawing.Color.White;
-            this.crossTabGeneralStyle1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(160)))), ((int)(((byte)(160)))));
-            this.crossTabGeneralStyle1.Borders = ((DevExpress.XtraPrinting.BorderSide)((((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Top) 
-            | DevExpress.XtraPrinting.BorderSide.Right) 
-            | DevExpress.XtraPrinting.BorderSide.Bottom)));
-            this.crossTabGeneralStyle1.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.crossTabGeneralStyle1.ForeColor = System.Drawing.Color.Black;
-            this.crossTabGeneralStyle1.Name = "crossTabGeneralStyle1";
-            this.crossTabGeneralStyle1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            // 
-            // crossTabHeaderStyle1
-            // 
-            this.crossTabHeaderStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.crossTabHeaderStyle1.Name = "crossTabHeaderStyle1";
-            this.crossTabHeaderStyle1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
-            // 
-            // crossTabDataStyle1
-            // 
-            this.crossTabDataStyle1.Name = "crossTabDataStyle1";
-            this.crossTabDataStyle1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            // 
-            // crossTabTotalStyle1
-            // 
-            this.crossTabTotalStyle1.Name = "crossTabTotalStyle1";
-            this.crossTabTotalStyle1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            // 
             // crossTabHeaderCell18
             // 
             this.crossTabHeaderCell18.ColumnIndex = 4;
@@ -1045,6 +1013,7 @@
             this.crossTabHeaderCell22.Font = new System.Drawing.Font("Verdana", 8F);
             this.crossTabHeaderCell22.Name = "crossTabHeaderCell22";
             this.crossTabHeaderCell22.RowIndex = 4;
+            this.crossTabHeaderCell22.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
             // 
             // crossTabHeaderCell23
             // 
@@ -1083,6 +1052,39 @@
             this.crossTabTotalCell29.ColumnIndex = 9;
             this.crossTabTotalCell29.Name = "crossTabTotalCell29";
             this.crossTabTotalCell29.RowIndex = 5;
+            // 
+            // objectDataSource1
+            // 
+            this.objectDataSource1.DataSource = typeof(Core.Info.Reportes.Academico.ACA_075_Info);
+            this.objectDataSource1.Name = "objectDataSource1";
+            // 
+            // crossTabGeneralStyle1
+            // 
+            this.crossTabGeneralStyle1.BackColor = System.Drawing.Color.White;
+            this.crossTabGeneralStyle1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(160)))), ((int)(((byte)(160)))));
+            this.crossTabGeneralStyle1.Borders = ((DevExpress.XtraPrinting.BorderSide)((((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Top) 
+            | DevExpress.XtraPrinting.BorderSide.Right) 
+            | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.crossTabGeneralStyle1.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.crossTabGeneralStyle1.ForeColor = System.Drawing.Color.Black;
+            this.crossTabGeneralStyle1.Name = "crossTabGeneralStyle1";
+            this.crossTabGeneralStyle1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            // 
+            // crossTabHeaderStyle1
+            // 
+            this.crossTabHeaderStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.crossTabHeaderStyle1.Name = "crossTabHeaderStyle1";
+            this.crossTabHeaderStyle1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            // 
+            // crossTabDataStyle1
+            // 
+            this.crossTabDataStyle1.Name = "crossTabDataStyle1";
+            this.crossTabDataStyle1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            // 
+            // crossTabTotalStyle1
+            // 
+            this.crossTabTotalStyle1.Name = "crossTabTotalStyle1";
+            this.crossTabTotalStyle1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
             // 
             // ACA_075_Ministerio_Rpt
             // 
@@ -1126,8 +1128,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.xrTable7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.objectDataSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrCrossTab1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.objectDataSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
