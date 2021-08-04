@@ -9865,6 +9865,8 @@
     <Content Include="Areas\Academico\Views\MatriculaGrado\_ComboBoxPartial_Paralelo.cshtml" />
     <Content Include="Areas\Academico\Views\MatriculaGrado\_ComboBoxPartial_Sede.cshtml" />
     <Content Include="Areas\Academico\Views\MatriculaGrado\_GridViewPartial_MatriculaGrado.cshtml" />
+    <Content Include="Areas\Academico\Views\MatriculaGrado\_GridViewPartial_MatriculaGradoImportacion.cshtml" />
+    <Content Include="Areas\Academico\Views\MatriculaGrado\Importar.cshtml" />
     <None Include="Properties\PublishProfiles\p1.pubxml" />
     <None Include="Properties\PublishProfiles\Publicacion.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

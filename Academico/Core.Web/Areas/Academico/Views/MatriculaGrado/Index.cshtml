@@ -59,7 +59,11 @@
             }
         });
     }
-
+    function importar() {
+        var location = GetPathServer();
+        var win = window.open(location + "/Academico/MatriculaGrado/Importar?IdEmpresa=" + $("#IdEmpresa").val() + "&IdSede=" + IdSede.GetValue() + "&IdAnio=" + IdAnio.GetValue() + "&IdNivel=" + IdNivel.GetValue() + "&IdJornada=" + IdJornada.GetValue() + "&IdCurso=" + IdCurso.GetValue() + "&IdParalelo=" + IdParalelo.GetValue(), '_self');
+        win.focus();
+    }
 </script>
 @using (Html.BeginForm("Index", "MatriculaGrado", FormMethod.Post, new { @role = "form", @class = "form", @id = "myform" }))
 {
@@ -123,6 +127,7 @@
 
     <div class="box-footer">
         <button type="button" class="btn btn-default" id="btn_guardar" onclick="buscar();">Buscar</button>
+        <button type="button" class="btn btn-primary" id="btn_importar" onclick="importar();">Descargar/Importar</button> 
     </div>
     @Html.Action("GridViewPartial_MatriculaGrado")
 }

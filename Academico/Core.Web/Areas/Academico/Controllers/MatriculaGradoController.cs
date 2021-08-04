@@ -1,9 +1,12 @@
 ﻿using Core.Bus.Academico;
 using Core.Info.Academico;
+using Core.Web.Areas.Academico.Controllers;
 using Core.Web.Helps;
 using DevExpress.Web.Mvc;
+using ExcelDataReader;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -408,6 +411,107 @@ namespace Core.Web.Areas.Academico.Controllers
         }
         #endregion
 
+        #region Importacion
+        public ActionResult UploadControlUpload()
+        {
+            UploadControlExtension.GetUploadedFiles("UploadControlFile", UploadControlSettings_Grado.UploadValidationSettings, UploadControlSettings_Grado.FileUploadComplete);
+            return null;
+        }
+        public ActionResult Importar(int IdEmpresa = 0, int IdSede = 0, int IdAnio = 0, int IdNivel = 0, int IdJornada = 0, int IdCurso = 0, int IdParalelo = 0, int IdMateria = 0, int IdCatalogoParcial = 0, bool isSuccess = false)
+        {
+            #region Validar Session
+            if (string.IsNullOrEmpty(SessionFixed.IdTransaccionSession))
+                return RedirectToAction("Login", new { Area = "", Controller = "Account" });
+            SessionFixed.IdTransaccionSession = (Convert.ToDecimal(SessionFixed.IdTransaccionSession) + 1).ToString();
+            SessionFixed.IdTransaccionSessionActual = SessionFixed.IdTransaccionSession;
+            #endregion
+            var info_anio = bus_anio.GetInfo_AnioEnCurso(Convert.ToInt32(SessionFixed.IdEmpresa), 0);
+            aca_MatriculaGrado_Info model = new aca_MatriculaGrado_Info
+            {
+                IdEmpresa = IdEmpresa,
+                IdSede = IdSede,
+                IdAnio = IdAnio,
+                IdNivel = IdNivel,
+                IdJornada = IdJornada,
+                IdCurso = IdCurso,
+                IdParalelo = IdParalelo,
+                IdTransaccionSession = Convert.ToDecimal(SessionFixed.IdTransaccionSessionActual)
+            };
+
+            ViewBag.MensajeSuccess = (isSuccess == false ? null : MensajeSuccess);
+            string IdUsuario = SessionFixed.IdUsuario;
+            var info_anioGrado = bus_anio.GetInfo(model.IdEmpresa, model.IdAnio);
+            List<aca_MatriculaCalificacion_Info> lst_combos = bus_calificacionCombo.GetList_CombosCalificacionesGrado(model.IdEmpresa, model.IdSede, Convert.ToInt32(info_anioGrado.IdCursoBachiller));
+            ListaCombos.set_list(lst_combos, Convert.ToDecimal(SessionFixed.IdTransaccionSessionActual));
+            List<aca_MatriculaGrado_Info> ListaCalificacion = new List<aca_MatriculaGrado_Info>();
+            ListaCalificacion = bus_calificacion.getList(IdEmpresa, IdSede, IdAnio, IdNivel, IdJornada, IdCurso, IdParalelo);
+
+            var info_catalogo = bus_catalogo.GetInfo(IdCatalogoParcial);
+            var IdCatalogoParcialImportacion = info_catalogo == null ? null : info_catalogo.Codigo;
+            foreach (var item in ListaCalificacion)
+            {
+                item.CalificacionGrado = item.CalificacionGrado == null ? (decimal?)null : Convert.ToDecimal(item.CalificacionGrado);
+            }
+
+            Lista_CalificacionGrado.set_list(ListaCalificacion, Convert.ToDecimal(SessionFixed.IdTransaccionSessionActual));
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Importar(aca_MatriculaGrado_Info model)
+        {
+            try
+            {
+                SessionFixed.IdTransaccionSessionActual = model.IdTransaccionSession.ToString();
+                var IdEmpresa = Convert.ToInt32(SessionFixed.IdEmpresa);
+                string IdUsuario = SessionFixed.IdUsuario;
+                bool EsSuperAdmin = Convert.ToBoolean(SessionFixed.EsSuperAdmin);
+                var info_profesor = bus_profesor.GetInfo_x_Usuario(model.IdEmpresa, IdUsuario);
+                var IdProfesor = (info_profesor == null ? 0 : info_profesor.IdProfesor);
+                var Lista_Calificaciones = Lista_CalificacionGrado.get_list(model.IdTransaccionSession);
+                var Lista_CalificacionesGuardar = new List<aca_MatriculaGrado_Info>();
+                Lista_CalificacionesGuardar = Lista_Calificaciones.Where(q => q.RegistroValido == true).ToList();
+                ViewBag.mensaje = null;
+                ViewBag.MensajeSuccess = null;
+
+                foreach (var item in Lista_CalificacionesGuardar)
+                {
+                    item.IdAnio = model.IdAnio;
+                    item.IdSede = model.IdSede;
+                    item.IdNivel = model.IdNivel;
+                    item.IdJornada = model.IdJornada;
+                    item.IdCurso = model.IdCurso;
+                    item.IdParalelo = model.IdParalelo;
+                }
+                ViewBag.mensaje = null;
+
+                foreach (var item in Lista_CalificacionesGuardar)
+                {
+                    if (!bus_calificacion.modificarDB(item))
+                    {
+                        ViewBag.mensaje = "Error al importar el archivo";
+                        return View(model);
+                    }
+                }
+                ViewBag.MensajeSuccess = MensajeSuccess;
+            
+                return RedirectToAction("Importar", new { IdEmpresa = model.IdEmpresa, IdSede = model.IdSede, IdAnio = model.IdAnio, IdNivel = model.IdNivel, IdJornada = model.IdJornada, IdCurso = model.IdCurso, IdParalelo = model.IdParalelo, isSuccess = true });
+            }
+            catch (Exception ex)
+            {
+                ViewBag.error = ex.Message.ToString();
+                return View(model);
+            }
+        }
+
+        public ActionResult GridViewPartial_MatriculaGradoImportacion()
+        {
+            SessionFixed.IdTransaccionSessionActual = Request.Params["TransaccionFixed"] != null ? Request.Params["TransaccionFixed"].ToString() : SessionFixed.IdTransaccionSessionActual;
+            var model = Lista_CalificacionGrado.get_list(Convert.ToDecimal(SessionFixed.IdTransaccionSessionActual));
+
+            return PartialView("_GridViewPartial_MatriculaGradoImportacion", model);
+        }
+        #endregion
+
         #region Json
         public JsonResult cargar_calificaciones(int IdEmpresa = 0, int IdSede = 0, int IdAnio = 0, int IdNivel = 0, int IdJornada = 0, int IdCurso = 0, int IdParalelo = 0, int IdMateria = 0, int IdCatalogoParcial = 0)
         {
@@ -416,12 +520,12 @@ namespace Core.Web.Areas.Academico.Controllers
             var info_profesor = bus_profesor.GetInfo_x_Usuario(IdEmpresa, IdUsuario);
             var IdProfesor = (info_profesor == null ? 0 : info_profesor.IdProfesor);
             var info_anio = bus_anio.GetInfo(IdEmpresa, IdAnio);
-            List<aca_MatriculaGrado_Info> ListaCalificacionExamen = new List<aca_MatriculaGrado_Info>();
+            List<aca_MatriculaGrado_Info> ListaCalificacion = new List<aca_MatriculaGrado_Info>();
 
-            ListaCalificacionExamen = bus_calificacion.getList(IdEmpresa, IdSede, IdAnio, IdNivel, IdJornada, IdCurso, IdParalelo);
-            Lista_CalificacionGrado.set_list(ListaCalificacionExamen, Convert.ToDecimal(SessionFixed.IdTransaccionSessionActual));
+            ListaCalificacion = bus_calificacion.getList(IdEmpresa, IdSede, IdAnio, IdNivel, IdJornada, IdCurso, IdParalelo);
+            Lista_CalificacionGrado.set_list(ListaCalificacion, Convert.ToDecimal(SessionFixed.IdTransaccionSessionActual));
 
-            return Json(ListaCalificacionExamen, JsonRequestBehavior.AllowGet);
+            return Json(ListaCalificacion, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult ActualizarVariablesSession(int IdEmpresa = 0, decimal IdTransaccionSession = 0)
@@ -483,6 +587,62 @@ namespace Core.Web.Areas.Academico.Controllers
                 bus_calificacion.modificarDB(edited_info);
             }
             
+        }
+    }
+
+    public class UploadControlSettings_Grado
+    {
+        public static DevExpress.Web.UploadControlValidationSettings UploadValidationSettings = new DevExpress.Web.UploadControlValidationSettings()
+        {
+            AllowedFileExtensions = new string[] { ".xlsx" },
+            MaxFileSize = 40000000
+        };
+
+        public static void FileUploadComplete(object sender, DevExpress.Web.FileUploadCompleteEventArgs e)
+        {
+            #region Variables
+            aca_MatriculaGrado_List Lista_Grado = new aca_MatriculaGrado_List();
+            List<aca_MatriculaGrado_Info> Lista_Calificacion = new List<aca_MatriculaGrado_Info>();
+            aca_AnioLectivo_Bus bus_anio = new aca_AnioLectivo_Bus();
+            aca_Matricula_Bus bus_matricula = new aca_Matricula_Bus();
+            int cont = 0;
+            decimal IdTransaccionSession = Convert.ToDecimal(SessionFixed.IdTransaccionSessionActual);
+            int IdEmpresa = Convert.ToInt32(SessionFixed.IdEmpresa);
+            #endregion
+
+            Stream stream = new MemoryStream(e.UploadedFile.FileBytes);
+            if (stream.Length > 0)
+            {
+                IExcelDataReader reader = null;
+                reader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+
+                while (reader.Read())
+                {
+                    if (!reader.IsDBNull(0) && cont > 0)
+                    {
+                        var IdMatricula = (Convert.ToInt32(reader.GetValue(0)));
+                        var pe_nombreCompleto = (Convert.ToString(reader.GetValue(1)).Trim());
+                        var x = Convert.ToString(reader.GetValue(1));
+                        decimal? CalificacionGrado = string.IsNullOrEmpty(Convert.ToString(reader.GetValue(2))) ? (decimal?)null : Convert.ToDecimal(reader.GetValue(2));            
+                        var info_matricula = bus_matricula.GetInfo(IdEmpresa, IdMatricula);
+                        var info_anio = bus_anio.GetInfo(IdEmpresa, info_matricula.IdAnio);
+                        aca_MatriculaGrado_Info info = new aca_MatriculaGrado_Info
+                        {
+                            IdEmpresa = IdEmpresa,
+                            IdMatricula = IdMatricula,
+                            pe_nombreCompleto = pe_nombreCompleto,
+                            CalificacionGrado = CalificacionGrado,
+                            RegistroValido = (info_anio==null ? false : (CalificacionGrado<= Convert.ToDecimal(info_anio.CalificacionMaxima) ? true :false)),
+                        };
+
+                        Lista_Calificacion.Add(info);
+                    }
+                    else
+                        cont++;
+                }
+
+                Lista_Grado.set_list(Lista_Calificacion, IdTransaccionSession);
+            }
         }
     }
 }
