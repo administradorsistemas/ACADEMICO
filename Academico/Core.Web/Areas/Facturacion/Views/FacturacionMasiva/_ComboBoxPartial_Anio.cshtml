@@ -12,6 +12,7 @@
     settings.Properties.TextField = "Descripcion";
     settings.Properties.NullText = "== Seleccione ==";
     settings.Properties.DropDownStyle = DropDownStyle.DropDown;
+    settings.ReadOnly = true;
     settings.Properties.ClearButton.DisplayMode = ClearButtonDisplayMode.Always;
     settings.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) { IdSede.PerformCallback(); IdJornada.PerformCallback(); IdNivel.PerformCallback(); IdCurso.PerformCallback(); IdParalelo.PerformCallback();}";
 }).BindList(new Core.Bus.Academico.aca_AnioLectivo_Bus().GetList(Convert.ToInt32(Core.Web.Helps.SessionFixed.IdEmpresa),false)).Bind(Model.IdAnio).GetHtml()

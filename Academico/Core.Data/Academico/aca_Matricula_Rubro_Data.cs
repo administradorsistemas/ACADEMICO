@@ -350,17 +350,17 @@ namespace Core.Data.Academico
                     + " and a.IdPeriodo= " + IdPeriodo.ToString();
 
                     if (IdAnio > 0)
-                        query_PorFacturar += " and a.IdAnio= " + IdAnio.ToString();
+                        query_FacturaMasiva += " and a.IdAnio= " + IdAnio.ToString();
                     if (IdSede > 0)
-                        query_PorFacturar += " and a.IdSede= " + IdSede.ToString();
+                        query_FacturaMasiva += " and a.IdSede= " + IdSede.ToString();
                     if (IdNivel > 0)
-                        query_PorFacturar += " and a.IdNivel= " + IdNivel.ToString();
+                        query_FacturaMasiva += " and a.IdNivel= " + IdNivel.ToString();
                     if (IdJornada > 0)
-                        query_PorFacturar += " and a.IdJornada= " + IdJornada.ToString();
+                        query_FacturaMasiva += " and a.IdJornada= " + IdJornada.ToString();
                     if (IdCurso > 0)
-                        query_PorFacturar += " and a.IdCurso= " + IdCurso.ToString();
+                        query_FacturaMasiva += " and a.IdCurso= " + IdCurso.ToString();
                     if (IdParalelo > 0)
-                        query_PorFacturar += " and a.IdParalelo= " + IdParalelo.ToString();
+                        query_FacturaMasiva += " and a.IdParalelo= " + IdParalelo.ToString();
                     #endregion
                     SqlCommand command_FacturaMasiva = new SqlCommand(query_FacturaMasiva, connection);
                     command_FacturaMasiva.CommandTimeout = 0;
