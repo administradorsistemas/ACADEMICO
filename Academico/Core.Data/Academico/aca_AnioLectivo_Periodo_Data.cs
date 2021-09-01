@@ -281,14 +281,14 @@ namespace Core.Data.Academico
                     if( ResultValue == null)
                     {
                         command.CommandText = "update aca_AnioLectivo_Periodo set "
-                         + " IdUsuarioModificacion = " + info.IdUsuarioModificacion
-                         + " FechaModificacion = BETWEEN DATEFROMPARTS(" + DateTime.Now.Year.ToString() + "," + DateTime.Now.Month.ToString() + "," + DateTime.Now.Day.ToString() + ")"
-                         + " IdSucursal = " + info.IdSucursal.ToString()
-                         + " IdPuntoVta = " + info.IdPuntoVta.ToString()
-                         + " Procesado = " + true
-                         + " FechaProceso = BETWEEN DATEFROMPARTS(" + DateTime.Now.Year.ToString() + "," + DateTime.Now.Month.ToString() + "," + DateTime.Now.Day.ToString() + ")"
-                         + " TotalAlumnos = " + info.lst_det_fact_masiva.Count()
-                         + " TotalValorFacturado = " + info.lst_det_fact_masiva.Sum(q => q.Total)
+                         + " IdUsuarioModificacion = " +"'" +info.IdUsuarioModificacion + "'"
+                         + " ,FechaModificacion = DATEFROMPARTS(" + DateTime.Now.Year.ToString() + "," + DateTime.Now.Month.ToString() + "," + DateTime.Now.Day.ToString() + ")"
+                         + " ,IdSucursal = " + info.IdSucursal.ToString()
+                         + " ,IdPuntoVta = " + info.IdPuntoVta.ToString()
+                         + " ,Procesado = 1"
+                         + " ,FechaProceso = DATEFROMPARTS(" + DateTime.Now.Year.ToString() + "," + DateTime.Now.Month.ToString() + "," + DateTime.Now.Day.ToString() + ")"
+                         + " ,TotalAlumnos = " + info.lst_det_fact_masiva.Count()
+                         + " ,TotalValorFacturado = " + info.lst_det_fact_masiva.Sum(q => q.Total)
                          + " WHERE IdEmpresa = " + info.IdEmpresa.ToString() + " and IdAnio = " + info.IdAnio.ToString() + " and IdPeriodo = " + info.IdPeriodo.ToString();
                         command.ExecuteNonQuery();
 
