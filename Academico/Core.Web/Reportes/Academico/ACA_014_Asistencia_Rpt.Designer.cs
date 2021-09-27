@@ -48,9 +48,6 @@
             this.xrTableCell152 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell3 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell160 = new DevExpress.XtraReports.UI.XRTableCell();
-            this.p_IdEmpresa = new DevExpress.XtraReports.Parameters.Parameter();
-            this.p_IdMatricula = new DevExpress.XtraReports.Parameters.Parameter();
-            this.p_IdCatalogoParcial = new DevExpress.XtraReports.Parameters.Parameter();
             this.xrTableRow1 = new DevExpress.XtraReports.UI.XRTableRow();
             this.xrTableCell4 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell5 = new DevExpress.XtraReports.UI.XRTableCell();
@@ -79,6 +76,9 @@
             this.xrTableCell27 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell28 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell29 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.p_IdEmpresa = new DevExpress.XtraReports.Parameters.Parameter();
+            this.p_IdMatricula = new DevExpress.XtraReports.Parameters.Parameter();
+            this.p_IdCatalogoParcial = new DevExpress.XtraReports.Parameters.Parameter();
             this.objectDataSource1 = new DevExpress.DataAccess.ObjectBinding.ObjectDataSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.xrTable5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.objectDataSource1)).BeginInit();
@@ -103,7 +103,7 @@
             // 
             this.PageHeader.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
             this.xrTable5});
-            this.PageHeader.HeightF = 45F;
+            this.PageHeader.HeightF = 42F;
             this.PageHeader.Name = "PageHeader";
             // 
             // xrTable5
@@ -116,7 +116,7 @@
             this.xrTableRow24,
             this.xrTableRow1,
             this.xrTableRow2});
-            this.xrTable5.SizeF = new System.Drawing.SizeF(1138F, 45F);
+            this.xrTable5.SizeF = new System.Drawing.SizeF(1138F, 42F);
             this.xrTable5.StylePriority.UseFont = false;
             this.xrTable5.StylePriority.UsePadding = false;
             this.xrTable5.StylePriority.UseTextAlignment = false;
@@ -143,7 +143,7 @@
             this.xrTableRow24.StylePriority.UseFont = false;
             this.xrTableRow24.StylePriority.UseTextAlignment = false;
             this.xrTableRow24.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
-            this.xrTableRow24.Weight = 0.36290333744890074D;
+            this.xrTableRow24.Weight = 0.338709781618974D;
             // 
             // xrTableCell129
             // 
@@ -368,21 +368,6 @@
             this.xrTableCell160.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
             this.xrTableCell160.Weight = 0.13930565033517223D;
             // 
-            // p_IdEmpresa
-            // 
-            this.p_IdEmpresa.Name = "p_IdEmpresa";
-            this.p_IdEmpresa.Visible = false;
-            // 
-            // p_IdMatricula
-            // 
-            this.p_IdMatricula.Name = "p_IdMatricula";
-            this.p_IdMatricula.Visible = false;
-            // 
-            // p_IdCatalogoParcial
-            // 
-            this.p_IdCatalogoParcial.Name = "p_IdCatalogoParcial";
-            this.p_IdCatalogoParcial.Visible = false;
-            // 
             // xrTableRow1
             // 
             this.xrTableRow1.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
@@ -404,7 +389,7 @@
             this.xrTableRow1.StylePriority.UseFont = false;
             this.xrTableRow1.StylePriority.UseTextAlignment = false;
             this.xrTableRow1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
-            this.xrTableRow1.Weight = 0.36290333744890074D;
+            this.xrTableRow1.Weight = 0.338709781618974D;
             // 
             // xrTableCell4
             // 
@@ -650,7 +635,7 @@
             this.xrTableRow2.StylePriority.UseFont = false;
             this.xrTableRow2.StylePriority.UseTextAlignment = false;
             this.xrTableRow2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
-            this.xrTableRow2.Weight = 0.36290333744890069D;
+            this.xrTableRow2.Weight = 0.33870978161897397D;
             // 
             // xrTableCell17
             // 
@@ -874,6 +859,21 @@
             this.xrTableCell29.StylePriority.UseTextAlignment = false;
             this.xrTableCell29.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
             this.xrTableCell29.Weight = 0.13930565033517223D;
+            // 
+            // p_IdEmpresa
+            // 
+            this.p_IdEmpresa.Name = "p_IdEmpresa";
+            this.p_IdEmpresa.Visible = false;
+            // 
+            // p_IdMatricula
+            // 
+            this.p_IdMatricula.Name = "p_IdMatricula";
+            this.p_IdMatricula.Visible = false;
+            // 
+            // p_IdCatalogoParcial
+            // 
+            this.p_IdCatalogoParcial.Name = "p_IdCatalogoParcial";
+            this.p_IdCatalogoParcial.Visible = false;
             // 
             // objectDataSource1
             // 

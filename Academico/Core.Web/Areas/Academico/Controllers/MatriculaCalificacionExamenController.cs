@@ -1121,6 +1121,7 @@ namespace Core.Web.Areas.Academico.Controllers
             else
             {
                 RegistroValidoCalificacion = false;
+                info.RegistroValido = RegistroValidoCalificacion;
             }
 
             return info;
