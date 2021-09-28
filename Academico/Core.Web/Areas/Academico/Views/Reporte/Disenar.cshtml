@@ -6,7 +6,7 @@
     {
         Response.Redirect("~/Account/Login");
     }
-    Layout = "~/Areas/Reportes/Views/Layout/_Layout_filtros.cshtml";
+    Layout = "~/Areas/Reportes/Views/Shared/_LayoutConsulta.cshtml";
 }
 
 @using (Html.BeginForm("Disenar", "Reporte", FormMethod.Post, new { @role = "form", @class = "form" }))

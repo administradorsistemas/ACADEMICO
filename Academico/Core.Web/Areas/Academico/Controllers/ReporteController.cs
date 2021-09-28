@@ -117,6 +117,14 @@ namespace Core.Web.Areas.Academico.Controllers
                     break;
             }
 
+            if (string.IsNullOrEmpty(reporte.Nom_Carpeta))
+            {
+                tb_modulo_Bus bus_modulo = new tb_modulo_Bus();
+                var modulo = bus_modulo.get_info(CodReporte.Substring(0, 3));
+                if (modulo != null)
+                    reporte.Nom_Carpeta = modulo.Nom_Carpeta;
+            }
+
             XtraReport rpt = GetReport(reporte.Nom_Carpeta + "." + reporte.rpt_clase_rpt);
             if (model == null)
             {

@@ -16,9 +16,9 @@ namespace Core.Data.General
             {
                 tb_sis_reporte_x_tb_empresa_Info info;
 
-                using (EntitiesGeneral db = new EntitiesGeneral())
+                using (EntitiesAcademico db = new EntitiesAcademico())
                 {
-                    var Entity = db.tb_sis_reporte_x_tb_empresa.Where(q => q.IdEmpresa == IdEmpresa && q.CodReporte == CodReporte).FirstOrDefault();
+                    var Entity = db.aca_Reporte_x_tb_empresa.Where(q => q.IdEmpresa == IdEmpresa && q.CodReporte == CodReporte).FirstOrDefault();
                     if (Entity == null) return null;
                     else
                         info = new tb_sis_reporte_x_tb_empresa_Info
@@ -45,11 +45,11 @@ namespace Core.Data.General
         {
             try
             {
-                using (EntitiesGeneral db = new EntitiesGeneral())
+                using (EntitiesAcademico db = new EntitiesAcademico())
                 {
-                    var Entity = db.tb_sis_reporte_x_tb_empresa.Where(q => q.IdEmpresa == info.IdEmpresa && q.CodReporte == info.CodReporte).FirstOrDefault();
+                    var Entity = db.aca_Reporte_x_tb_empresa.Where(q => q.IdEmpresa == info.IdEmpresa && q.CodReporte == info.CodReporte).FirstOrDefault();
                     if (Entity == null)
-                        db.tb_sis_reporte_x_tb_empresa.Add(new tb_sis_reporte_x_tb_empresa
+                        db.aca_Reporte_x_tb_empresa.Add(new aca_Reporte_x_tb_empresa
                         {
                             IdEmpresa = info.IdEmpresa,
                             CodReporte = info.CodReporte,
