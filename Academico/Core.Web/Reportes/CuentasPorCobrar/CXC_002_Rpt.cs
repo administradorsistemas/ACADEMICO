@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Core.Bus.General;
 using Core.Bus.CuentasPorCobrar;
 using System.Linq;
+using Core.Info.General;
 
 namespace Core.Web.Reportes.CuentasPorCobrar
 {
@@ -16,8 +17,15 @@ namespace Core.Web.Reportes.CuentasPorCobrar
     {
         public string usuario { get; set; }
         public string empresa { get; set; }
-        tb_empresa_Bus busEmpresa = new tb_empresa_Bus();
+        
         cxc_cobro_Bus busCobro = new cxc_cobro_Bus();
+        public tb_empresa_Info infoEmpresa { get; set; }
+        public List<CXC_002_Info> lst_rpt { get; set; }
+        public List<CXC_002_Aplicaciones_Info> lst_det { get; set; }
+        public CXC_002_Info Primero { get; set; }
+        public string Saldo { get; set; }
+        public string SaldoConDscto { get; set; }
+        public int MyProperty { get; set; }
         public CXC_002_Rpt()
         {
             InitializeComponent();
@@ -33,23 +41,21 @@ namespace Core.Web.Reportes.CuentasPorCobrar
             decimal IdCobro = string.IsNullOrEmpty(p_IdCobro.Value.ToString()) ? 0 : Convert.ToDecimal(p_IdCobro.Value);
 
             CXC_002_Bus bus_rpt = new CXC_002_Bus();
-            List<CXC_002_Info> lst_rpt = bus_rpt.get_list(IdEmpresa, IdSucursal, IdCobro);
+             
             this.DataSource = lst_rpt;
-
-            var empresa = busEmpresa.get_info(IdEmpresa);
-            if (empresa != null)
+            
+            if (infoEmpresa != null)
             {
-                lbl_empresa.Text = empresa.em_nombre;
-                lblDireccion.Text = empresa.em_direccion;
-                if (empresa.em_logo != null)
+                lbl_empresa.Text = infoEmpresa.em_nombre;
+                lblDireccion.Text = infoEmpresa.em_direccion;
+                if (infoEmpresa.em_logo != null)
                 {
                     ImageConverter obj = new ImageConverter();
-                    logo.Image = (Image)obj.ConvertFrom(empresa.em_logo);
+                    logo.Image = (Image)obj.ConvertFrom(infoEmpresa.em_logo);
                 }
             }
-            var Primero = lst_rpt.FirstOrDefault();
-            lblSaldo.Text = busCobro.GetSaldoAlumno(IdEmpresa,(Primero == null ? 0 : Primero.IdAlumno ?? 0),false).ToString("c2");
-            lblSaldoConDscto.Text = busCobro.GetSaldoAlumno(IdEmpresa, (Primero == null ? 0 : Primero.IdAlumno ?? 0),true).ToString("c2");
+            lblSaldo.Text = Saldo;
+            lblSaldoConDscto.Text = SaldoConDscto;
             if (Primero != null)
             {
                 string Cadena = lblReemplaza.Text;
@@ -60,10 +66,7 @@ namespace Core.Web.Reportes.CuentasPorCobrar
 
         private void xrSubreport1_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
         {
-            ((XRSubreport)sender).ReportSource.Parameters["p_IdEmpresa"].Value = p_IdEmpresa.Value == null ? 0 : Convert.ToInt32(p_IdEmpresa.Value);
-            ((XRSubreport)sender).ReportSource.Parameters["p_IdSucursal"].Value = p_IdSucursal.Value == null ? 0 : Convert.ToInt32(p_IdSucursal.Value);
-            ((XRSubreport)sender).ReportSource.Parameters["p_IdCobro"].Value = p_IdCobro.Value == null ? 0 : Convert.ToDecimal(p_IdCobro.Value);
-            ((XRSubreport)sender).ReportSource.RequestParameters = false;
+            ((XRSubreport)sender).ReportSource.DataSource = lst_det;
         }
     }
 }

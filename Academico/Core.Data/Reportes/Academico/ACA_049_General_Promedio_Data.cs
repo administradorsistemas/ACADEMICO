@@ -60,8 +60,10 @@ namespace Core.Data.Reportes.Academico
                     + " ( "
                     + " /*PROYECTOS*/ "
                     + " SELECT m.IdEmpresa, m.IdMatricula, m.IdAnio, m.IdSede, m.IdNivel, m.IdJornada, m.IdCurso, m.IdParalelo, m.IdAlumno, AN.Descripcion, sn.NomSede, nj.NomJornada, nj.OrdenJornada, sn.NomNivel, sn.OrdenNivel, jc.NomCurso, jc.OrdenCurso, "
-                    + " cp.NomParalelo, cp.OrdenParalelo,alu.Codigo, pa.pe_nombreCompleto AS NombreAlumno, 0 AS IdMateria, 'EVALUACION DE PROYECTOS ESCOLARES' AS NombreMateria, '' NomMateriaArea, 'PROYECTOS' AS NombreGrupo, 999999 AS OrdenMateria, 999999 AS OrdenGrupo, 0 AS PromediarGrupo, "
-                    + " mc.IdCatalogoTipoCalificacion AS IdCatalogoTipoCalificacion, CAST(lp.Codigo AS varchar) AS Calificacion, CAST(ep.Calificacion AS numeric(18, 2)) AS CalificacionNumerica, 'EVALUACION DE PROYECTOS ESCOLARES' AS Columna, "
+                    //+ " cp.NomParalelo, cp.OrdenParalelo,alu.Codigo, pa.pe_nombreCompleto AS NombreAlumno, 0 AS IdMateria, 'EVALUACION DE PROYECTOS ESCOLARES' AS NombreMateria, '' NomMateriaArea, 'PROYECTOS' AS NombreGrupo, 999999 AS OrdenMateria, 999999 AS OrdenGrupo, 0 AS PromediarGrupo, "
+                    + " cp.NomParalelo, cp.OrdenParalelo,alu.Codigo, pa.pe_nombreCompleto AS NombreAlumno, 0 AS IdMateria, isnull(mc.NomMateria ,'') AS NombreMateria, '' NomMateriaArea, 'PROYECTOS' AS NombreGrupo, 999999 AS OrdenMateria, 999999 AS OrdenGrupo, 0 AS PromediarGrupo, "
+                    //+ " mc.IdCatalogoTipoCalificacion AS IdCatalogoTipoCalificacion, CAST(lp.Codigo AS varchar) AS Calificacion, CAST(ep.Calificacion AS numeric(18, 2)) AS CalificacionNumerica, 'EVALUACION DE PROYECTOS ESCOLARES' AS Columna, "
+                    + " mc.IdCatalogoTipoCalificacion AS IdCatalogoTipoCalificacion, CAST(lp.Codigo AS varchar) AS Calificacion, CAST(ep.Calificacion AS numeric(18, 2)) AS CalificacionNumerica, isnull(mc.NomMateriaArea,'') AS Columna, "
                     + " 1 AS OrdenColumna, pp.pe_nombreCompleto AS NombreTutor "
                     + " FROM     dbo.aca_Matricula AS m WITH (nolock) LEFT OUTER JOIN "
                     + " dbo.aca_MatriculaCalificacionCualitativaPromedio AS mp WITH (nolock) ON mp.IdEmpresa = m.IdEmpresa AND mp.IdMatricula = m.IdMatricula LEFT OUTER JOIN "
@@ -309,9 +311,9 @@ namespace Core.Data.Reportes.Academico
                     var equivalencia = odata_conducta_equiv.getInfo_x_Letra(IdEmpresa, IdAnio, (item.Calificacion == null ? "" : Convert.ToString(item.Calificacion)));
                     item.CalificacionCualitativa = (equivalencia == null ? null : equivalencia.DescripcionEquivalencia);
                 }
-                ListaFinal.AddRange(Lista_Comportamiento);                                
+                ListaFinal.AddRange(Lista_Comportamiento);
 
-                return ListaFinal;
+                return ListaFinal.OrderBy(q => q.OrdenMateria).ToList();// se añadio order by Acueva 2021/09/21
             }
             catch (Exception ex)
             {

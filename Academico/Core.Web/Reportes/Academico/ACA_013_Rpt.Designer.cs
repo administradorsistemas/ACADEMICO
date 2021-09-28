@@ -1087,7 +1087,7 @@
             this.xrTableCell14.StylePriority.UseFont = false;
             this.xrTableCell14.StylePriority.UsePadding = false;
             this.xrTableCell14.StylePriority.UseTextAlignment = false;
-            this.xrTableCell14.Text = "Actividades frupales en clase";
+            this.xrTableCell14.Text = "Actividades grupales en clase";
             this.xrTableCell14.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
             this.xrTableCell14.Weight = 0.2421463068307953D;
             // 

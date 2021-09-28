@@ -45,7 +45,7 @@ namespace Core.Data.Reportes.Academico
                     + " cast(mc.PromedioFinalQ2 as varchar) PromedioFinalQ2, epQ2.Codigo AS EquivalenciaPromedioQ2, "
                     + " cast(mc.PromedioQuimestres as varchar) as PromedioQuimestres_PF, "
                     + " case when(mc.ExamenMejoramiento is not null) then cast(mc.PromedioFinal as varchar) "
-                    + " else  cast(mc.PromedioQuimestres as varchar) end as Promedio_PR, "
+                    + " else  null end as Promedio_PR, "
                     + " cast(mc.ExamenMejoramiento as varchar) ExamenMejoramiento, "
                     + " cast(mc.CampoMejoramiento as varchar) CampoMejoramiento, "
                     + " cast(mc.ExamenSupletorio as varchar) ExamenSupletorio, "

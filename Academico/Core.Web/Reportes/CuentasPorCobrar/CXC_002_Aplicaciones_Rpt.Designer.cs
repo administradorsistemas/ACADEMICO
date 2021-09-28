@@ -375,7 +375,6 @@
             this.p_IdSucursal,
             this.p_IdCobro});
             this.Version = "19.1";
-            this.BeforePrint += new System.Drawing.Printing.PrintEventHandler(this.CXC_002_Aplicaciones_Rpt_BeforePrint);
             ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.objectDataSource1)).EndInit();

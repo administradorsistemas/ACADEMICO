@@ -159,7 +159,19 @@ namespace Core.Web.Areas.Reportes.Controllers
 
             };
 
+            tb_empresa_Bus busEmpresa = new tb_empresa_Bus();
+            CXC_002_Bus bus_rpt = new CXC_002_Bus();
             CXC_002_Rpt Report = new CXC_002_Rpt();
+            cxc_cobro_Bus busCobro = new cxc_cobro_Bus();
+            CXC_002_Aplicaciones_Bus busRptDet = new CXC_002_Aplicaciones_Bus();
+
+            Report.lst_rpt = bus_rpt.get_list(IdEmpresa, IdSucursal, IdCobro);
+            Report.lst_det = busRptDet.get_list(IdEmpresa, IdSucursal, IdCobro);
+            Report.infoEmpresa = busEmpresa.get_info(IdEmpresa);
+            Report.Primero = Report.lst_rpt.FirstOrDefault();
+            Report.Saldo = busCobro.GetSaldoAlumno(IdEmpresa, (Report.Primero == null ? 0 : Report.Primero.IdAlumno ?? 0), false).ToString("c2");
+            Report.SaldoConDscto = busCobro.GetSaldoAlumno(IdEmpresa, (Report.Primero == null ? 0 : Report.Primero.IdAlumno ?? 0), true).ToString("c2");
+
 
             Report.p_IdEmpresa.Value = Convert.ToInt32(SessionFixed.IdEmpresa);
             Report.p_IdSucursal.Value = IdSucursal;
