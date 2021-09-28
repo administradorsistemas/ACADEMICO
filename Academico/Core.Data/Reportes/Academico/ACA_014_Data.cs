@@ -338,7 +338,7 @@ namespace Core.Data.Reportes.Academico
                     PromedioFinalGrupoDouble = q.Max(g => g.PromedioFinal) == null ? (decimal?)null : q.Sum(g => Convert.ToDecimal(g.PromedioFinal)) / q.Count(g => !string.IsNullOrEmpty(g.PromedioFinal))
 
                 }).ToList();
-                //lstPromedioMateriasNoAgrupada.AddRange(lstAgrupada);
+                lstPromedioMateriasNoAgrupada.AddRange(lstAgrupada);
 
                 Lista = (from a in Lista
                          join b in lstPromedioMateriasNoAgrupada
