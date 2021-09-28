@@ -108,6 +108,15 @@ namespace Core.Web.Areas.Academico.Controllers
             var reporte = bus_reporte.get_info(CodReporte);
             var model = bus_reporte_x_emp.GetInfo(IdEmpresa, CodReporte);
 
+            switch (CodReporte)
+            {
+                case "ACA_072":
+                    reporte.rpt_clase_rpt = "ACA_028_Rpt";
+                    break;
+                default:
+                    break;
+            }
+
             XtraReport rpt = GetReport(reporte.Nom_Carpeta + "." + reporte.rpt_clase_rpt);
             if (model == null)
             {

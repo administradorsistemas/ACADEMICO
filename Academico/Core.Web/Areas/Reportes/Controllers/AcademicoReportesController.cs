@@ -22,7 +22,7 @@ namespace Core.Web.Areas.Reportes.Controllers
         tb_persona_Bus bus_persona = new tb_persona_Bus();
         aca_AnioLectivo_Bus bus_anio = new aca_AnioLectivo_Bus();
         tb_sis_reporte_x_tb_empresa_Bus bus_rep_x_emp = new tb_sis_reporte_x_tb_empresa_Bus();
-        string RootReporte = System.IO.Path.GetTempPath() + "Rpt_Academico.repx";
+        
         aca_Profesor_Bus bus_profesor = new aca_Profesor_Bus();
         aca_MatriculaCalificacion_Bus bus_calificacion = new aca_MatriculaCalificacion_Bus();
         aca_MatriculaCalificacionParticipacion_Bus bus_calificacion_participacion = new aca_MatriculaCalificacionParticipacion_Bus();
@@ -4585,6 +4585,17 @@ namespace Core.Web.Areas.Reportes.Controllers
             Lista_CombosCalificaciones.set_list(lst_combos, Convert.ToDecimal(SessionFixed.IdTransaccionSessionActual));
 
             ACA_028_Rpt report = new ACA_028_Rpt();
+
+            #region Cargo diseño desde base
+            int IdEmpresa = Convert.ToInt32(SessionFixed.IdEmpresa);
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_072.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(IdEmpresa, "ACA_072");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
 
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdSede.Value = model.IdSede;
