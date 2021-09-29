@@ -8,6 +8,7 @@ using Core.Bus.General;
 using Core.Bus.Reportes.Academico;
 using System.Collections.Generic;
 using Core.Info.Reportes.Academico;
+using System.Linq;
 
 namespace Core.Web.Reportes
 {
@@ -74,9 +75,13 @@ namespace Core.Web.Reportes
             //var URLSitio = "C:/Users/Wendy Pc/Documents/GitHub/ACADEMICO/Academico/Core.Web";
             var URL = "http://sistema.liceocristiano.edu.ec/lcg";
             string[] subs = URLImagen.Split('~');
-            var URLString = URL + subs[1];
-            //var Imagen = new Bitmap(URLString);
-            fotoAlumno.ImageUrl = URLString.ToString();
+            if (subs.Count() >= 2)
+            {
+                var URLString = URL + subs[1];
+                //var Imagen = new Bitmap(URLString);
+                fotoAlumno.ImageUrl = URLString.ToString();
+            }
+            
         }
     }
 }
