@@ -1145,7 +1145,7 @@ namespace Core.Web.Areas.Reportes.Controllers
             bool EsSuperAdmin = Convert.ToBoolean(SessionFixed.EsSuperAdmin);
             var info_profesor = bus_profesor.GetInfo_x_Usuario(model.IdEmpresa, IdUsuario);
             var IdProfesor = (info_profesor == null ? 0 : info_profesor.IdProfesor);
-            List<aca_MatriculaCalificacion_Info> lst_combos = bus_calificacion.GetList_Combos_TutorCalificacion(model.IdEmpresa, model.IdSede, IdProfesor, EsSuperAdmin);
+            List<aca_MatriculaCalificacion_Info> lst_combos = bus_calificacion.GetList_Combos_TutorCalificacion(model.IdEmpresa,model.IdAnio, model.IdSede, IdProfesor, EsSuperAdmin);
             Lista_CombosCalificaciones.set_list(lst_combos, Convert.ToDecimal(SessionFixed.IdTransaccionSessionActual));
 
             ACA_011_Rpt report = new ACA_011_Rpt();
@@ -2194,7 +2194,7 @@ namespace Core.Web.Areas.Reportes.Controllers
             bool EsSuperAdmin = Convert.ToBoolean(SessionFixed.EsSuperAdmin);
             var info_profesor = bus_profesor.GetInfo_x_Usuario(model.IdEmpresa, IdUsuario);
             var IdProfesor = (info_profesor == null ? 0 : info_profesor.IdProfesor);
-            List<aca_MatriculaCalificacion_Info> lst_combos = bus_calificacion.GetList_Combos_TutorCalificacion(model.IdEmpresa,  model.IdSede, IdProfesor, EsSuperAdmin);
+            List<aca_MatriculaCalificacion_Info> lst_combos = bus_calificacion.GetList_Combos_TutorCalificacion(model.IdEmpresa, model.IdAnio, model.IdSede, IdProfesor, EsSuperAdmin);
             Lista_CombosCalificaciones.set_list(lst_combos, Convert.ToDecimal(SessionFixed.IdTransaccionSessionActual));
 
             ACA_028_Rpt report = new ACA_028_Rpt();
@@ -4599,7 +4599,7 @@ namespace Core.Web.Areas.Reportes.Controllers
             bool EsSuperAdmin = Convert.ToBoolean(SessionFixed.EsSuperAdmin);
             var info_profesor = bus_profesor.GetInfo_x_Usuario(model.IdEmpresa, IdUsuario);
             var IdProfesor = (info_profesor == null ? 0 : info_profesor.IdProfesor);
-            List<aca_MatriculaCalificacion_Info> lst_combos = bus_calificacion.GetList_Combos_TutorCalificacion(model.IdEmpresa, model.IdSede, IdProfesor, true);
+            List<aca_MatriculaCalificacion_Info> lst_combos = bus_calificacion.GetList_Combos_TutorCalificacion(model.IdEmpresa, model.IdAnio, model.IdSede, IdProfesor, true);
             Lista_CombosCalificaciones.set_list(lst_combos, Convert.ToDecimal(SessionFixed.IdTransaccionSessionActual));
 
             ACA_028_Rpt report = new ACA_028_Rpt();

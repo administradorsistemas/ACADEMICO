@@ -1222,7 +1222,7 @@ namespace Core.Data.Academico
                 throw;
             }
         }
-        public List<aca_MatriculaCalificacion_Info> getList_Combos_TutorCalificacion(int IdEmpresa, int IdSede, decimal IdProfesor, bool EsSuperAdmin)
+        public List<aca_MatriculaCalificacion_Info> getList_Combos_TutorCalificacion(int IdEmpresa, int IdAnio, int IdSede, decimal IdProfesor, bool EsSuperAdmin)
         {
             try
             {
@@ -1233,29 +1233,34 @@ namespace Core.Data.Academico
                     connection.Open();
 
                     #region Query
-                    string query = "SELECT mc.IdEmpresa, mc.IdMatricula, mc.IdMateria, mc.IdProfesor, c.IdAnio, c.IdSede, c.IdNivel, c.IdJornada, c.IdCurso, c.IdParalelo, a.Descripcion, sn.NomSede, sn.NomNivel, sn.OrdenNivel, nj.NomJornada, nj.OrdenJornada, jc.NomCurso, "
-                    + " jc.OrdenCurso, cp.CodigoParalelo, cp.NomParalelo, cp.OrdenParalelo, cp.IdProfesorTutor, cp.IdProfesorInspector, cm.NomMateria, cm.EsObligatorio, cm.OrdenMateria "
-                    + " FROM     dbo.aca_MatriculaCalificacion AS mc WITH (nolock) INNER JOIN "
-                    + " dbo.aca_Matricula AS c WITH (nolock) ON mc.IdEmpresa = c.IdEmpresa AND mc.IdMatricula = c.IdMatricula INNER JOIN "
-                    + " dbo.aca_AnioLectivo AS a WITH (nolock) ON c.IdAnio = a.IdAnio AND c.IdEmpresa = a.IdEmpresa INNER JOIN "
-                    + " dbo.aca_AnioLectivo_Curso_Materia AS cm WITH (nolock) ON c.IdEmpresa = cm.IdEmpresa AND c.IdAnio = cm.IdAnio AND c.IdSede = cm.IdSede AND c.IdNivel = cm.IdNivel AND c.IdJornada = cm.IdJornada AND c.IdCurso = cm.IdCurso AND "
-                    + " mc.IdMateria = cm.IdMateria LEFT OUTER JOIN "
-                    + " dbo.aca_AnioLectivo_NivelAcademico_Jornada AS nj WITH (nolock) LEFT OUTER JOIN "
-                    + " dbo.aca_AnioLectivo_Sede_NivelAcademico AS sn WITH (nolock) ON nj.IdEmpresa = sn.IdEmpresa AND nj.IdAnio = sn.IdAnio AND nj.IdSede = sn.IdSede AND nj.IdNivel = sn.IdNivel RIGHT OUTER JOIN "
-                    + " dbo.aca_AnioLectivo_Jornada_Curso AS jc WITH (nolock) ON nj.IdEmpresa = jc.IdEmpresa AND nj.IdAnio = jc.IdAnio AND nj.IdSede = jc.IdSede AND nj.IdNivel = jc.IdNivel AND nj.IdJornada = jc.IdJornada RIGHT OUTER JOIN "
-                    + " dbo.aca_AnioLectivo_Curso_Paralelo AS cp WITH (nolock) ON jc.IdEmpresa = cp.IdEmpresa AND jc.IdAnio = cp.IdAnio AND jc.IdSede = cp.IdSede AND jc.IdNivel = cp.IdNivel AND jc.IdJornada = cp.IdJornada AND jc.IdCurso = cp.IdCurso ON "
-                    + " c.IdEmpresa = cp.IdEmpresa AND c.IdAnio = cp.IdAnio AND c.IdSede = cp.IdSede AND c.IdNivel = cp.IdNivel AND c.IdJornada = cp.IdJornada AND c.IdCurso = cp.IdCurso AND c.IdParalelo = cp.IdParalelo "
-                    + " WHERE mc.IdEmpresa = " + IdEmpresa.ToString() + " and c.IdSede = " + IdSede.ToString();
+                    string query = "SELECT c.IdEmpresa, c.IdAnio, c.IdSede, c.IdNivel, c.IdJornada, c.IdCurso, c.IdParalelo, a.Descripcion, sn.NomSede, sn.NomNivel, sn.OrdenNivel, nj.NomJornada, nj.OrdenJornada,"
+                    + " jc.NomCurso,  jc.OrdenCurso, cp.CodigoParalelo, cp.NomParalelo, cp.OrdenParalelo, cp.IdProfesorTutor, cp.IdProfesorInspector"
+                    + " FROM     dbo.aca_Matricula AS c WITH (nolock)"
+                    + " LEFT OUTER JOIN  dbo.aca_AnioLectivo_Sede_NivelAcademico AS sn WITH(nolock) ON sn.IdEmpresa = c.IdEmpresa AND sn.IdAnio = c.IdAnio"
+                    + " AND sn.IdSede = c.IdSede AND sn.IdNivel = c.IdNivel"
+                    + " LEFT OUTER JOIN  dbo.aca_AnioLectivo_NivelAcademico_Jornada AS nj WITH(nolock)"
+                    + " ON nj.IdEmpresa = c.IdEmpresa AND nj.IdAnio = c.IdAnio AND nj.IdSede = c.IdSede AND nj.IdNivel = c.IdNivel  and nj.IdJornada = c.IdJornada"
+                    + " LEFT OUTER JOIN  dbo.aca_AnioLectivo_Jornada_Curso AS jc WITH(nolock)"
+                    + " ON jc.IdEmpresa = c.IdEmpresa AND jc.IdAnio = c.IdAnio AND jc.IdSede = c.IdSede AND jc.IdNivel = c.IdNivel AND jc.IdJornada = c.IdJornada"
+                    + " and jc.IdCurso = c.IdCurso"
+                    + " LEFT OUTER JOIN  dbo.aca_AnioLectivo_Curso_Paralelo AS cp WITH(nolock)"
+                    + " ON  cp.IdEmpresa = c.IdEmpresa AND cp.IdAnio = c.IdAnio AND cp.IdSede = c.IdSede AND cp.IdNivel = c.IdNivel AND cp.IdJornada = c.IdJornada"
+                    + " AND cp.IdCurso = c.IdCurso AND cp.IdParalelo = c.IdParalelo"
+                    + " LEFT OUTER JOIN  dbo.aca_AnioLectivo AS a WITH(nolock) ON c.IdAnio = a.IdAnio AND c.IdEmpresa = a.IdEmpresa"
+                    + " LEFT OUTER JOIN  dbo.aca_MatriculaCalificacion AS mc WITH(nolock) ON mc.IdEmpresa = c.IdEmpresa AND mc.IdMatricula = c.IdMatricula"
+                    + " WHERE mc.IdEmpresa = " + IdEmpresa.ToString() + " and c.IdSede = " + IdSede.ToString() + " and c.IdAnio = " + IdAnio.ToString();
+                    
                     if (EsSuperAdmin == true)
                     {
-                        query += " and mc.IdProfesor = mc.IdProfesor";
+                        
                     }
                     else
                     {
-                        query += " and mc.IdProfesor = " + IdProfesor.ToString();
+                        query += " and cp.IdProfesorTutor = " + IdProfesor.ToString();
                     }
-                    query += " GROUP BY mc.IdEmpresa, mc.IdMatricula, mc.IdMateria, mc.IdProfesor, c.IdAnio, c.IdSede, c.IdNivel, c.IdJornada, c.IdCurso, c.IdParalelo, a.Descripcion, sn.NomSede, sn.NomNivel, sn.OrdenNivel, nj.NomJornada, nj.OrdenJornada, jc.NomCurso,  "
-                    + " jc.OrdenCurso, cp.CodigoParalelo, cp.NomParalelo, cp.OrdenParalelo, cp.IdProfesorTutor, cp.IdProfesorInspector, cm.NomMateria, cm.OrdenMateria, cm.EsObligatorio ";
+                    query += " GROUP BY c.IdEmpresa, c.IdAnio, c.IdSede, c.IdNivel, c.IdJornada, c.IdCurso, c.IdParalelo, "
+                    + " a.Descripcion, sn.NomSede, sn.NomNivel, sn.OrdenNivel, nj.NomJornada, nj.OrdenJornada, jc.NomCurso, jc.OrdenCurso, cp.CodigoParalelo, "
+                    + " cp.NomParalelo, cp.OrdenParalelo, cp.IdProfesorTutor, cp.IdProfesorInspector";
                     #endregion
 
                     SqlCommand command = new SqlCommand(query, connection);
@@ -1267,9 +1272,6 @@ namespace Core.Data.Academico
                         Lista.Add(new aca_MatriculaCalificacion_Info
                         {
                             IdEmpresa = Convert.ToInt32(reader["IdEmpresa"]),
-                            IdMatricula = Convert.ToDecimal(reader["IdMatricula"]),
-                            IdMateria = Convert.ToInt32(reader["IdMateria"]),
-                            IdProfesor = string.IsNullOrEmpty(reader["IdProfesor"].ToString()) ? (decimal?)null : Convert.ToInt32(reader["IdProfesor"]),
                             IdAnio = Convert.ToInt32(reader["IdAnio"]),
                             IdSede = Convert.ToInt32(reader["IdSede"]),
                             IdNivel = Convert.ToInt32(reader["IdNivel"]),
@@ -1288,10 +1290,7 @@ namespace Core.Data.Academico
                             OrdenParalelo = string.IsNullOrEmpty(reader["OrdenParalelo"].ToString()) ? 0 : Convert.ToInt32(reader["OrdenParalelo"]),
                             CodigoParalelo = string.IsNullOrEmpty(reader["CodigoParalelo"].ToString()) ? null : reader["CodigoParalelo"].ToString(),
                             IdProfesorTutor = string.IsNullOrEmpty(reader["IdProfesorTutor"].ToString()) ? (decimal?)null : Convert.ToDecimal(reader["IdProfesorTutor"]),
-                            IdProfesorInspector = string.IsNullOrEmpty(reader["IdProfesorInspector"].ToString()) ? (decimal?)null : Convert.ToDecimal(reader["IdProfesorInspector"]),
-                            NomMateria = string.IsNullOrEmpty(reader["NomMateria"].ToString()) ? null : reader["NomMateria"].ToString(),
-                            OrdenMateria = string.IsNullOrEmpty(reader["OrdenMateria"].ToString()) ? 0 : Convert.ToInt32(reader["OrdenMateria"]),
-                            EsObligatorio = string.IsNullOrEmpty(reader["EsObligatorio"].ToString()) ? false : Convert.ToBoolean(reader["EsObligatorio"]),
+                            IdProfesorInspector = string.IsNullOrEmpty(reader["IdProfesorInspector"].ToString()) ? (decimal?)null : Convert.ToDecimal(reader["IdProfesorInspector"]),                            
                         });
                     }
                     reader.Close();

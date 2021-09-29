@@ -183,11 +183,11 @@ namespace Core.Bus.Academico
             }
         }
 
-        public List<aca_MatriculaCalificacion_Info> GetList_Combos_TutorCalificacion(int IdEmpresa, int IdSede, decimal IdProfesor, bool EsSuperAdmin)
+        public List<aca_MatriculaCalificacion_Info> GetList_Combos_TutorCalificacion(int IdEmpresa, int IdAnio, int IdSede, decimal IdProfesor, bool EsSuperAdmin)
         {
             try
             {
-                return odata.getList_Combos_TutorCalificacion(IdEmpresa,  IdSede, IdProfesor, EsSuperAdmin);
+                return odata.getList_Combos_TutorCalificacion(IdEmpresa, IdAnio, IdSede, IdProfesor, EsSuperAdmin);
             }
             catch (Exception)
             {
