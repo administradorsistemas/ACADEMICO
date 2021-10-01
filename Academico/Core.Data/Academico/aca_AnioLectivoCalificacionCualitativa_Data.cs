@@ -179,6 +179,7 @@ namespace Core.Data.Academico
                         Codigo = info.Codigo,
                         DescripcionCorta = info.DescripcionCorta,
                         DescripcionLarga = info.DescripcionLarga,
+                        Calificacion = info.Calificacion,
                         Estado = true,
                         IdUsuarioCreacion = info.IdUsuarioCreacion,
                         FechaCreacion = DateTime.Now
@@ -209,6 +210,7 @@ namespace Core.Data.Academico
                     Entity.Codigo = info.Codigo;
                     Entity.DescripcionCorta = info.DescripcionCorta;
                     Entity.DescripcionLarga = info.DescripcionLarga;
+                    Entity.Calificacion = info.Calificacion;
                     Entity.IdUsuarioModificacion = info.IdUsuarioModificacion;
                     Entity.FechaModificacion = DateTime.Now;
 

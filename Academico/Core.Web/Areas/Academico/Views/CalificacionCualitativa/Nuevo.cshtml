@@ -41,6 +41,13 @@
                     @Html.ValidationMessageFor(m => m.DescripcionCorta, "", new { @class = "text-danger" })
                 </div>
             </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="Sede">Calificación</label>
+                    @Html.TextBoxFor(q => q.Calificacion, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Calificacion, "", new { @class = "text-danger" })
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
