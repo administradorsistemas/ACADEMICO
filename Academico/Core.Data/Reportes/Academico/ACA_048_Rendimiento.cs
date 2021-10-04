@@ -29,11 +29,11 @@ namespace Core.Data.Reportes.Academico
                         + " SELECT B.IdEmpresa, B.IdAnio, B.IdSede, B.IdNivel, B.IdJornada, B.IdCurso, B.IdParalelo,1 AS ContadorTotal, ";
                         if (IdCatalogoParcialTipo == Convert.ToInt32(cl_enumeradores.eTipoCatalogoAcademico.QUIM1))
                         {
-                            query += " CASE WHEN A.PromedioQ1 IS NOT NULL THEN 1 ELSE 0 END AS AlumnosConCalificacion, a.PromedioQ1 as PromedioQuimestre";
+                            query += " CASE WHEN A.PromedioQ1 IS NOT NULL THEN 1 ELSE 0 END AS AlumnosConCalificacion, a.IdCalificacionCualitativaQ1 as PromedioQuimestre";
                         }
                         else if (IdCatalogoParcialTipo == Convert.ToInt32(cl_enumeradores.eTipoCatalogoAcademico.QUIM2))
                         {
-                            query += " CASE WHEN A.PromedioQ2 IS NOT NULL THEN 1 ELSE 0 END AS AlumnosConCalificacion, a.PromedioQ2 as PromedioQuimestre";
+                            query += " CASE WHEN A.PromedioQ2 IS NOT NULL THEN 1 ELSE 0 END AS AlumnosConCalificacion, a.IdCalificacionCualitativaQ2 as PromedioQuimestre";
                         }
                         else
                         {
@@ -44,7 +44,8 @@ namespace Core.Data.Reportes.Academico
                         + " INNER JOIN aca_Matricula AS B WITH (nolock) ON A.IdEmpresa = B.IdEmpresa AND A.IdMatricula = B.IdMatricula "
                         + " where b.IdEmpresa = " + IdEmpresa + " and b.IdAnio = " + IdAnio + " and b.IdSede = " + IdSede + " and b.IdJornada = " + IdJornada
                         + " and b.IdNivel = " + IdNivel + " and b.IdCurso = " + IdCurso + " and b.IdParalelo = " + IdParalelo + " and a.IdMateria = " + IdMateria
-                    + " ) as b on b.IdEmpresa = a.IdEmpresa and a.IdAnio = b.IdAnio and a.Calificacion = b.PromedioQuimestre "
+                    + " ) as b on b.IdEmpresa = a.IdEmpresa and a.IdAnio = b.IdAnio and a.IdCalificacionCualitativa = b.PromedioQuimestre "
+                    + "where b.IdEmpresa =  " + IdEmpresa + " and b.IdAnio = " + IdAnio
                     + " group by a.IdEmpresa, a.IdCalificacionCualitativa, a.IdAnio, a.Codigo, a.DescripcionCorta, a.DescripcionLarga, a.Calificacion, a.Estado";
                     #endregion
 
@@ -63,7 +64,7 @@ namespace Core.Data.Reportes.Academico
                             Calificacion = Convert.ToDecimal(reader["Calificacion"]),
                             ContadorTotal = string.IsNullOrEmpty(reader["ContadorTotal"].ToString()) ? (int?)null : Convert.ToInt32(reader["ContadorTotal"]),
                             AlumnosConCalificacion = string.IsNullOrEmpty(reader["AlumnosConCalificacion"].ToString()) ? (int?)null : Convert.ToInt32(reader["AlumnosConCalificacion"]),
-                            Porcentaje = string.IsNullOrEmpty(reader["Porcentaje"].ToString()) ? (int?)null : Convert.ToInt32(reader["Porcentaje"]),
+                            Porcentaje = string.IsNullOrEmpty(reader["Porcentaje"].ToString()) ? (decimal?)null : Convert.ToDecimal(reader["Porcentaje"]),
 
                         });
                     }
