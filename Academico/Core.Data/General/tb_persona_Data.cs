@@ -326,10 +326,10 @@ namespace Core.Data.General
                         IdPersona = info.IdPersona = get_id(),
                         CodPersona = info.CodPersona,
                         pe_Naturaleza = info.pe_Naturaleza,
-                        pe_nombreCompleto = info.pe_nombreCompleto,
-                        pe_razonSocial = info.pe_razonSocial,
-                        pe_apellido = info.pe_apellido,
-                        pe_nombre = info.pe_nombre,
+                        pe_nombreCompleto = (info.pe_nombreCompleto ==null ? null: info.pe_nombreCompleto),
+                        pe_razonSocial = (info.pe_razonSocial == null ? null : info.pe_razonSocial),
+                        pe_apellido = (info.pe_apellido == null ? null : info.pe_apellido),
+                        pe_nombre = (info.pe_nombre == null ? null : info.pe_nombre),
                         IdTipoDocumento = info.IdTipoDocumento,
                         pe_cedulaRuc = info.pe_cedulaRuc.Trim(),
                         pe_direccion = info.pe_direccion,
@@ -374,10 +374,10 @@ namespace Core.Data.General
                     tb_persona Entity = Context.tb_persona.FirstOrDefault(q => q.IdPersona == info.IdPersona);
                     if (Entity == null) return false;
                     Entity.pe_Naturaleza = info.pe_Naturaleza;
-                    Entity.pe_nombreCompleto = info.pe_nombreCompleto;
-                    Entity.pe_razonSocial = info.pe_razonSocial;
-                    Entity.pe_apellido = info.pe_apellido;
-                    Entity.pe_nombre = info.pe_nombre;
+                    Entity.pe_nombreCompleto = (info.pe_nombreCompleto == null ? null : info.pe_nombreCompleto);
+                    Entity.pe_razonSocial = (info.pe_razonSocial == null ? null : info.pe_razonSocial);
+                    Entity.pe_apellido = (info.pe_apellido == null ? null : info.pe_apellido);
+                    Entity.pe_nombre = (info.pe_nombre == null ? null : info.pe_nombre);
                     Entity.IdTipoDocumento = info.IdTipoDocumento;
                     Entity.pe_cedulaRuc = info.pe_cedulaRuc;
                     Entity.pe_direccion = info.pe_direccion;
