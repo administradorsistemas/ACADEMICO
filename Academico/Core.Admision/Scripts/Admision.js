@@ -1964,6 +1964,7 @@ function get_info_x_num_cedula_aspirante() {
     var url_sistema = GetPathServer();
     var datos = {
         IdEmpresa: $("#IdEmpresa").val(),
+        IdAnio: IdAnio.GetValue(),
         pe_cedulaRuc: cedula
     }
     $.ajax({

@@ -785,7 +785,7 @@ namespace Core.Admision.Controllers
             return Json(new { isValid = isValid, return_naturaleza = return_naturaleza }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult get_info_x_num_cedula(int IdEmpresa = 0, string pe_cedulaRuc = "")
+        public JsonResult get_info_x_num_cedula(int IdEmpresa = 0, int IdAnio=0, string pe_cedulaRuc = "")
         {
             var resultado = bus_alumno.get_info_x_num_cedula(IdEmpresa, pe_cedulaRuc);
             resultado.anio = Convert.ToDateTime(resultado.pe_fechaNacimiento).Year.ToString();
@@ -794,7 +794,8 @@ namespace Core.Admision.Controllers
             resultado.mes = mes.ToString();
             resultado.dia = Convert.ToDateTime(resultado.pe_fechaNacimiento).Day.ToString();
 
-            var info_admision = bus_admision.GetInfo_CedulaAspirante(IdEmpresa, pe_cedulaRuc);
+            //var info_admision = bus_admision.GetInfo_CedulaAspirante(IdEmpresa, pe_cedulaRuc);
+            var info_admision = bus_admision.ConsultaAdmision(IdEmpresa, IdAnio, pe_cedulaRuc);
             resultado.IdAdmision = (info_admision==null ? 0 : info_admision.IdAdmision);
             return Json(resultado, JsonRequestBehavior.AllowGet);
         }
