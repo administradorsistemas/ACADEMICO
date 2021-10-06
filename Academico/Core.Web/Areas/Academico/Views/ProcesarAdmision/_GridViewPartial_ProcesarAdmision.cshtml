@@ -78,9 +78,12 @@
                         }
                         else
                         {
-                            ViewContext.Writer.Write(
-                                Html.ActionLink("ConsultarPrematricula", "ConsultarPrematricula", new { IdEmpresa = DataBinder.Eval(tc.DataItem, "IdEmpresa"), IdAdmision = DataBinder.Eval(tc.DataItem, "IdAdmision") }) + "&nbsp;"
-                            );
+                            //if (Convert.ToInt32(DataBinder.Eval(tc.DataItem, "IdPreMatricula")) != 0)
+                            //{
+                            //    ViewContext.Writer.Write(
+                            //        Html.ActionLink("ConsultarPrematricula", "ConsultarPrematricula", new { IdEmpresa = DataBinder.Eval(tc.DataItem, "IdEmpresa"), IdAdmision = DataBinder.Eval(tc.DataItem, "IdAdmision") }) + "&nbsp;"
+                            //    );
+                            //}
                         }
                     }
                 }

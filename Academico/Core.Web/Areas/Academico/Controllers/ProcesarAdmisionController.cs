@@ -11,8 +11,10 @@ using Core.Web.Helps;
 using DevExpress.Web;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -700,6 +702,13 @@ namespace Core.Web.Areas.Academico.Controllers
             }
 
             Lista_DocumentosMatricula.set_list(model.lst_documentos, Convert.ToDecimal(SessionFixed.IdTransaccionSessionActual));
+
+            #region Documentos
+            var lst_documentos = DocumentosAdmision(model.IdEmpresa, model.IdAdmision, Convert.ToDecimal(SessionFixed.IdTransaccionSessionActual));
+            Lista_DocAdmision.set_list(lst_documentos, Convert.ToDecimal(SessionFixed.IdTransaccionSessionActual));
+            #endregion
+
+
             if (Exito)
                 ViewBag.MensajeSuccess = MensajeSuccess;
 
@@ -811,6 +820,11 @@ namespace Core.Web.Areas.Academico.Controllers
             }
 
             Lista_DocumentosMatricula.set_list(model.lst_alumnoDocumentos, Convert.ToDecimal(SessionFixed.IdTransaccionSessionActual));
+
+            #region Documentos
+            var lst_documentos = DocumentosAdmision(model.IdEmpresa, model.IdAdmision, Convert.ToDecimal(SessionFixed.IdTransaccionSessionActual));
+            Lista_DocAdmision.set_list(lst_documentos, Convert.ToDecimal(SessionFixed.IdTransaccionSessionActual));
+            #endregion
 
             return View(model);
         }
@@ -2118,6 +2132,7 @@ namespace Core.Web.Areas.Academico.Controllers
                 var aluDocumento = new aca_AlumnoDocumento_Info
                 {
                     Secuencia = secuencia++,
+                    IdAdmision = IdAdmision,
                     NomDocumento = item,
                     urlDoc = url+"/"+item
                 };
@@ -2370,6 +2385,74 @@ namespace Core.Web.Areas.Academico.Controllers
             return Json(lista_PorCurso, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
+        public List<aca_AlumnoDocumento_Info> DocumentosAdmision(int IdEmpresa = 0, decimal IdAdmision = 0, decimal IdTransaccionSession = 0)
+        {
+            IdAdmision = 2166;
+            var info_parametros = bus_parametro.get_info(IdEmpresa);
+            List<aca_AlumnoDocumento_Info> lst_documentos = new List<aca_AlumnoDocumento_Info>();
+            string ftpURLPrefix = "ftp://";
+            List<string> Lista = new List<string>();
+            string url = ftpURLPrefix + info_parametros.FtpUrl + IdAdmision.ToString();
+            //string url = ftpURLPrefix + info_parametros.FtpUrl + "1";
+            FtpWebRequest request = (FtpWebRequest)WebRequest.Create(url);
+
+            request.Method = WebRequestMethods.Ftp.ListDirectory;
+            request.EnableSsl = true;
+            request.Credentials = new NetworkCredential(info_parametros.FtpUser, info_parametros.FtpPassword);
+
+            ServicePointManager.ServerCertificateValidationCallback =
+                 (s, certificate, chain, sslPolicyErrors) => true;
+
+            FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+
+            Stream responseStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(responseStream);
+
+            string Directorio = reader.ReadToEnd();
+            reader.Close();
+            response.Close();
+            string[] stringSeparators = new string[] { "\r\n" };
+            string[] lines = Directorio.Split(stringSeparators, StringSplitOptions.None);
+            Lista = lines.Where(q => !string.IsNullOrEmpty(q) && q != "Processed").ToList();
+            var secuencia = 1;
+            foreach (var item in Lista)
+            {
+                var aluDocumento = new aca_AlumnoDocumento_Info
+                {
+                    Secuencia = secuencia++,
+                    IdAdmision = IdAdmision,
+                    NomDocumento = item,
+                    urlDoc = url + "/" + item
+                };
+                lst_documentos.Add(aluDocumento);
+            }            
+
+            return lst_documentos;
+        }
+
+        public void DescargarArchivo(int IdAdmision, string filename)
+        {
+            //string fileName = filename;
+            int IdEmpresa = Convert.ToInt32(SessionFixed.IdEmpresa);
+            var info_parametros = bus_parametro.get_info(IdEmpresa);
+            FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://"+info_parametros.FtpUrl+"/"+IdAdmision+"/"+filename);
+
+            request.Method = WebRequestMethods.Ftp.DownloadFile;
+
+            request.Credentials = new NetworkCredential(info_parametros.FtpUser, info_parametros.FtpPassword);
+
+            FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                response.GetResponseStream().CopyTo(stream);
+                Response.AddHeader("content-disposition", "attachment;filename=" + filename);
+                Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                Response.BinaryWrite(stream.ToArray());
+                Response.End();
+            }
+        }
     }
 }
 

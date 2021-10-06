@@ -20,6 +20,7 @@ namespace Core.Info.Academico
         public string Ruta { get; set; }
         public bool seleccionado { get; set; }
         public string urlDoc { get; set; }
+        public decimal IdAdmision { get; set; }
         #endregion
     }
 }

@@ -193,6 +193,8 @@
     <Content Include="dist\images\food-beverage-8.jpg" />
     <Content Include="dist\images\food-beverage-9.jpg" />
     <Content Include="dist\images\illustration.svg" />
+    <Content Include="dist\images\liceo.png" />
+    <Content Include="dist\images\liceo1.png" />
     <Content Include="dist\images\logo.svg" />
     <Content Include="dist\images\map-marker-region.png" />
     <Content Include="dist\images\map-marker.png" />

@@ -72,6 +72,7 @@
 {
     @Html.HiddenFor(q => q.IdEmpresa, new { @id = "IdEmpresa" })
     @Html.HiddenFor(q => q.IdPreMatricula, new { @id = "IdMatricula" })
+    @Html.HiddenFor(q => q.IdAdmision, new { @id = "IdAdmision" })
     @Html.HiddenFor(q => q.IdMecanismo, new { @id = "IdMecanismo" })
     @Html.HiddenFor(q => q.IdTransaccionSession, new { @id = "IdTransaccionSession" })
     if (ViewBag.mensaje != null)
@@ -220,6 +221,9 @@
             <li>
                 <a href="#tb_documento" aria-controls="otros" role="tab" data-toggle="tab">Documentos por curso</a>
             </li>
+            <li>
+                <a href="#tb_admisiondocumentos" aria-controls="admisiondocumentos" role="tab" data-toggle="tab">Documentos de la admisión</a>
+            </li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content" style="padding-top: 20px">
@@ -255,6 +259,16 @@
                     </div>
                 </div>
             </div>
+
+            <div role="tabpanel" class="tab-pane" style="margin-left: 2em;" id="tb_admisiondocumentos">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            @Html.Action("GridViewPartial_DocumentosAdmision")
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -269,9 +283,35 @@
 <script>
     $(function ()
     {
+        //mostrar_ArchivosAspirante();
+        
         VerDatosEmpleado();
         $("#MensajeError").hide();
     });
+
+    function mostrar_ArchivosAspirante() {
+        var location = GetPathServer();
+        var datos = {
+            IdEmpresa: $("#IdEmpresa").val(),
+            IdAdmision: $("#IdAdmision").val(),
+            IdTransaccionSession: $("#IdTransaccionSession").val()
+        }
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify(datos),
+            url: '@Url.Action("EnlistarDocumentos", "ProcesarAdmision", new { Area = "Academico" })',
+            async: false,
+            bDeferRender: true,
+            bProcessing: true,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                GridViewPartial_DocumentosAdmision.PerformCallback();
+            },
+            error: function (error) {
+            }
+        });
+    }
 
     function VerDatosEmpleado() {
         var datos = {

@@ -17,7 +17,8 @@ namespace Core.Admision.Controllers
         public ActionResult Index()
         {
             int IdEmpresa = 1;
-            var info_anio = bus_anio.GetInfo_AnioEnCurso(IdEmpresa, 0);
+            //var info_anio = bus_anio.GetInfo_AnioEnCurso(IdEmpresa, 0);
+            var info_anio = bus_anio.GetList_Admision(IdEmpresa).FirstOrDefault();
             var model = new aca_Admision_Info
             {
                 IdEmpresa = IdEmpresa,
