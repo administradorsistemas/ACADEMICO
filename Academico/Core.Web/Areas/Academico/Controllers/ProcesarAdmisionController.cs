@@ -2388,7 +2388,6 @@ namespace Core.Web.Areas.Academico.Controllers
 
         public List<aca_AlumnoDocumento_Info> DocumentosAdmision(int IdEmpresa = 0, decimal IdAdmision = 0, decimal IdTransaccionSession = 0)
         {
-            IdAdmision = 2166;
             var info_parametros = bus_parametro.get_info(IdEmpresa);
             List<aca_AlumnoDocumento_Info> lst_documentos = new List<aca_AlumnoDocumento_Info>();
             string ftpURLPrefix = "ftp://";
@@ -2403,7 +2402,11 @@ namespace Core.Web.Areas.Academico.Controllers
 
             ServicePointManager.ServerCertificateValidationCallback =
                  (s, certificate, chain, sslPolicyErrors) => true;
+            var x = (FtpWebResponse)request.GetResponse();
+            if (x==null)
+            {
 
+            }
             FtpWebResponse response = (FtpWebResponse)request.GetResponse();
 
             Stream responseStream = response.GetResponseStream();
