@@ -2390,46 +2390,49 @@ namespace Core.Web.Areas.Academico.Controllers
         {
             var info_parametros = bus_parametro.get_info(IdEmpresa);
             List<aca_AlumnoDocumento_Info> lst_documentos = new List<aca_AlumnoDocumento_Info>();
-            string ftpURLPrefix = "ftp://";
-            List<string> Lista = new List<string>();
-            string url = ftpURLPrefix + info_parametros.FtpUrl + IdAdmision.ToString();
-            //string url = ftpURLPrefix + info_parametros.FtpUrl + "1";
-            FtpWebRequest request = (FtpWebRequest)WebRequest.Create(url);
 
-            request.Method = WebRequestMethods.Ftp.ListDirectory;
-            request.EnableSsl = true;
-            request.Credentials = new NetworkCredential(info_parametros.FtpUser, info_parametros.FtpPassword);
-
-            ServicePointManager.ServerCertificateValidationCallback =
-                 (s, certificate, chain, sslPolicyErrors) => true;
-            var x = (FtpWebResponse)request.GetResponse();
-            if (x==null)
+            try
             {
+                string ftpURLPrefix = "ftp://";
+                List<string> Lista = new List<string>();
+                string url = ftpURLPrefix + info_parametros.FtpUrl + IdAdmision.ToString();
+                //string url = ftpURLPrefix + info_parametros.FtpUrl + "1";
+                FtpWebRequest request = (FtpWebRequest)WebRequest.Create(url);
 
-            }
-            FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+                request.Method = WebRequestMethods.Ftp.ListDirectory;
+                request.EnableSsl = true;
+                request.Credentials = new NetworkCredential(info_parametros.FtpUser, info_parametros.FtpPassword);
 
-            Stream responseStream = response.GetResponseStream();
-            StreamReader reader = new StreamReader(responseStream);
+                ServicePointManager.ServerCertificateValidationCallback =
+                     (s, certificate, chain, sslPolicyErrors) => true;
 
-            string Directorio = reader.ReadToEnd();
-            reader.Close();
-            response.Close();
-            string[] stringSeparators = new string[] { "\r\n" };
-            string[] lines = Directorio.Split(stringSeparators, StringSplitOptions.None);
-            Lista = lines.Where(q => !string.IsNullOrEmpty(q) && q != "Processed").ToList();
-            var secuencia = 1;
-            foreach (var item in Lista)
-            {
-                var aluDocumento = new aca_AlumnoDocumento_Info
+                FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+                Stream responseStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(responseStream);
+
+                string Directorio = reader.ReadToEnd();
+                reader.Close();
+                response.Close();
+                string[] stringSeparators = new string[] { "\r\n" };
+                string[] lines = Directorio.Split(stringSeparators, StringSplitOptions.None);
+                Lista = lines.Where(q => !string.IsNullOrEmpty(q) && q != "Processed").ToList();
+                var secuencia = 1;
+                foreach (var item in Lista)
                 {
-                    Secuencia = secuencia++,
-                    IdAdmision = IdAdmision,
-                    NomDocumento = item,
-                    urlDoc = url + "/" + item
-                };
-                lst_documentos.Add(aluDocumento);
-            }            
+                    var aluDocumento = new aca_AlumnoDocumento_Info
+                    {
+                        Secuencia = secuencia++,
+                        IdAdmision = IdAdmision,
+                        NomDocumento = item,
+                        urlDoc = url + "/" + item
+                    };
+                    lst_documentos.Add(aluDocumento);
+                }
+            }
+            catch (Exception ex)
+            {
+                lst_documentos = new List<aca_AlumnoDocumento_Info>();
+            }           
 
             return lst_documentos;
         }

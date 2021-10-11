@@ -87,9 +87,17 @@ namespace Core.Web.Areas.Reportes.Controllers
 
         public ActionResult FAC_001(int IdSucursal = 0, int IdBodega = 0, decimal IdCbteVta = 0)
         {
-            FAC_001_Rpt model = new FAC_001_Rpt();
+            FAC_001_Rpt model = new FAC_001_Rpt();            
             int IdEmpresa = Convert.ToInt32(SessionFixed.IdEmpresa);
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "FAC_001.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "FAC_001");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                model.LoadLayout(RootReporte);
+            }
+            #endregion
             model.p_IdEmpresa.Value = IdEmpresa;
             model.p_IdBodega.Value = IdBodega;
             model.p_IdSucursal.Value = IdSucursal;
@@ -128,7 +136,15 @@ namespace Core.Web.Areas.Reportes.Controllers
             }
 
             FAC_002_Rpt report = new FAC_002_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "FAC_002.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "FAC_002");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = IdEmpresa;
             report.p_IdBodega.Value = IdBodega;
             report.p_IdSucursal.Value = IdSucursal;
@@ -145,7 +161,16 @@ namespace Core.Web.Areas.Reportes.Controllers
         public ActionResult FAC_002(FAC_002_Info model)
         {
             FAC_002_Rpt report = new FAC_002_Rpt();
-
+            int IdEmpresa = Convert.ToInt32(SessionFixed.IdEmpresa);
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "FAC_002.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "FAC_002");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             if (model.IdCbteVta != 0)
             {
                 var info_factura = bus_factura.get_info(model.IdEmpresa, model.IdSucursal, model.IdBodega, model.IdCbteVta);
@@ -175,7 +200,15 @@ namespace Core.Web.Areas.Reportes.Controllers
         public ActionResult FAC_003(int IdSucursal = 0, int IdBodega = 0, decimal IdNota = 0)
         {
             FAC_003_Rpt model = new FAC_003_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "FAC_003.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "FAC_003");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                model.LoadLayout(RootReporte);
+            }
+            #endregion
             model.p_IdEmpresa.Value = Convert.ToInt32(SessionFixed.IdEmpresa);
             model.p_IdBodega.Value = IdBodega;
             model.p_IdSucursal.Value = IdSucursal;
@@ -190,7 +223,15 @@ namespace Core.Web.Areas.Reportes.Controllers
         {
             int IdEmpresa = Convert.ToInt32(SessionFixed.IdEmpresa);
             FAC_004_Rpt model = new FAC_004_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "FAC_004.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "FAC_004");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                model.LoadLayout(RootReporte);
+            }
+            #endregion
             model.p_IdEmpresa.Value = IdEmpresa;
             model.p_IdBodega.Value = IdBodega;
             model.p_IdSucursal.Value = IdSucursal;
@@ -319,7 +360,6 @@ namespace Core.Web.Areas.Reportes.Controllers
 
             cargar_FAC_006(model);
             FAC_006_Rpt report = new FAC_006_Rpt();
-
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdSucursal.Value = model.IdSucursal;
             report.p_IdAlumno.Value = model.IdAlumno;
@@ -450,7 +490,15 @@ namespace Core.Web.Areas.Reportes.Controllers
         public ActionResult FAC_008(int IdEmpresa, int IdSucursal = 0, int IdBodega = 0, decimal IdNota = 0)
         {
             FAC_008_Rpt model = new FAC_008_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "FAC_008.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "FAC_008");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                model.LoadLayout(RootReporte);
+            }
+            #endregion
             model.p_IdEmpresa.Value = Convert.ToInt32(SessionFixed.IdEmpresa);
             model.p_IdSucursal.Value = IdSucursal;
             model.p_IdBodega.Value = IdBodega;

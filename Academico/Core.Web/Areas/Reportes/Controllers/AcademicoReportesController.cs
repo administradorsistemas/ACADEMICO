@@ -4717,7 +4717,15 @@ namespace Core.Web.Areas.Reportes.Controllers
             model.IdSede = Convert.ToInt32(SessionFixed.IdSede);
 
             ACA_056_Rpt Report = new ACA_056_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_056.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_056");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                Report.LoadLayout(RootReporte);
+            }
+            #endregion
             Report.p_IdEmpresa.Value = model.IdEmpresa;
             Report.p_IdSede.Value = model.IdSede;
             Report.usuario = SessionFixed.IdUsuario;
@@ -4744,7 +4752,15 @@ namespace Core.Web.Areas.Reportes.Controllers
             model.IdParalelo = 0;
 
             ACA_057_Rpt report = new ACA_057_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_057.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_057");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
             report.p_IdSede.Value = model.IdSede;
@@ -4763,7 +4779,15 @@ namespace Core.Web.Areas.Reportes.Controllers
         public ActionResult ACA_057(cl_filtros_Info model)
         {
             ACA_057_Rpt report = new ACA_057_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_057.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_057");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
             report.p_IdSede.Value = model.IdSede;
@@ -4794,7 +4818,15 @@ namespace Core.Web.Areas.Reportes.Controllers
             model.IdParalelo = 0;
 
             ACA_058_Rpt report = new ACA_058_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_058.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_058");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
             report.p_IdSede.Value = model.IdSede;
@@ -4813,7 +4845,15 @@ namespace Core.Web.Areas.Reportes.Controllers
         public ActionResult ACA_058(cl_filtros_Info model)
         {
             ACA_058_Rpt report = new ACA_058_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_058.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_058");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
             report.p_IdSede.Value = model.IdSede;
@@ -4845,7 +4885,15 @@ namespace Core.Web.Areas.Reportes.Controllers
             model.mostrarAnulados = false;
 
             ACA_059_Rpt report = new ACA_059_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_059.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_059");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
             report.p_IdSede.Value = model.IdSede;
@@ -4865,7 +4913,15 @@ namespace Core.Web.Areas.Reportes.Controllers
         public ActionResult ACA_059(cl_filtros_Info model)
         {
             ACA_059_Rpt report = new ACA_059_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_059.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_059");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
             report.p_IdSede.Value = model.IdSede;
@@ -4898,7 +4954,15 @@ namespace Core.Web.Areas.Reportes.Controllers
             model.mostrarAnulados = false;
 
             ACA_060_Rpt report = new ACA_060_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_060.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_060");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
             report.p_IdSede.Value = model.IdSede;
@@ -4917,7 +4981,15 @@ namespace Core.Web.Areas.Reportes.Controllers
         public ActionResult ACA_060(cl_filtros_Info model)
         {
             ACA_060_Rpt report = new ACA_060_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_060.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_060");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
             report.p_IdSede.Value = model.IdSede;
@@ -4944,7 +5016,15 @@ namespace Core.Web.Areas.Reportes.Controllers
             model.IdAnio = (info_anio == null ? 0 : info_anio.IdAnio);
             model.mostrarAnulados = false;
             ACA_061_Rpt report = new ACA_061_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_061.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_061");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdSede.Value = model.IdSede;
             report.p_IdAnio.Value = model.IdAnio;
@@ -4964,7 +5044,15 @@ namespace Core.Web.Areas.Reportes.Controllers
         public ActionResult ACA_061(cl_filtros_Info model)
         {
             ACA_061_Rpt report = new ACA_061_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_061.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_061");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdSede.Value = model.IdSede;
             report.p_IdAnio.Value = model.IdAnio;
@@ -4992,7 +5080,15 @@ namespace Core.Web.Areas.Reportes.Controllers
             model.IdAnio = (info_anio == null ? 0 : info_anio.IdAnio);
             model.mostrarAnulados = false;
             ACA_062_Rpt report = new ACA_062_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_062.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_062");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdSede.Value = model.IdSede;
             report.p_IdAnio.Value = model.IdAnio;
@@ -5012,7 +5108,15 @@ namespace Core.Web.Areas.Reportes.Controllers
         public ActionResult ACA_062(cl_filtros_Info model)
         {
             ACA_062_Rpt report = new ACA_062_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_062.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_062");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdSede.Value = model.IdSede;
             report.p_IdAnio.Value = model.IdAnio;
@@ -5045,7 +5149,15 @@ namespace Core.Web.Areas.Reportes.Controllers
             model.mostrarAnulados = false;
 
             ACA_064_Rpt report = new ACA_064_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_064.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_064");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
             report.p_IdSede.Value = model.IdSede;
@@ -5065,7 +5177,15 @@ namespace Core.Web.Areas.Reportes.Controllers
         public ActionResult ACA_064(cl_filtros_Info model)
         {
             ACA_064_Rpt report = new ACA_064_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_064.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_064");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
             report.p_IdSede.Value = model.IdSede;
@@ -5098,7 +5218,15 @@ namespace Core.Web.Areas.Reportes.Controllers
             model.mostrarAnulados = false;
 
             ACA_065_Rpt report = new ACA_065_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_065.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_065");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
             report.p_IdSede.Value = model.IdSede;
@@ -5118,7 +5246,15 @@ namespace Core.Web.Areas.Reportes.Controllers
         public ActionResult ACA_065(cl_filtros_Info model)
         {
             ACA_065_Rpt report = new ACA_065_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_065.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_065");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
             report.p_IdSede.Value = model.IdSede;
@@ -5146,7 +5282,15 @@ namespace Core.Web.Areas.Reportes.Controllers
             model.IdAnio = (info_anio == null ? 0 : info_anio.IdAnio);
 
             ACA_066_Rpt report = new ACA_066_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_066.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_066");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
             report.p_IdSede.Value = model.IdSede;
@@ -5161,7 +5305,15 @@ namespace Core.Web.Areas.Reportes.Controllers
         public ActionResult ACA_066(cl_filtros_Info model)
         {
             ACA_066_Rpt report = new ACA_066_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_066.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_066");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
             report.p_IdSede.Value = model.IdSede;
@@ -5268,7 +5420,15 @@ namespace Core.Web.Areas.Reportes.Controllers
             model.mostrarAnulados = false;
 
             ACA_068_Rpt report = new ACA_068_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_068.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_068");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
             report.p_IdSede.Value = model.IdSede;
@@ -5288,7 +5448,15 @@ namespace Core.Web.Areas.Reportes.Controllers
         public ActionResult ACA_068(cl_filtros_Info model)
         {
             ACA_068_Rpt report = new ACA_068_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_068.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_068");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
             report.p_IdSede.Value = model.IdSede;
@@ -5322,7 +5490,15 @@ namespace Core.Web.Areas.Reportes.Controllers
             model.mostrarAnulados = false;
 
             ACA_069_Rpt report = new ACA_069_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_069.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_069");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
             report.p_IdSede.Value = model.IdSede;
@@ -5342,7 +5518,15 @@ namespace Core.Web.Areas.Reportes.Controllers
         public ActionResult ACA_069(cl_filtros_Info model)
         {
             ACA_069_Rpt report = new ACA_069_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_069.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_069");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
             report.p_IdSede.Value = model.IdSede;
@@ -5376,7 +5560,15 @@ namespace Core.Web.Areas.Reportes.Controllers
             model.mostrarAnulados = false;
 
             ACA_070_Rpt report = new ACA_070_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_070.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_070");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
             report.p_IdSede.Value = model.IdSede;
@@ -5396,7 +5588,15 @@ namespace Core.Web.Areas.Reportes.Controllers
         public ActionResult ACA_070(cl_filtros_Info model)
         {
             ACA_070_Rpt report = new ACA_070_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_070.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_070");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
             report.p_IdSede.Value = model.IdSede;
@@ -5431,7 +5631,15 @@ namespace Core.Web.Areas.Reportes.Controllers
             model.mostrarAnulados = false;
 
             ACA_071_Rpt report = new ACA_071_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_071.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_071");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
             report.p_IdSede.Value = model.IdSede;
@@ -5452,6 +5660,15 @@ namespace Core.Web.Areas.Reportes.Controllers
         public ActionResult ACA_071(cl_filtros_Info model)
         {
             ACA_071_Rpt report = new ACA_071_Rpt();
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_071.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_071");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
 
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAnio.Value = model.IdAnio;
@@ -5632,6 +5849,15 @@ namespace Core.Web.Areas.Reportes.Controllers
             model.IdAnio = (info_anio == null ? 0 : info_anio.IdAnio);
             model.mostrarAnulados = false;
             ACA_074_Rpt report = new ACA_074_Rpt();
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_074.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_074");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
 
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdSede.Value = model.IdSede;
@@ -5650,7 +5876,15 @@ namespace Core.Web.Areas.Reportes.Controllers
         public ActionResult ACA_074(cl_filtros_Info model)
         {
             ACA_074_Rpt report = new ACA_074_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_074.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_074");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdSede.Value = model.IdSede;
             report.p_IdAnio.Value = model.IdAnio;
@@ -5760,7 +5994,15 @@ namespace Core.Web.Areas.Reportes.Controllers
             model.IdCatalogoTipo = Convert.ToInt32(cl_enumeradores.eTipoCatalogoAcademico.QUIM1);
             model.MostrarRetirados = false;
             ACA_076_Rpt report = new ACA_076_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_076.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_076");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdSede.Value = model.IdSede;
             report.p_IdAnio.Value = model.IdAnio;
@@ -5781,7 +6023,15 @@ namespace Core.Web.Areas.Reportes.Controllers
         public ActionResult ACA_076(aca_MatriculaCalificacionParcial_Info model)
         {
             ACA_076_Rpt report = new ACA_076_Rpt();
-
+            #region Cargo diseño desde base
+            string RootReporte = System.IO.Path.GetTempPath() + Guid.NewGuid() + "ACA_076.repx";
+            var rptFormat = bus_rep_x_emp.GetInfo(Convert.ToInt32(SessionFixed.IdEmpresa), "ACA_076");
+            if (rptFormat != null)
+            {
+                System.IO.File.WriteAllBytes(RootReporte, rptFormat.ReporteDisenio);
+                report.LoadLayout(RootReporte);
+            }
+            #endregion
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdSede.Value = model.IdSede;
             report.p_IdAnio.Value = model.IdAnio;
