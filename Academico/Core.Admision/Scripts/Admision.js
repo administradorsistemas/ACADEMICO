@@ -94,6 +94,8 @@ function AnteriorMadre() {
 function SiguienteRepresentante() {
     if ($("#RepresentanteValido").val() == "1") {
         ValidarDatosRegistro_Representante();
+        sumar_ingresos();
+        sumar_egresos();
     }
 }
 function AnteriorRepresentante() {
@@ -1964,7 +1966,7 @@ function get_info_x_num_cedula_aspirante() {
     var url_sistema = GetPathServer();
     var datos = {
         IdEmpresa: $("#IdEmpresa").val(),
-        IdAnio: IdAnio.GetValue(),
+        IdAnio: $("#IdAnio").val(),
         pe_cedulaRuc: cedula
     }
     $.ajax({
