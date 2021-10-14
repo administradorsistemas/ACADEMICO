@@ -299,6 +299,8 @@ namespace Core.Info.Academico
         public string mes { get; set; }
         public string dia { get; set; }
         public int IdSede { get; set; }
+        public int IdAnioRegistro { get; set; }
+        public string AnioCodigo { get; set; }
         public int IdSucursal { get; set; }
 
         #region Datos Alumno Periodo Actual

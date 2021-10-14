@@ -1598,6 +1598,7 @@ namespace Core.Web.Areas.Academico.Controllers
                 IdSucursal = model.IdSucursal,
                 IdReligion = model.IdReligion_Aspirante,
                 IdTipoDocumento = model.IdTipoDocumento_Aspirante,
+                IdAnioRegistro = model.IdAnio,
 
                 AniosServicio_madre = model.AniosServicio_Madre,
                 AnioVehiculo_madre = model.AnioVehiculo_Madre,

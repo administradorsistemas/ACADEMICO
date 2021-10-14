@@ -520,7 +520,7 @@ namespace Core.Web.Areas.Academico.Controllers
                 CodCatalogoSangre = "O+",
                 CodCatalogoSangre_padre = "O+",
                 CodCatalogoSangre_madre = "O+",
-                IdPersona_padre =0,
+                IdPersona_padre = 0,
                 FechaIngreso = DateTime.Now,
                 alu_foto = new byte[0],
                 IdPais_padre = "1",
@@ -533,9 +533,9 @@ namespace Core.Web.Areas.Academico.Controllers
                 IdProvincia_madre = "09",
                 IdCiudad_madre = "09",
                 IdParroquia_madre = "09",
-                Dificultad_Escritura=false,
-                Dificultad_Lectura=false,
-                Dificultad_Matematicas=false,
+                Dificultad_Escritura = false,
+                Dificultad_Lectura = false,
+                Dificultad_Matematicas = false,
                 lst_alumno_documentos = new List<aca_AlumnoDocumento_Info>()
             };
 
@@ -556,6 +556,8 @@ namespace Core.Web.Areas.Academico.Controllers
             model.IdUsuario = SessionFixed.IdUsuario;
             model.IdSede = Convert.ToInt32(SessionFixed.IdSede);
             model.IdSucursal = bus_sede.GetInfo(model.IdEmpresa, model.IdSede).IdSucursal;
+            var infoAnioActual = bus_anio.GetInfo_AnioEnCurso(Convert.ToInt32(SessionFixed.IdEmpresa), 0);
+            model.IdAnioRegistro = infoAnioActual.IdAnio;
 
             var info_persona_alumno = new tb_persona_Info
             {

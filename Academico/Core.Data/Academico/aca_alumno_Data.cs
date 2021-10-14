@@ -12,6 +12,7 @@ namespace Core.Data.Academico
 {
     public class aca_Alumno_Data
     {
+        aca_AnioLectivo_Data data_Anio = new aca_AnioLectivo_Data();
         public List<aca_Alumno_Info> getList(int IdEmpresa, bool MostrarAnulados)
         {
             try
@@ -24,7 +25,7 @@ namespace Core.Data.Academico
                     #region Query
                     string query = "SELECT a.IdEmpresa, a.IdAlumno, a.Codigo, a.IdPersona, p.pe_Naturaleza, p.pe_nombreCompleto, p.pe_apellido, p.pe_nombre, p.IdTipoDocumento, p.pe_cedulaRuc, a.Direccion, a.Celular, a.Correo, p.pe_sexo, p.pe_fechaNacimiento, "
                     + " p.CodCatalogoSangre, p.CodCatalogoCONADIS, p.PorcentajeDiscapacidad, p.NumeroCarnetConadis, a.Estado, a.IdCatalogoESTMAT, a.IdCurso, a.IdCatalogoESTALU, p.pe_telfono_Contacto, cm.NomCatalogo AS NomCatalogoESTMAT, "
-                    + " c.NomCatalogo AS NomCatalogoESTALU, a.FechaIngreso, a.LugarNacimiento, a.IdPais, a.Cod_Region, a.IdProvincia, a.IdCiudad, a.IdParroquia, a.Sector, p.IdReligion, p.AsisteCentroCristiano, p.IdGrupoEtnico "
+                    + " c.NomCatalogo AS NomCatalogoESTALU, a.FechaIngreso, a.LugarNacimiento, a.IdPais, a.Cod_Region, a.IdProvincia, a.IdCiudad, a.IdParroquia, a.Sector, p.IdReligion, p.AsisteCentroCristiano, p.IdGrupoEtnico, SUBSTRING(a.Codigo,0,5) AnioCodigo"
                     + " FROM dbo.aca_Alumno AS a WITH (nolock) INNER JOIN "
                     + " dbo.tb_persona AS p WITH (nolock) ON a.IdPersona = p.IdPersona LEFT OUTER JOIN "
                     + " dbo.aca_Catalogo AS c WITH (nolock) ON a.IdCatalogoESTALU = c.IdCatalogo LEFT OUTER JOIN "
@@ -63,12 +64,12 @@ namespace Core.Data.Academico
                             Correo = string.IsNullOrEmpty(reader["Correo"].ToString()) ? null : reader["Correo"].ToString(),
                             NomCatalogoESTALU = reader["NomCatalogoESTALU"].ToString(),
                             NomCatalogoESTMAT = reader["NomCatalogoESTMAT"].ToString(),
+                            AnioCodigo = reader["AnioCodigo"].ToString(),
                             Estado = Convert.ToBoolean(reader["Estado"])
                         });
                     }
                     reader.Close();
                 }
-
                 return Lista;
             }
             catch (Exception)
@@ -77,7 +78,7 @@ namespace Core.Data.Academico
                 throw;
             }
         }
-
+        
         public List<aca_Alumno_Info> getList_PeriodoActual(int IdEmpresa)
         {
             try
@@ -858,15 +859,17 @@ namespace Core.Data.Academico
             {
                 using (EntitiesAcademico Context = new EntitiesAcademico())
                 {
-                    var anio = info.FechaIngreso.Year;
+                    //var anio = info.FechaIngreso.Year;
+                    var anio = data_Anio.getInfo(info.IdEmpresa, info.IdAnioRegistro);
+                    var FechaIngreso = anio.FechaDesde;
                     var lista = getList(info.IdEmpresa, true);
-                    var ListaAnio = lista.Where(q => q.FechaIngreso.Year == anio).ToList();
+                    var ListaAnio = lista.Where(q => (q.AnioCodigo == anio.FechaDesde.Year.ToString())).ToList();
                     var NumEstudiante = 1;
                     var Codigo = "";
 
                     if (ListaAnio.Count == 0)
                     {
-                        Codigo = anio + NumEstudiante.ToString("0000");
+                        Codigo = FechaIngreso.Year + NumEstudiante.ToString("0000");
                     }
                     else
                     {

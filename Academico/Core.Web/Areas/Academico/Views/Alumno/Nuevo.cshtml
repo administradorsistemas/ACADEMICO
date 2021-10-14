@@ -20,9 +20,9 @@
     @Html.HiddenFor(q => q.IdPersona_madre, new { @id = "IdPersona_madre" })
     @Html.HiddenFor(q => q.IdTipoCredito_padre, new { @id = "IdTipoCredito_padre" })
     @Html.HiddenFor(q => q.IdTipoCredito_madre, new { @id = "IdTipoCredito_madre" })
-            
+
     if (ViewBag.mensaje != null)
-            {
+    {
         <div class="alert alert-warning alert-dismissible">
             <h4>
                 <i class="icon fa fa-warning"></i> @ViewBag.mensaje
