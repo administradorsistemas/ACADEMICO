@@ -2293,7 +2293,8 @@
                     success: function (data) {
                         console.log(data);
                         if(data.SocioEconomico != 0){
-                            var win = window.open(location + "/Academico/SocioEconomico/Modificar?IdEmpresa=" +@Core.Web.Helps.SessionFixed.IdEmpresa+"&IdSocioEconomico=" + data.SocioEconomico+"&IdSocioEconomico=false", '_blank');
+                            //var win = window.open(location + "/Academico/SocioEconomico/Modificar?IdEmpresa=" +@Core.Web.Helps.SessionFixed.IdEmpresa+"&IdSocioEconomico=" + data.SocioEconomico+"&IdSocioEconomico=false", '_blank');
+                            var win = window.open(location + "/Academico/SocioEconomico/Index?IdAdlumno=" + $("#IdAlumno").val());
                             win.focus();
                         }
                         else{

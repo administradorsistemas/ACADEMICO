@@ -26,6 +26,7 @@ namespace Core.Web.Reportes.Academico
             lbl_usuario.Text = usuario;
 
             int IdEmpresa = string.IsNullOrEmpty(p_IdEmpresa.Value.ToString()) ? 0 : Convert.ToInt32(p_IdEmpresa.Value);
+            int IdAnio = string.IsNullOrEmpty(p_IdAnio.Value.ToString()) ? 0 : Convert.ToInt32(p_IdAnio.Value);
             decimal IdAlumno = string.IsNullOrEmpty(p_IdAlumno.Value.ToString()) ? 0 : Convert.ToInt32(p_IdAlumno.Value);
             int IdSede = string.IsNullOrEmpty(p_IdSede.Value.ToString()) ? 0 : Convert.ToInt32(p_IdSede.Value);
 
@@ -33,7 +34,7 @@ namespace Core.Web.Reportes.Academico
             ACA_005_Bus bus_rpt = new ACA_005_Bus();
             aca_AnioLectivoConductaEquivalencia_Bus bus_conducta = new aca_AnioLectivoConductaEquivalencia_Bus();
             List<ACA_005_Info> lst_rpt = new List<ACA_005_Info>();
-            ACA_005_Info info = bus_rpt.GetInfo(IdEmpresa, IdAlumno);
+            ACA_005_Info info = bus_rpt.GetInfo(IdEmpresa, IdAnio, IdAlumno);
 
             var AnioLectivo = "";
             var Estudiante = "";
@@ -41,7 +42,7 @@ namespace Core.Web.Reportes.Academico
             var Curso = "";
             var Aprovechamiento = "";
             var Comportamiento = "";
-            int IdAnio = 0;
+            //int IdAnio = 0;
 
             if (info!=null)
             {

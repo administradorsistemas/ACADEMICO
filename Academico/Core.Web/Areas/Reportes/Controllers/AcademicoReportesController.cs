@@ -214,6 +214,7 @@ namespace Core.Web.Areas.Reportes.Controllers
             ReportSocioEconomica.p_IdEmpresa.Value = model.IdEmpresa;
             ReportSocioEconomica.p_IdAlumno.Value = model.IdAlumno;
             ReportSocioEconomica.p_IdSede.Value = model.IdSede;
+            ReportSocioEconomica.p_IdAnio.Value = model.IdAnio;
             ReportSocioEconomica.usuario = SessionFixed.IdUsuario;
             ReportSocioEconomica.empresa = SessionFixed.NomEmpresa;
 
@@ -274,6 +275,7 @@ namespace Core.Web.Areas.Reportes.Controllers
             ReportSocioEconomica.p_IdEmpresa.Value = model.IdEmpresa;
             ReportSocioEconomica.p_IdAlumno.Value = model.IdAlumno;
             ReportSocioEconomica.p_IdSede.Value = model.IdSede;
+            ReportSocioEconomica.p_IdAnio.Value = model.IdAnio;
             ReportSocioEconomica.usuario = SessionFixed.IdUsuario;
             ReportSocioEconomica.empresa = SessionFixed.NomEmpresa;
 
@@ -441,20 +443,21 @@ namespace Core.Web.Areas.Reportes.Controllers
         #endregion
 
         #region ACA_005
-        public ActionResult ACA_005(int IdEmpresa = 0, decimal IdAlumno = 0)
+        public ActionResult ACA_005(int IdEmpresa = 0, int IdAnio=0, decimal IdAlumno = 0)
         {
             cl_filtros_Info model = new cl_filtros_Info();
             model.IdEmpresa = Convert.ToInt32(SessionFixed.IdEmpresa);
             model.IdSede = Convert.ToInt32(SessionFixed.IdSede);
             var info_anio = bus_anio.GetInfo_AnioEnCurso(model.IdEmpresa, 0);
 
-            model.IdAnio = (info_anio == null ? 0 : info_anio.IdAnio);
+            model.IdAnio = IdAnio;
             model.IdAlumno = IdAlumno;
 
             ACA_005_Rpt report = new ACA_005_Rpt();
 
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdSede.Value = model.IdSede;
+            report.p_IdAnio.Value = model.IdAnio;
             report.p_IdAlumno.Value = IdAlumno;
             report.usuario = SessionFixed.IdUsuario;
             report.empresa = SessionFixed.NomEmpresa;
@@ -471,6 +474,7 @@ namespace Core.Web.Areas.Reportes.Controllers
             report.p_IdEmpresa.Value = model.IdEmpresa;
             report.p_IdAlumno.Value = model.IdAlumno;
             report.p_IdSede.Value = model.IdSede;
+            report.p_IdAnio.Value = model.IdAnio;
             report.usuario = SessionFixed.IdUsuario;
             report.empresa = SessionFixed.NomEmpresa;
 

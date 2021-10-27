@@ -2249,7 +2249,7 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    
+
                 },
                 error: function (error) {
                 }
@@ -2323,7 +2323,8 @@
                     success: function (data) {
                         console.log(data);
                         if(data.SocioEconomico != 0){
-                            var win = window.open(location + "/Academico/SocioEconomico/Modificar?IdEmpresa=" +@Core.Web.Helps.SessionFixed.IdEmpresa+"&IdSocioEconomico=" + data.SocioEconomico+"&Exito=false", '_blank');
+                            //var win = window.open(location + "/Academico/SocioEconomico/Modificar?IdEmpresa=" +@Core.Web.Helps.SessionFixed.IdEmpresa+"&IdSocioEconomico=" + data.SocioEconomico+"&Exito=false", '_blank');
+                            var win = window.open(location + "/Academico/SocioEconomico/Index?IdAdlumno=" + $("#IdAlumno").val());
                             win.focus();
                         }
                         else{
@@ -2342,7 +2343,7 @@
 
         function mostrar_cliente_padre() {
             if (SeFactura_padre.GetValue() == true) {
-                
+
                 $("#DatosFacturacionPadre").show();
             }
             else {

@@ -34,7 +34,17 @@ namespace Core.Bus.Academico
                 throw;
             }
         }
-
+        public List<aca_Matricula_Info> GetListAlumno(int IdEmpresa, int IdSede, decimal IdAlumno, bool MostrarAnulados)
+        {
+            try
+            {
+                return odata.getListAlumno(IdEmpresa, IdSede, IdAlumno, MostrarAnulados);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
         public List<aca_Matricula_Info> GetList_PorCurso(int IdEmpresa, int IdAnio, int IdSede, int IdNivel, int IdJornada, int IdCurso, int IdParalelo)
         {
             try

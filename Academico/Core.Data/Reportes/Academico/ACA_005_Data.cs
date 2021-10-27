@@ -11,7 +11,7 @@ namespace Core.Data.Reportes.Academico
 {
     public class ACA_005_Data
     {
-        public ACA_005_Info get_info(int IdEmpresa, decimal IdAlumno)
+        public ACA_005_Info get_info(int IdEmpresa, int IdAnio, decimal IdAlumno)
         {
             try
             {
@@ -20,9 +20,9 @@ namespace Core.Data.Reportes.Academico
                 {
                     connection.Open();
                     SqlCommand command = new SqlCommand("", connection);
-                    command.CommandText = "DECLARE @IdEmpresa int = "+ IdEmpresa.ToString() + ", @IdAlumno numeric = " + IdAlumno.ToString() + ", @IdAnioActual numeric, @IdAnioAnterior numeric "
-                    + " select @IdAnioActual = IdAnio, @IdAnioAnterior = IdAnioLectivoAnterior from aca_AnioLectivo "
-                    + " where IdEmpresa = @IdEmpresa and EnCurso = 1 "
+                    command.CommandText = "DECLARE @IdEmpresa int = "+ IdEmpresa.ToString() + ", @IdAlumno numeric = " + IdAlumno.ToString() + ", @IdAnioMatricula numeric= " + IdAnio.ToString() +", @IdAnioAnterior numeric "
+                    + " select @IdAnioAnterior = IdAnioLectivoAnterior from aca_AnioLectivo "
+                    + " where IdEmpresa = @IdEmpresa and IdAnio = @IdAnioMatricula "
                     + " set @IdAnioAnterior = isnull(@IdAnioAnterior, 0) "
                     + " SELECT dbo.aca_SocioEconomico.IdEmpresa, dbo.aca_SocioEconomico.IdSocioEconomico, matricula.IdAnio, matricula.Descripcion, matricula.NomNivel,matricula.NomJornada, matricula.NomCurso, dbo.aca_SocioEconomico.IdAlumno, dbo.aca_Alumno.Codigo AS CodigoAlumno, PersonaAlumno.pe_nombreCompleto AS NombreAlumno, "
                     + " PersonaAlumno.pe_fechaNacimiento AS FechaNacAlumno, dbo.tb_provincia.Descripcion_Prov AS ProvinciaAlumno, dbo.tb_ciudad.Descripcion_Ciudad AS CiudadAlumno, CatalogoSexo.ca_descripcion AS SexoAlumno, "
@@ -64,8 +64,8 @@ namespace Core.Data.Reportes.Academico
                     + " inner join aca_NivelAcademico n WITH (nolock) on  m.IdEmpresa= n.IdEmpresa and m.IdNivel = n.IdNivel "
                     + " inner join aca_Jornada j WITH (nolock) on  m.IdEmpresa= j.IdEmpresa and m.IdJornada = j.IdJornada "
                     + " inner join aca_Curso c WITH (nolock) on  m.IdEmpresa= c.IdEmpresa and m.IdCurso = c.IdCurso "
-                    + " where m.IdEmpresa = @IdEmpresa and m.IdAlumno = @IdAlumno and m.IdAnio = @IdAnioActual "
-                    + " )matricula on matricula.IdEmpresa = @IdEmpresa and matricula.IdAlumno = @IdAlumno and matricula.IdAnio = @IdAnioActual "
+                    + " where m.IdEmpresa = @IdEmpresa and m.IdAlumno = @IdAlumno and m.IdAnio = @IdAnioMatricula "
+                    + " )matricula on matricula.IdEmpresa = @IdEmpresa and matricula.IdAlumno = @IdAlumno and matricula.IdAnio = @IdAnioMatricula "
                     + " /*PADRE*/ "
                     + " left join "
                     + " ( "

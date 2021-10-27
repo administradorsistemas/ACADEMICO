@@ -24,8 +24,51 @@ namespace Core.Web.Areas.Academico.Controllers
         aca_SocioEconomico_List Lista_SocioEconomica = new aca_SocioEconomico_List();
         aca_CatalogoFicha_Bus bus_catalogo_socioeconomico = new aca_CatalogoFicha_Bus();
         aca_SocioEconomico_Hermanos_List Lista_Hermanos = new aca_SocioEconomico_Hermanos_List();
+        aca_Menu_x_seg_usuario_Bus bus_permisos = new aca_Menu_x_seg_usuario_Bus();
+        aca_MatriculaSocioEconomico_List Lista_MatriculaSocioEconomico = new aca_MatriculaSocioEconomico_List();
         string MensajeSuccess = "La transacción se ha realizado con éxito";
         string mensaje = string.Empty;
+        #endregion
+
+        #region Index
+        public ActionResult Index(decimal IdAdlumno=0)
+        {
+            #region Validar Session
+            if (string.IsNullOrEmpty(SessionFixed.IdTransaccionSession))
+                return RedirectToAction("Login", new { Area = "", Controller = "Account" });
+            SessionFixed.IdTransaccionSession = (Convert.ToDecimal(SessionFixed.IdTransaccionSession) + 1).ToString();
+            SessionFixed.IdTransaccionSessionActual = SessionFixed.IdTransaccionSession;
+            #endregion
+            var info_anio = bus_anio.GetInfo_AnioEnCurso(Convert.ToInt32(SessionFixed.IdEmpresa), 0);
+
+            aca_Matricula_Info model = new aca_Matricula_Info
+            {
+                IdEmpresa = Convert.ToInt32(SessionFixed.IdEmpresa),
+                IdSede = Convert.ToInt32(SessionFixed.IdSede),
+                IdAlumno = IdAdlumno,
+                IdTransaccionSession = Convert.ToDecimal(SessionFixed.IdTransaccionSession)
+            };
+
+            List<aca_Matricula_Info> lista = bus_matricula.GetListAlumno(model.IdEmpresa, model.IdSede, model.IdAlumno, true);
+            Lista_MatriculaSocioEconomico.set_list(lista, Convert.ToDecimal(SessionFixed.IdTransaccionSession));
+
+            #region Permisos
+            aca_Menu_x_seg_usuario_Info info = bus_permisos.get_list_menu_accion(Convert.ToInt32(SessionFixed.IdEmpresa), Convert.ToInt32(SessionFixed.IdSede), SessionFixed.IdUsuario, "Academico", "Alumno", "Index");
+            ViewBag.Nuevo = info.Nuevo;
+            ViewBag.Modificar = info.Modificar;
+            ViewBag.Anular = info.Anular;
+            #endregion
+
+            return View(model);
+        }
+
+        [ValidateInput(false)]
+        public ActionResult GridViewPartial_SocioEconomico()
+        {
+            SessionFixed.IdTransaccionSessionActual = Request.Params["TransaccionFixed"] != null ? Request.Params["TransaccionFixed"].ToString() : SessionFixed.IdTransaccionSessionActual;
+            List<aca_Matricula_Info> model = Lista_MatriculaSocioEconomico.get_list(Convert.ToDecimal(SessionFixed.IdTransaccionSessionActual));
+            return PartialView("_GridViewPartial_SocioEconomico", model);
+        }
         #endregion
 
         #region Combos bajo demanada
@@ -156,7 +199,7 @@ namespace Core.Web.Areas.Academico.Controllers
             return RedirectToAction("Modificar", new { IdEmpresa = model.IdEmpresa, IdSocioEconomico = model.IdSocioEconomico, Exito=true });
         }
 
-        public ActionResult Modificar(int IdEmpresa = 0, int IdSocioEconomico = 0, bool Exito=false)
+        public ActionResult Modificar(int IdEmpresa = 0, int IdAnio= 0, int IdSocioEconomico = 0, bool Exito=false)
         {
             #region Validar Session
             if (string.IsNullOrEmpty(SessionFixed.IdTransaccionSession))
@@ -217,6 +260,26 @@ namespace Core.Web.Areas.Academico.Controllers
         }
 
         public void set_list(List<aca_SocioEconomico_Info> list, decimal IdTransaccionSession)
+        {
+            HttpContext.Current.Session[Variable + IdTransaccionSession.ToString()] = list;
+        }
+    }
+
+    public class aca_MatriculaSocioEconomico_List
+    {
+        string Variable = "aca_MatriculaSocioEconomico_Info";
+        public List<aca_Matricula_Info> get_list(decimal IdTransaccionSession)
+        {
+            if (HttpContext.Current.Session[Variable + IdTransaccionSession.ToString()] == null)
+            {
+                List<aca_Matricula_Info> list = new List<aca_Matricula_Info>();
+
+                HttpContext.Current.Session[Variable + IdTransaccionSession.ToString()] = list;
+            }
+            return (List<aca_Matricula_Info>)HttpContext.Current.Session[Variable + IdTransaccionSession.ToString()];
+        }
+
+        public void set_list(List<aca_Matricula_Info> list, decimal IdTransaccionSession)
         {
             HttpContext.Current.Session[Variable + IdTransaccionSession.ToString()] = list;
         }

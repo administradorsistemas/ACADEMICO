@@ -12,6 +12,7 @@
 @using (Html.BeginForm("Modificar", "SocioEconomico", FormMethod.Post, new { @class = "form", @role = "form" }))
     {
     @Html.HiddenFor(q => q.IdEmpresa, new { @id = "IdEmpresa" })
+    @Html.HiddenFor(q => q.IdAnio, new { @id = "IdAnio" })
     @Html.HiddenFor(q => q.IdSocioEconomico, new { @id = "IdSocioEconomico" })
     @Html.HiddenFor(q => q.IdTransaccionSession, new { @id = "IdTransaccionSession" })
 
@@ -448,7 +449,7 @@
 
     function Imprimir() {
         var location = GetPathServer();
-        var win = window.open(location +"/Reportes/AcademicoReportes/ACA_005?IdEmpresa="+@Core.Web.Helps.SessionFixed.IdEmpresa+"&IdAlumno="+@Model.IdAlumno, '_blank');
+        var win = window.open(location +"/Reportes/AcademicoReportes/ACA_005?IdEmpresa="+@Core.Web.Helps.SessionFixed.IdEmpresa+"&IdAnio="+$("#IdAnio").val()+"&IdAlumno="+@Model.IdAlumno, '_blank');
         win.focus();
     }
 </script>

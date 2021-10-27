@@ -10,6 +10,7 @@
 @using (Html.BeginForm("ACA_005", "AcademicoReportes", FormMethod.Post, new { @class = "form", @role = "form" }))
 {
     @Html.HiddenFor(q => q.IdEmpresa)
+    @Html.HiddenFor(q => q.IdAnio)
     @Html.HiddenFor(q => q.IdSucursal)
     <div class="box">
         <div class="box-header with-border">
