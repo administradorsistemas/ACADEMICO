@@ -210,8 +210,9 @@ namespace Core.Web.Areas.Academico.Controllers
 
             aca_SocioEconomico_Info model = bus_socio_economico.GetInfo(IdEmpresa, IdSocioEconomico);
             model.IdTransaccionSession = Convert.ToInt32(SessionFixed.IdTransaccionSessionActual);
+            model.IdAnio = IdAnio;
             if (model == null)
-                return RedirectToAction("Index", "Matricula");
+                return RedirectToAction("Index", "Alumno");
 
             if (Exito)
                 ViewBag.MensajeSuccess = MensajeSuccess;

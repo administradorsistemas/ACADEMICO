@@ -860,10 +860,16 @@ namespace Core.Data.Academico
                 using (EntitiesAcademico Context = new EntitiesAcademico())
                 {
                     //var anio = info.FechaIngreso.Year;
-                    var anio = data_Anio.getInfo(info.IdEmpresa, info.IdAnioRegistro);
-                    var FechaIngreso = anio.FechaDesde;
+                    var FechaIngreso = info.FechaIngreso;
+
+                    if (info.IdAnioRegistro != 0)
+                    {
+                        var anio = data_Anio.getInfo(info.IdEmpresa, info.IdAnioRegistro);
+                        FechaIngreso = anio.FechaDesde;
+                    }
+                    
                     var lista = getList(info.IdEmpresa, true);
-                    var ListaAnio = lista.Where(q => (q.AnioCodigo == anio.FechaDesde.Year.ToString())).ToList();
+                    var ListaAnio = lista.Where(q => (q.AnioCodigo == FechaIngreso.Year.ToString())).ToList();
                     var NumEstudiante = 1;
                     var Codigo = "";
 

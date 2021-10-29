@@ -56,26 +56,12 @@
                 e.Row.ForeColor = System.Drawing.Color.Red;
             }
         };
-        settings.Columns.Add(c =>
-        {
-            c.Caption = "#";
-            c.SetDataItemTemplateContent(tc =>
-            {
-                ViewContext.Writer.Write(
-                    Html.ActionLink("Modificar", "Modificar", new { IdEmpresa = DataBinder.Eval(tc.DataItem, "IdEmpresa"), IdAnio = DataBinder.Eval(tc.DataItem, "IdAnio"), IdSocioEconomico = DataBinder.Eval(tc.DataItem, "IdSocioEconomico") }) + "&nbsp;"
-                //DataBinder.Eval(tc.DataItem, "IdSocioEconomico")
-                );
-            });
-            c.Settings.AllowDragDrop = DefaultBoolean.False;
-            c.Settings.AllowSort = DefaultBoolean.False;
-            c.Width = Unit.Pixel(100);
-        });
-        settings.Columns.Add("IdMatricula", "ID").Width = Unit.Percentage(8);
+        settings.Columns.Add("IdMatricula", "ID").Width = Unit.Percentage(10);
         settings.Columns.Add("Descripcion", "Año Lectivo").Width = Unit.Percentage(10);
         settings.Columns.Add("pe_nombreCompleto", "Estudiante").Width = Unit.Percentage(30);
         settings.Columns.Add("NomJornada", "Jornada").Width = Unit.Percentage(10);
         settings.Columns.Add("NomCurso", "Curso").Width = Unit.Percentage(10);
-        settings.Columns.Add("NomParalelo", "Paralelo").Width = Unit.Percentage(8);
+        settings.Columns.Add("NomParalelo", "Paralelo").Width = Unit.Percentage(10);
         settings.Columns.Add(column =>
         {
             column.Caption = "";

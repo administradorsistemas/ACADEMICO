@@ -48,7 +48,17 @@
                             <div class="col-md-6 form-group">
                                 <label for="IdCliente"></label>
                                 <button type="button" class="btn btn-primary form-control" title="Ver ficha socio economica" onclick="VerFichaSocioEconomica();">
-                                    <i class="fa fa-dollar"></i> Ver ficha Socioeconomica
+                                    <i class="fa fa-search"></i> Ver Ficha Socioeconomica
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6 form-group">
+                                <label for="IdCliente"></label>
+                                <button type="button" class="btn btn-primary form-control" title="Ver ficha socio economica" onclick="ImprimirFichaSocioEconomica();">
+                                    <i class="fa fa-print"></i> Imprimir Ficha Socioeconomica
                                 </button>
                             </div>
                         </div>
@@ -2304,7 +2314,7 @@
             }
         }
 
-        function VerFichaSocioEconomica() {
+        function ImprimirFichaSocioEconomica() {
             var location = GetPathServer();
             if ($("#IdAlumno").val() != 0 || $("#IdAlumno").val() != "") {
                 var datos = {
@@ -2321,16 +2331,8 @@
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
-                        console.log(data);
-                        if(data.SocioEconomico != 0){
-                            //var win = window.open(location + "/Academico/SocioEconomico/Modificar?IdEmpresa=" +@Core.Web.Helps.SessionFixed.IdEmpresa+"&IdSocioEconomico=" + data.SocioEconomico+"&Exito=false", '_blank');
-                            var win = window.open(location + "/Academico/SocioEconomico/Index?IdAdlumno=" + $("#IdAlumno").val());
-                            win.focus();
-                        }
-                        else{
-                            var win = window.open(location + "/Academico/SocioEconomico/Nuevo?IdEmpresa=" +@Core.Web.Helps.SessionFixed.IdEmpresa +"&IdAlumno=" + $("#IdAlumno").val(), '_blank');
-                            win.focus();
-                        }
+                        var win = window.open(location + "/Academico/SocioEconomico/Index?IdAdlumno=" + $("#IdAlumno").val());
+                        win.focus();
                     },
                     error: function (error) {
                     }
@@ -2340,6 +2342,42 @@
                 alert("Debe seleccionar alumno");
             }
         }
+
+    function VerFichaSocioEconomica() {
+        var location = GetPathServer();
+        if ($("#IdAlumno").val() != 0 || $("#IdAlumno").val() != "") {
+            var datos = {
+                IdEmpresa: $("#IdEmpresa").val(),
+                IdAlumno: $("#IdAlumno").val()
+            }
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify(datos),
+                url: '@Url.Action("VerFichaSocioEconomica", "Alumno", new { Area = "Academico" })',
+                async: false,
+                bDeferRender: true,
+                bProcessing: true,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    console.log(data);
+                    if(data.SocioEconomico != 0){
+                        var win = window.open(location + "/Academico/SocioEconomico/Modificar?IdEmpresa=" +@Core.Web.Helps.SessionFixed.IdEmpresa+"&IdAnio=" +data.IdAnio+"&IdSocioEconomico=" + data.SocioEconomico+"&Exito=false", '_blank');
+                        win.focus();
+                    }
+                    else{
+                        var win = window.open(location + "/Academico/SocioEconomico/Nuevo?IdEmpresa=" +@Core.Web.Helps.SessionFixed.IdEmpresa +"&IdAlumno=" + $("#IdAlumno").val(), '_blank');
+                        win.focus();
+                    }
+                },
+                error: function (error) {
+                }
+            });
+        }
+        else{
+            alert("Debe seleccionar alumno");
+        }
+    }
 
         function mostrar_cliente_padre() {
             if (SeFactura_padre.GetValue() == true) {

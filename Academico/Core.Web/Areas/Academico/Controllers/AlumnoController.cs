@@ -557,7 +557,7 @@ namespace Core.Web.Areas.Academico.Controllers
             model.IdSede = Convert.ToInt32(SessionFixed.IdSede);
             model.IdSucursal = bus_sede.GetInfo(model.IdEmpresa, model.IdSede).IdSucursal;
             var infoAnioActual = bus_anio.GetInfo_AnioEnCurso(Convert.ToInt32(SessionFixed.IdEmpresa), 0);
-            model.IdAnioRegistro = infoAnioActual.IdAnio;
+            model.IdAnioRegistro = 0;
 
             var info_persona_alumno = new tb_persona_Info
             {
@@ -1317,8 +1317,9 @@ namespace Core.Web.Areas.Academico.Controllers
             int IdSocioEconomico = 0;
             var info_socioeconomico = bus_socioeconomico.GetInfo_by_Alumno(IdEmpresa, IdAlumno);
             IdSocioEconomico = (info_socioeconomico == null ? 0 : info_socioeconomico.IdSocioEconomico);
-
-            return Json(new { SocioEconomico = IdSocioEconomico }, JsonRequestBehavior.AllowGet);
+            var info_anio = bus_anio.GetInfo_AnioEnCurso(IdEmpresa,0);
+            var IdAnio = (info_anio == null ? 0 : info_anio.IdAnio);
+            return Json(new { SocioEconomico = IdSocioEconomico, IdAnio= IdAnio }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult SetAlumnoDocumento(decimal IdAlumno = 0)
