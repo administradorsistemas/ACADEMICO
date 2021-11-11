@@ -234,21 +234,23 @@ namespace Core.Data.Facturacion
                     connection.Open();
                     SqlCommand command = new SqlCommand();
                     command.Connection = connection;
-                    command.CommandText = "select a.IdEmpresa, a.IdSucursal, a.IdBodega, a.IdCbteVta, a.vt_tipoDoc,case when d.EnCurso = 1 then e.IdCtaCbleDebe else d.IdCtaCbleCierre end as IdCtaCbleDebe, a.vt_serie1+'-'+a.vt_serie2+'-'+a.vt_NumFactura vt_NumFactura"
+                    command.CommandText = "select a.IdEmpresa, a.IdSucursal, a.IdBodega, a.IdCbteVta, a.vt_tipoDoc,case when d.EnCurso = 1 or (x.FechaDesde < d.FechaDesde) then e.IdCtaCbleDebe else d.IdCtaCbleCierre end as IdCtaCbleDebe, a.vt_serie1+'-'+a.vt_serie2+'-'+a.vt_NumFactura vt_NumFactura"
                                         + " from fa_factura  as a with(nolock) join"
                                         + " fa_factura_resumen as b with(nolock) on a.IdEmpresa = b.IdEmpresa and a.IdSucursal = b.IdSucursal and a.IdBodega = b.IdBodega and a.IdCbteVta = b.IdCbteVta join"
                                         + " aca_Matricula_Rubro as c with(nolock) on b.IdEmpresa = c.IdEmpresa and b.IdSucursal = c.IdSucursal and b.IdBodega = c.IdBodega and b.IdCbteVta = c.IdCbteVta join"
                                         + " aca_AnioLectivo as d with(nolock) on c.IdEmpresa = d.IdEmpresa and c.IdAnio = d.IdAnio join"
-                                        + " aca_AnioLectivo_Curso_Plantilla_Parametrizacion as e with(nolock) on c.IdEmpresa = e.IdEmpresa and c.IdAnio = e.IdAnio and c.IdSede = e.IdSede and c.IdNivel = e.IdNivel and c.IdJornada = e.IdJornada and c.IdCurso = e.IdCurso and c.IdPlantilla = e.IdPlantilla and c.IdRubro = e.IdRubro"
+                                        + " aca_AnioLectivo_Curso_Plantilla_Parametrizacion as e with(nolock) on c.IdEmpresa = e.IdEmpresa and c.IdAnio = e.IdAnio and c.IdSede = e.IdSede and c.IdNivel = e.IdNivel and c.IdJornada = e.IdJornada and c.IdCurso = e.IdCurso and c.IdPlantilla = e.IdPlantilla and c.IdRubro = e.IdRubro left join"
+                                        + " aca_AnioLectivo as x with(nolock) on x.IdEmpresa = a.IdEmpresa and x.EnCurso = 1"
                                         + " where a.IdEmpresa = " + IdEmpresa.ToString() + " and a.IdSucursal = " + IdSucursal.ToString() + " and a.IdBodega = " + IdBodega.ToString() + " and a.IdCbteVta = " + IdCbteVta.ToString()
                                         + " UNION ALL"
-                                        + " select a.IdEmpresa, a.IdSucursal, a.IdBodega, a.IdCbteVta, a.vt_tipoDoc, case when f.EnCurso = 1 then e.IdCtaCbleDebe else f.IdCtaCbleCierre end as IdCtaCbleDebe, a.vt_serie1+'-'+a.vt_serie2+'-'+a.vt_NumFactura vt_NumFactura "
+                                        + " select a.IdEmpresa, a.IdSucursal, a.IdBodega, a.IdCbteVta, a.vt_tipoDoc, case when f.EnCurso = 1 or (x.FechaDesde < f.FechaDesde) then e.IdCtaCbleDebe else f.IdCtaCbleCierre end as IdCtaCbleDebe, a.vt_serie1+'-'+a.vt_serie2+'-'+a.vt_NumFactura vt_NumFactura "
                                         + " from fa_factura as a with(nolock) left join"
                                         + " aca_Matricula_Rubro as b with(nolock) on a.IdEmpresa = b.IdEmpresa and a.IdSucursal = b.IdSucursal and a.IdBodega = b.IdBodega and a.IdCbteVta = b.IdCbteVta JOIN"
                                         + " fa_factura_resumen as c with(nolock) on a.IdEmpresa = c.IdEmpresa and a.IdSucursal = c.IdSucursal and a.IdBodega = c.IdBodega and a.IdCbteVta = c.IdCbteVta left join"
                                         + " aca_Matricula as d with(nolock) on a.IdEmpresa = d.IdEmpresa and a.IdAlumno = d.IdAlumno and c.IdEmpresa = d.IdEmpresa and c.IdAnio = d.IdAnio left join"
                                         + " aca_AnioLectivo_Curso_Plantilla_Parametrizacion as e with(nolock) on d.IdEmpresa = e.IdEmpresa and d.IdAnio = e.IdAnio and d.IdSede = e.IdSede and d.IdNivel = e.IdNivel and d.IdJornada = e.IdJornada and d.IdCurso = e.IdCurso and d.IdPlantilla = e.IdPlantilla and c.IdRubro = e.IdRubro left join"
-                                        + " aca_AnioLectivo as f with(nolock) on e.IdEmpresa = f.IdEmpresa and e.IdAnio = f.IdAnio"
+                                        + " aca_AnioLectivo as f with(nolock) on e.IdEmpresa = f.IdEmpresa and e.IdAnio = f.IdAnio left join "
+                                        + " aca_AnioLectivo as x with (nolock) on x.IdEmpresa = a.IdEmpresa and x.EnCurso = 1"
                                         + " where b.IdMatricula is null and a.Estado = 'A' and c.IdAnio is not null"
                                         + " and a.IdEmpresa = " + IdEmpresa.ToString() + " and a.IdSucursal = " + IdSucursal.ToString() + " and a.IdBodega = " + IdBodega.ToString() + " and a.IdCbteVta = " + IdCbteVta.ToString();
 
