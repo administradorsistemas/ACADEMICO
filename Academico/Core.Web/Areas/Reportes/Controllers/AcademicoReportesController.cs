@@ -5941,6 +5941,19 @@ namespace Core.Web.Areas.Reportes.Controllers
             reportMinisterio.empresa = SessionFixed.NomEmpresa;
             ViewBag.ReportMinisterio = reportMinisterio;
 
+            ACA_075_Historico_Rpt reportHistorico = new ACA_075_Historico_Rpt();
+            reportHistorico.p_IdEmpresa.Value = model.IdEmpresa;
+            reportHistorico.p_IdSede.Value = model.IdSede;
+            reportHistorico.p_IdAnio.Value = model.IdAnio;
+            reportHistorico.p_IdNivel.Value = model.IdNivel;
+            reportHistorico.p_IdJornada.Value = model.IdJornada;
+            reportHistorico.p_IdCurso.Value = model.IdCurso;
+            reportHistorico.p_IdParalelo.Value = model.IdParalelo;
+            reportHistorico.p_MostrarRetirados.Value = model.mostrarAnulados;
+            reportHistorico.usuario = SessionFixed.IdUsuario;
+            reportHistorico.empresa = SessionFixed.NomEmpresa;
+            ViewBag.ReporttHistorico = reportHistorico;
+
             return View(model);
         }
         [HttpPost]
@@ -5971,6 +5984,19 @@ namespace Core.Web.Areas.Reportes.Controllers
             reportMinisterio.usuario = SessionFixed.IdUsuario;
             reportMinisterio.empresa = SessionFixed.NomEmpresa;
             ViewBag.ReportMinisterio = reportMinisterio;
+
+            ACA_075_Historico_Rpt reportHistorico = new ACA_075_Historico_Rpt();
+            reportHistorico.p_IdEmpresa.Value = model.IdEmpresa;
+            reportHistorico.p_IdSede.Value = model.IdSede;
+            reportHistorico.p_IdAnio.Value = model.IdAnio;
+            reportHistorico.p_IdNivel.Value = model.IdNivel;
+            reportHistorico.p_IdJornada.Value = model.IdJornada;
+            reportHistorico.p_IdCurso.Value = model.IdCurso;
+            reportHistorico.p_IdParalelo.Value = model.IdParalelo;
+            reportHistorico.p_MostrarRetirados.Value = model.mostrarAnulados;
+            reportHistorico.usuario = SessionFixed.IdUsuario;
+            reportHistorico.empresa = SessionFixed.NomEmpresa;
+            ViewBag.ReporttHistorico = reportHistorico;
 
             return View(model);
         }

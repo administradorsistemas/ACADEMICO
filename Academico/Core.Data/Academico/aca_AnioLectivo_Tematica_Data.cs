@@ -2,6 +2,7 @@
 using Core.Info.Academico;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -164,6 +165,86 @@ namespace Core.Data.Academico
                             OrdenCampoAccion = q.OrdenCampoAccion
                         });
                     });
+                }
+
+                return Lista;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public List<aca_AnioLectivo_Tematica_Info> getList_CampoAccion(int IdEmpresa, int IdAnio)
+        {
+            try
+            {
+                List<aca_AnioLectivo_Tematica_Info> Lista = new List<aca_AnioLectivo_Tematica_Info>();
+                using (SqlConnection connection = new SqlConnection(CadenaDeConexion.GetConnectionString()))
+                {
+                    connection.Open();
+
+                    #region Query
+                    string query = "select IdEmpresa, IdCampoAccion, NombreCampoAccion "
+                    + " from aca_AnioLectivo_Tematica"
+                    + " where IdEmpresa = " + IdEmpresa.ToString() + " and IdAnio = " + IdAnio.ToString()
+                    + " group by IdEmpresa, IdCampoAccion,NombreCampoAccion";
+                    #endregion
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.CommandTimeout = 0;
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Lista.Add(new aca_AnioLectivo_Tematica_Info
+                        {
+                            IdEmpresa = Convert.ToInt32(reader["IdEmpresa"]),
+                            IdCampoAccion = Convert.ToInt32(reader["IdCampoAccion"]),
+                            NombreCampoAccion = reader["NombreCampoAccion"].ToString(),
+                        });
+                    }
+                    reader.Close();
+                }
+
+                return Lista;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public List<aca_AnioLectivo_Tematica_Info> getListTematica(int IdEmpresa, int IdAnio, int IdCampoAccion)
+        {
+            try
+            {
+                List<aca_AnioLectivo_Tematica_Info> Lista = new List<aca_AnioLectivo_Tematica_Info>();
+                using (SqlConnection connection = new SqlConnection(CadenaDeConexion.GetConnectionString()))
+                {
+                    connection.Open();
+
+                    #region Query
+                    string query = "select IdEmpresa, IdTematica, NombreTematica "
+                    + " from aca_AnioLectivo_Tematica "
+                    + " where IdEmpresa = " + IdEmpresa.ToString() + " and IdAnio = " + IdAnio.ToString()
+                    + " group by IdEmpresa, IdTematica,NombreTematica ";
+                    #endregion
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.CommandTimeout = 0;
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Lista.Add(new aca_AnioLectivo_Tematica_Info
+                        {
+                            IdEmpresa = Convert.ToInt32(reader["IdEmpresa"]),
+                            IdTematica = Convert.ToInt32(reader["IdTematica"]),
+                            NombreTematica = reader["NombreTematica"].ToString(),
+                        });
+                    }
+                    reader.Close();
                 }
 
                 return Lista;

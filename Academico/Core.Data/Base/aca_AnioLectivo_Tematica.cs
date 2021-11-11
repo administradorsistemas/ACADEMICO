@@ -14,6 +14,12 @@ namespace Core.Data.Base
     
     public partial class aca_AnioLectivo_Tematica
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public aca_AnioLectivo_Tematica()
+        {
+            this.aca_AnioLectivoCalificacionParticipacionHistorico = new HashSet<aca_AnioLectivoCalificacionParticipacionHistorico>();
+        }
+    
         public int IdEmpresa { get; set; }
         public int IdAnio { get; set; }
         public int IdTematica { get; set; }
@@ -30,5 +36,7 @@ namespace Core.Data.Base
         public virtual aca_CampoAccion aca_CampoAccion { get; set; }
         public virtual aca_Tematica aca_Tematica { get; set; }
         public virtual aca_AnioLectivo aca_AnioLectivo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<aca_AnioLectivoCalificacionParticipacionHistorico> aca_AnioLectivoCalificacionParticipacionHistorico { get; set; }
     }
 }

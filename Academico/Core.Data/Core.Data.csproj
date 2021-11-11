@@ -63,6 +63,7 @@
     <Compile Include="Academico\aca_Alumno_Data.cs" />
     <Compile Include="Academico\aca_AnioLectivoCalificacionCualitativa_Data.cs" />
     <Compile Include="Academico\aca_AnioLectivoCalificacionHistorico_Data.cs" />
+    <Compile Include="Academico\aca_AnioLectivoCalificacionParticipacionHistorico_Data.cs" />
     <Compile Include="Academico\aca_AnioLectivoConductaEquivalencia_Data.cs" />
     <Compile Include="Academico\aca_AnioLectivoEquivalenciaPromedio_Data.cs" />
     <Compile Include="Academico\aca_AnioLectivoParcial_Data.cs" />
@@ -131,6 +132,9 @@
       <DependentUpon>ModelAcademico.tt</DependentUpon>
     </Compile>
     <Compile Include="Base\aca_AnioLectivoCalificacionCualitativa.cs">
+      <DependentUpon>ModelAcademico.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Base\aca_AnioLectivoCalificacionParticipacionHistorico.cs">
       <DependentUpon>ModelAcademico.tt</DependentUpon>
     </Compile>
     <Compile Include="Base\aca_AnioLectivoConductaEquivalencia.cs">

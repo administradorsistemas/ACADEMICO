@@ -87,6 +87,9 @@
             <li>
                 <a href="#tab_ministerio" aria-controls="resumen" role="tab" data-toggle="tab">Formato Ministerio</a>
             </li>
+            <li>
+                <a href="#tab_historico" aria-controls="resumen" role="tab" data-toggle="tab">Formato Histórico</a>
+            </li>
         </ul>
         <div class="tab-content" style="padding-top: 20px">
             <div role="tabpanel" class="tab-pane active" style="margin-left: 1em;" id="tab_liceo">
@@ -106,6 +109,16 @@
                    settings.MobileMode = false;
                    settings.Name = "webDocumentViewer2";
                }).Bind(ViewBag.ReportMinisterio).GetHtml()
+            </div>
+
+            <div role="tabpanel" class="tab-pane" style="margin-left: 1em;" id="tab_historico">
+
+                @Html.DevExpress().WebDocumentViewer(settings =>
+               {
+                   settings.ClientSideEvents.Init = "function(s, e) {s.previewModel.reportPreview.zoom(1);}";
+                   settings.MobileMode = false;
+                   settings.Name = "webDocumentViewer3";
+               }).Bind(ViewBag.ReporttHistorico).GetHtml()
             </div>
 
         </div>

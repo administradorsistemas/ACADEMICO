@@ -484,7 +484,7 @@ namespace Core.Data.Reportes.Academico
                     + " /*PROMEDIO DE LOS 2 QUIMESTRES*/ "
                     + " SELECT m.IdEmpresa, m.IdMatricula, m.IdAnio, m.IdSede, m.IdNivel, m.IdJornada, m.IdCurso, m.IdParalelo, m.IdAlumno, AN.Descripcion, sn.NomSede, nj.NomJornada, nj.OrdenJornada, sn.NomNivel, sn.OrdenNivel, jc.NomCurso, jc.OrdenCurso, "
                     + " cp.NomParalelo, cp.OrdenParalelo, pa.pe_nombreCompleto AS NombreAlumno, mc.IdMateria, mc.NomMateria, mc.NomMateriaGrupo, mc.OrdenMateria, mc.OrdenMateriaGrupo, mc.PromediarGrupo, mc.IdCatalogoTipoCalificacion, "
-                    + " CAST(mco.PromedioQuimestres AS varchar) AS Calificacion, CAST(mco.PromedioQuimestres AS numeric(18, 2)) AS CalificacionNumerica, 'PROMEDIO' AS Columna, 1 AS OrdenColumna, pp.pe_nombreCompleto AS NombreTutor "
+                    + " CAST(mco.PromedioQuimestres AS varchar) AS Calificacion, CAST(mco.PromedioQuimestres AS numeric(18, 2)) AS CalificacionNumerica, 'PROMEDIO' AS Columna, 3 AS OrdenColumna, pp.pe_nombreCompleto AS NombreTutor "
                     + " FROM     dbo.aca_Matricula AS m with (nolock) INNER JOIN "
                     + " dbo.aca_MatriculaCalificacion AS mco with (nolock) ON m.IdEmpresa = mco.IdEmpresa AND m.IdMatricula = mco.IdMatricula LEFT OUTER JOIN "
                     + " dbo.aca_AnioLectivo AS AN with (nolock) ON m.IdEmpresa = AN.IdEmpresa AND m.IdAnio = AN.IdAnio LEFT OUTER JOIN "

@@ -44,6 +44,9 @@ namespace Core.Info.Reportes.Academico
         public Nullable<decimal> PromedioCalculado { get; set; }
         public Nullable<decimal> PromedioFinalCalculado { get; set; }
         public string PromedioString { get; set; }
-
+        public int NumCalificaciones { get; set; }
+        public Nullable<decimal> Prom1 { get; set; }
+        public Nullable<decimal> Prom2 { get; set; }
+        public Nullable<decimal> Prom3 { get; set; }
     }
 }

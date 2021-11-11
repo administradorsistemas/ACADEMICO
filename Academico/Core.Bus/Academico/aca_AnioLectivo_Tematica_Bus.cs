@@ -62,6 +62,32 @@ namespace Core.Bus.Academico
                 throw;
             }
         }
+        public List<aca_AnioLectivo_Tematica_Info> GetListCampoAccion(int IdEmpresa, int IdAnio)
+        {
+            try
+            {
+                return odata.getList_CampoAccion(IdEmpresa, IdAnio);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public List<aca_AnioLectivo_Tematica_Info> GetLisTematica(int IdEmpresa, int IdAnio, int IdTematica)
+        {
+            try
+            {
+                return odata.getListTematica(IdEmpresa, IdAnio, IdTematica);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
 
         public bool modificarDB(List<aca_AnioLectivo_Tematica_Info> lista)
         {

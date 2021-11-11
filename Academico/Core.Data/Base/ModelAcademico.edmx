@@ -653,6 +653,23 @@
           <Property Name="Conducta" Type="numeric" Precision="18" Scale="2" Nullable="false" />
           <Property Name="SecuenciaConducta" Type="int" />
         </EntityType>
+        <EntityType Name="aca_AnioLectivoCalificacionParticipacionHistorico">
+          <Key>
+            <PropertyRef Name="IdEmpresa" />
+            <PropertyRef Name="IdAnio" />
+            <PropertyRef Name="IdAlumno" />
+          </Key>
+          <Property Name="IdEmpresa" Type="int" Nullable="false" />
+          <Property Name="IdAnio" Type="int" Nullable="false" />
+          <Property Name="IdAlumno" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="IdSede" Type="int" Nullable="false" />
+          <Property Name="IdNivel" Type="int" Nullable="false" />
+          <Property Name="IdJornada" Type="int" Nullable="false" />
+          <Property Name="IdCurso" Type="int" Nullable="false" />
+          <Property Name="IdTematica" Type="int" Nullable="false" />
+          <Property Name="IdCampoAccion" Type="int" Nullable="false" />
+          <Property Name="PromedioFinal" Type="numeric" Precision="18" Scale="2" />
+        </EntityType>
         <EntityType Name="aca_AnioLectivoConductaEquivalencia">
           <Key>
             <PropertyRef Name="IdEmpresa" />
@@ -4369,6 +4386,46 @@ advertencia 6002: La tabla o vista 'DBERP.dbo.vwaca_Tematica' no tiene definida 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_aca_AnioLectivoCalificacionParticipacionHistorico_aca_AnioLectivo_Jornada_Curso">
+          <End Role="aca_AnioLectivo_Jornada_Curso" Type="Self.aca_AnioLectivo_Jornada_Curso" Multiplicity="1" />
+          <End Role="aca_AnioLectivoCalificacionParticipacionHistorico" Type="Self.aca_AnioLectivoCalificacionParticipacionHistorico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aca_AnioLectivo_Jornada_Curso">
+              <PropertyRef Name="IdEmpresa" />
+              <PropertyRef Name="IdAnio" />
+              <PropertyRef Name="IdSede" />
+              <PropertyRef Name="IdNivel" />
+              <PropertyRef Name="IdJornada" />
+              <PropertyRef Name="IdCurso" />
+            </Principal>
+            <Dependent Role="aca_AnioLectivoCalificacionParticipacionHistorico">
+              <PropertyRef Name="IdEmpresa" />
+              <PropertyRef Name="IdAnio" />
+              <PropertyRef Name="IdSede" />
+              <PropertyRef Name="IdNivel" />
+              <PropertyRef Name="IdJornada" />
+              <PropertyRef Name="IdCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_aca_AnioLectivoCalificacionParticipacionHistorico_aca_AnioLectivo_Tematica">
+          <End Role="aca_AnioLectivo_Tematica" Type="Self.aca_AnioLectivo_Tematica" Multiplicity="1" />
+          <End Role="aca_AnioLectivoCalificacionParticipacionHistorico" Type="Self.aca_AnioLectivoCalificacionParticipacionHistorico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aca_AnioLectivo_Tematica">
+              <PropertyRef Name="IdEmpresa" />
+              <PropertyRef Name="IdAnio" />
+              <PropertyRef Name="IdTematica" />
+              <PropertyRef Name="IdCampoAccion" />
+            </Principal>
+            <Dependent Role="aca_AnioLectivoCalificacionParticipacionHistorico">
+              <PropertyRef Name="IdEmpresa" />
+              <PropertyRef Name="IdAnio" />
+              <PropertyRef Name="IdTematica" />
+              <PropertyRef Name="IdCampoAccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_aca_AnioLectivoConductaEquivalencia_aca_AnioLectivo">
           <End Role="aca_AnioLectivo" Type="Self.aca_AnioLectivo" Multiplicity="1" />
           <End Role="aca_AnioLectivoConductaEquivalencia" Type="Self.aca_AnioLectivoConductaEquivalencia" Multiplicity="*" />
@@ -5511,6 +5568,7 @@ advertencia 6002: La tabla o vista 'DBERP.dbo.vwaca_Tematica' no tiene definida 
           <EntitySet Name="aca_AnioLectivo_Tematica" EntityType="Self.aca_AnioLectivo_Tematica" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="aca_AnioLectivoCalificacionCualitativa" EntityType="Self.aca_AnioLectivoCalificacionCualitativa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="aca_AnioLectivoCalificacionHistorico" EntityType="Self.aca_AnioLectivoCalificacionHistorico" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aca_AnioLectivoCalificacionParticipacionHistorico" EntityType="Self.aca_AnioLectivoCalificacionParticipacionHistorico" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="aca_AnioLectivoConductaEquivalencia" EntityType="Self.aca_AnioLectivoConductaEquivalencia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="aca_AnioLectivoEquivalenciaPromedio" EntityType="Self.aca_AnioLectivoEquivalenciaPromedio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="aca_AnioLectivoParcial" EntityType="Self.aca_AnioLectivoParcial" Schema="dbo" store:Type="Tables" />
@@ -6872,6 +6930,14 @@ advertencia 6002: La tabla o vista 'DBERP.dbo.vwaca_Tematica' no tiene definida 
             <End Role="aca_NivelAcademico" EntitySet="aca_NivelAcademico" />
             <End Role="aca_AnioLectivoCalificacionHistorico" EntitySet="aca_AnioLectivoCalificacionHistorico" />
           </AssociationSet>
+          <AssociationSet Name="FK_aca_AnioLectivoCalificacionParticipacionHistorico_aca_AnioLectivo_Jornada_Curso" Association="Self.FK_aca_AnioLectivoCalificacionParticipacionHistorico_aca_AnioLectivo_Jornada_Curso">
+            <End Role="aca_AnioLectivo_Jornada_Curso" EntitySet="aca_AnioLectivo_Jornada_Curso" />
+            <End Role="aca_AnioLectivoCalificacionParticipacionHistorico" EntitySet="aca_AnioLectivoCalificacionParticipacionHistorico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_aca_AnioLectivoCalificacionParticipacionHistorico_aca_AnioLectivo_Tematica" Association="Self.FK_aca_AnioLectivoCalificacionParticipacionHistorico_aca_AnioLectivo_Tematica">
+            <End Role="aca_AnioLectivo_Tematica" EntitySet="aca_AnioLectivo_Tematica" />
+            <End Role="aca_AnioLectivoCalificacionParticipacionHistorico" EntitySet="aca_AnioLectivoCalificacionParticipacionHistorico" />
+          </AssociationSet>
           <AssociationSet Name="FK_aca_AnioLectivoConductaEquivalencia_aca_AnioLectivo" Association="Self.FK_aca_AnioLectivoConductaEquivalencia_aca_AnioLectivo">
             <End Role="aca_AnioLectivo" EntitySet="aca_AnioLectivo" />
             <End Role="aca_AnioLectivoConductaEquivalencia" EntitySet="aca_AnioLectivoConductaEquivalencia" />
@@ -7944,6 +8010,15 @@ advertencia 6002: La tabla o vista 'DBERP.dbo.vwaca_Tematica' no tiene definida 
             <End Role="aca_Matricula" EntitySet="aca_Matricula" />
             <End Role="aca_MatriculaGrado" EntitySet="aca_MatriculaGrado" />
           </AssociationSet>
+          <EntitySet Name="aca_AnioLectivoCalificacionParticipacionHistorico" EntityType="ModelAcademico.aca_AnioLectivoCalificacionParticipacionHistorico" />
+          <AssociationSet Name="FK_aca_AnioLectivoCalificacionParticipacionHistorico_aca_AnioLectivo_Jornada_Curso" Association="ModelAcademico.FK_aca_AnioLectivoCalificacionParticipacionHistorico_aca_AnioLectivo_Jornada_Curso">
+            <End Role="aca_AnioLectivo_Jornada_Curso" EntitySet="aca_AnioLectivo_Jornada_Curso" />
+            <End Role="aca_AnioLectivoCalificacionParticipacionHistorico" EntitySet="aca_AnioLectivoCalificacionParticipacionHistorico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_aca_AnioLectivoCalificacionParticipacionHistorico_aca_AnioLectivo_Tematica" Association="ModelAcademico.FK_aca_AnioLectivoCalificacionParticipacionHistorico_aca_AnioLectivo_Tematica">
+            <End Role="aca_AnioLectivo_Tematica" EntitySet="aca_AnioLectivo_Tematica" />
+            <End Role="aca_AnioLectivoCalificacionParticipacionHistorico" EntitySet="aca_AnioLectivoCalificacionParticipacionHistorico" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="aca_AnioLectivo_Curso_Plantilla">
           <Key>
@@ -7988,6 +8063,7 @@ advertencia 6002: La tabla o vista 'DBERP.dbo.vwaca_Tematica' no tiene definida 
           <NavigationProperty Name="aca_Curso" Relationship="ModelAcademico.FK_aca_AnioLectivo_Jornada_Curso_aca_Curso" FromRole="aca_AnioLectivo_Jornada_Curso" ToRole="aca_Curso" />
           <NavigationProperty Name="aca_Sede" Relationship="ModelAcademico.FK_aca_AnioLectivo_Jornada_Curso_aca_Sede" FromRole="aca_AnioLectivo_Jornada_Curso" ToRole="aca_Sede" />
           <NavigationProperty Name="aca_AnioLectivo" Relationship="ModelAcademico.FK_aca_AnioLectivo_Jornada_Curso_aca_AnioLectivo" FromRole="aca_AnioLectivo_Jornada_Curso" ToRole="aca_AnioLectivo" />
+          <NavigationProperty Name="aca_AnioLectivoCalificacionParticipacionHistorico" Relationship="ModelAcademico.FK_aca_AnioLectivoCalificacionParticipacionHistorico_aca_AnioLectivo_Jornada_Curso" FromRole="aca_AnioLectivo_Jornada_Curso" ToRole="aca_AnioLectivoCalificacionParticipacionHistorico" />
         </EntityType>
         <EntityType Name="aca_AnioLectivo_NivelAcademico_Jornada">
           <Key>
@@ -10538,6 +10614,7 @@ advertencia 6002: La tabla o vista 'DBERP.dbo.vwaca_Tematica' no tiene definida 
           <NavigationProperty Name="aca_CampoAccion" Relationship="ModelAcademico.FK_aca_AnioLectivo_Tematica_aca_CampoAccion" FromRole="aca_AnioLectivo_Tematica" ToRole="aca_CampoAccion" />
           <NavigationProperty Name="aca_Tematica" Relationship="ModelAcademico.FK_aca_AnioLectivo_Tematica_aca_Tematica" FromRole="aca_AnioLectivo_Tematica" ToRole="aca_Tematica" />
           <NavigationProperty Name="aca_AnioLectivo" Relationship="ModelAcademico.FK_aca_AnioLectivo_Tematica_aca_AnioLectivo" FromRole="aca_AnioLectivo_Tematica" ToRole="aca_AnioLectivo" />
+          <NavigationProperty Name="aca_AnioLectivoCalificacionParticipacionHistorico" Relationship="ModelAcademico.FK_aca_AnioLectivoCalificacionParticipacionHistorico_aca_AnioLectivo_Tematica" FromRole="aca_AnioLectivo_Tematica" ToRole="aca_AnioLectivoCalificacionParticipacionHistorico" />
         </EntityType>
         <EntityType Name="aca_AnioLectivoCalificacionCualitativa">
           <Key>
@@ -13669,6 +13746,65 @@ advertencia 6002: La tabla o vista 'DBERP.dbo.vwaca_Tematica' no tiene definida 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="aca_AnioLectivoCalificacionParticipacionHistorico">
+          <Key>
+            <PropertyRef Name="IdEmpresa" />
+            <PropertyRef Name="IdAnio" />
+            <PropertyRef Name="IdAlumno" />
+          </Key>
+          <Property Name="IdEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="IdAnio" Type="Int32" Nullable="false" />
+          <Property Name="IdAlumno" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="IdSede" Type="Int32" Nullable="false" />
+          <Property Name="IdNivel" Type="Int32" Nullable="false" />
+          <Property Name="IdJornada" Type="Int32" Nullable="false" />
+          <Property Name="IdCurso" Type="Int32" Nullable="false" />
+          <Property Name="IdTematica" Type="Int32" Nullable="false" />
+          <Property Name="IdCampoAccion" Type="Int32" Nullable="false" />
+          <Property Name="PromedioFinal" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="aca_AnioLectivo_Jornada_Curso" Relationship="ModelAcademico.FK_aca_AnioLectivoCalificacionParticipacionHistorico_aca_AnioLectivo_Jornada_Curso" FromRole="aca_AnioLectivoCalificacionParticipacionHistorico" ToRole="aca_AnioLectivo_Jornada_Curso" />
+          <NavigationProperty Name="aca_AnioLectivo_Tematica" Relationship="ModelAcademico.FK_aca_AnioLectivoCalificacionParticipacionHistorico_aca_AnioLectivo_Tematica" FromRole="aca_AnioLectivoCalificacionParticipacionHistorico" ToRole="aca_AnioLectivo_Tematica" />
+        </EntityType>
+        <Association Name="FK_aca_AnioLectivoCalificacionParticipacionHistorico_aca_AnioLectivo_Jornada_Curso">
+          <End Type="ModelAcademico.aca_AnioLectivo_Jornada_Curso" Role="aca_AnioLectivo_Jornada_Curso" Multiplicity="1" />
+          <End Type="ModelAcademico.aca_AnioLectivoCalificacionParticipacionHistorico" Role="aca_AnioLectivoCalificacionParticipacionHistorico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aca_AnioLectivo_Jornada_Curso">
+              <PropertyRef Name="IdEmpresa" />
+              <PropertyRef Name="IdAnio" />
+              <PropertyRef Name="IdSede" />
+              <PropertyRef Name="IdNivel" />
+              <PropertyRef Name="IdJornada" />
+              <PropertyRef Name="IdCurso" />
+            </Principal>
+            <Dependent Role="aca_AnioLectivoCalificacionParticipacionHistorico">
+              <PropertyRef Name="IdEmpresa" />
+              <PropertyRef Name="IdAnio" />
+              <PropertyRef Name="IdSede" />
+              <PropertyRef Name="IdNivel" />
+              <PropertyRef Name="IdJornada" />
+              <PropertyRef Name="IdCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_aca_AnioLectivoCalificacionParticipacionHistorico_aca_AnioLectivo_Tematica">
+          <End Type="ModelAcademico.aca_AnioLectivo_Tematica" Role="aca_AnioLectivo_Tematica" Multiplicity="1" />
+          <End Type="ModelAcademico.aca_AnioLectivoCalificacionParticipacionHistorico" Role="aca_AnioLectivoCalificacionParticipacionHistorico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aca_AnioLectivo_Tematica">
+              <PropertyRef Name="IdEmpresa" />
+              <PropertyRef Name="IdAnio" />
+              <PropertyRef Name="IdTematica" />
+              <PropertyRef Name="IdCampoAccion" />
+            </Principal>
+            <Dependent Role="aca_AnioLectivoCalificacionParticipacionHistorico">
+              <PropertyRef Name="IdEmpresa" />
+              <PropertyRef Name="IdAnio" />
+              <PropertyRef Name="IdTematica" />
+              <PropertyRef Name="IdCampoAccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -16436,6 +16572,22 @@ advertencia 6002: La tabla o vista 'DBERP.dbo.vwaca_Tematica' no tiene definida 
                 <ScalarProperty Name="IdUsuarioCreacion" ColumnName="IdUsuarioCreacion" />
                 <ScalarProperty Name="CalificacionGrado" ColumnName="CalificacionGrado" />
                 <ScalarProperty Name="IdMatricula" ColumnName="IdMatricula" />
+                <ScalarProperty Name="IdEmpresa" ColumnName="IdEmpresa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aca_AnioLectivoCalificacionParticipacionHistorico">
+            <EntityTypeMapping TypeName="ModelAcademico.aca_AnioLectivoCalificacionParticipacionHistorico">
+              <MappingFragment StoreEntitySet="aca_AnioLectivoCalificacionParticipacionHistorico">
+                <ScalarProperty Name="PromedioFinal" ColumnName="PromedioFinal" />
+                <ScalarProperty Name="IdCampoAccion" ColumnName="IdCampoAccion" />
+                <ScalarProperty Name="IdTematica" ColumnName="IdTematica" />
+                <ScalarProperty Name="IdCurso" ColumnName="IdCurso" />
+                <ScalarProperty Name="IdJornada" ColumnName="IdJornada" />
+                <ScalarProperty Name="IdNivel" ColumnName="IdNivel" />
+                <ScalarProperty Name="IdSede" ColumnName="IdSede" />
+                <ScalarProperty Name="IdAlumno" ColumnName="IdAlumno" />
+                <ScalarProperty Name="IdAnio" ColumnName="IdAnio" />
                 <ScalarProperty Name="IdEmpresa" ColumnName="IdEmpresa" />
               </MappingFragment>
             </EntityTypeMapping>

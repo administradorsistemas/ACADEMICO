@@ -1,0 +1,16 @@
+﻿@Html.DevExpress().ComboBox(settings =>
+{
+    settings.Name = "IdCurso";
+    settings.CallbackRouteValues = new { Controller = "MatriculaCalificacionHistoricoParticipacion", Action = "ComboBoxPartial_Curso", Area = "Academico" };
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Properties.DisplayFormatString = "[{0}] - {1}";
+    settings.Properties.Columns.Add("IdCurso", "ID").Width = System.Web.UI.WebControls.Unit.Percentage(20);
+    settings.Properties.Columns.Add("NomCurso", "Curso").Width = System.Web.UI.WebControls.Unit.Percentage(80);
+    //Campo ID
+    settings.Properties.ValueField = "IdCurso";
+    settings.Properties.ValueType = typeof(int);
+    settings.Properties.TextField = "NomCurso";
+    settings.Properties.NullText = "== Seleccione ==";
+    settings.Properties.DropDownStyle = DropDownStyle.DropDown;
+    settings.Properties.ClientSideEvents.BeginCallback = "function(s, e) { e.customArgs['IdAnio'] = IdAnio.GetValue(); e.customArgs['IdSede'] = IdSede.GetValue(); e.customArgs['IdNivel'] = IdNivel.GetValue(); e.customArgs['IdJornada'] = IdJornada.GetValue();}";
+}).BindList(new Core.Bus.Academico.aca_Curso_Bus().GetList(Convert.ToInt32(Core.Web.Helps.SessionFixed.IdEmpresa), Model.IdAnio, Model.IdSede, Model.IdNivel, Model.IdJornada)).Bind(Model.IdCurso).GetHtml()
