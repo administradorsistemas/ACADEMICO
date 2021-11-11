@@ -247,6 +247,7 @@
     <Compile Include="Areas\Academico\Controllers\MatriculaAsistenciaController.cs" />
     <Compile Include="Areas\Academico\Controllers\MatriculaCalificacionController.cs" />
     <Compile Include="Areas\Academico\Controllers\MatriculaCalificacionExamenController.cs" />
+    <Compile Include="Areas\Academico\Controllers\MatriculaCalificacionHistoricoParticipacionController.cs" />
     <Compile Include="Areas\Academico\Controllers\MatriculaCalificacionParcialController.cs" />
     <Compile Include="Areas\Academico\Controllers\MatriculaCalificacionParcialCualitativaController.cs" />
     <Compile Include="Areas\Academico\Controllers\MatriculaCalificacionParticipacionController.cs" />
@@ -416,6 +417,12 @@
     </Compile>
     <Compile Include="Reportes\Academico\ACA_073_Ministerio_Rpt.Designer.cs">
       <DependentUpon>ACA_073_Ministerio_Rpt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Academico\ACA_075_Historico_Rpt.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Academico\ACA_075_Historico_Rpt.Designer.cs">
+      <DependentUpon>ACA_075_Historico_Rpt.cs</DependentUpon>
     </Compile>
     <Compile Include="Reportes\Academico\ACA_075_Ministerio_Rpt.cs">
       <SubType>Component</SubType>
@@ -9978,6 +9985,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\Academico\ACA_073_Ministerio_Rpt.resx">
       <DependentUpon>ACA_073_Ministerio_Rpt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Academico\ACA_075_Historico_Rpt.resx">
+      <DependentUpon>ACA_075_Historico_Rpt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\Academico\ACA_075_Ministerio_Rpt.resx">
       <DependentUpon>ACA_075_Ministerio_Rpt.cs</DependentUpon>
