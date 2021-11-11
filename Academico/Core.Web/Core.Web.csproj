@@ -9874,6 +9874,15 @@
     <Content Include="Areas\Academico\Views\MatriculaGrado\_GridViewPartial_MatriculaGrado.cshtml" />
     <Content Include="Areas\Academico\Views\MatriculaGrado\_GridViewPartial_MatriculaGradoImportacion.cshtml" />
     <Content Include="Areas\Academico\Views\MatriculaGrado\Importar.cshtml" />
+    <Content Include="Areas\Academico\Views\MatriculaCalificacionHistoricoParticipacion\Index.cshtml" />
+    <Content Include="Areas\Academico\Views\MatriculaCalificacionHistoricoParticipacion\_ComboBoxPartial_Anio.cshtml" />
+    <Content Include="Areas\Academico\Views\MatriculaCalificacionHistoricoParticipacion\_ComboBoxPartial_CampoAccion.cshtml" />
+    <Content Include="Areas\Academico\Views\MatriculaCalificacionHistoricoParticipacion\_ComboBoxPartial_Curso.cshtml" />
+    <Content Include="Areas\Academico\Views\MatriculaCalificacionHistoricoParticipacion\_ComboBoxPartial_Jornada.cshtml" />
+    <Content Include="Areas\Academico\Views\MatriculaCalificacionHistoricoParticipacion\_ComboBoxPartial_Nivel.cshtml" />
+    <Content Include="Areas\Academico\Views\MatriculaCalificacionHistoricoParticipacion\_ComboBoxPartial_Sede.cshtml" />
+    <Content Include="Areas\Academico\Views\MatriculaCalificacionHistoricoParticipacion\_ComboBoxPartial_Tematica.cshtml" />
+    <Content Include="Areas\Academico\Views\MatriculaCalificacionHistoricoParticipacion\_GridViewPartial_CalificacionParticipacionHistorico.cshtml" />
     <None Include="Properties\PublishProfiles\p1.pubxml" />
     <None Include="Properties\PublishProfiles\Publicacion.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
