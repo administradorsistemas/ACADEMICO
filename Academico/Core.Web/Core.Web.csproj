@@ -233,6 +233,7 @@
     <Compile Include="Areas\Academico\Controllers\CorreoMasivoAcademicoController.cs" />
     <Compile Include="Areas\Academico\Controllers\CursoController.cs" />
     <Compile Include="Areas\Academico\Controllers\CursoPorJornadaController.cs" />
+    <Compile Include="Areas\Academico\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Academico\Controllers\DECEObservacionController.cs" />
     <Compile Include="Areas\Academico\Controllers\DocumentoController.cs" />
     <Compile Include="Areas\Academico\Controllers\DocumentoPorCursoController.cs" />
@@ -9883,9 +9884,13 @@
     <Content Include="Areas\Academico\Views\MatriculaCalificacionHistoricoParticipacion\_ComboBoxPartial_Sede.cshtml" />
     <Content Include="Areas\Academico\Views\MatriculaCalificacionHistoricoParticipacion\_ComboBoxPartial_Tematica.cshtml" />
     <Content Include="Areas\Academico\Views\MatriculaCalificacionHistoricoParticipacion\_GridViewPartial_CalificacionParticipacionHistorico.cshtml" />
+    <Content Include="Areas\Academico\Views\Dashboard\Index.cshtml" />
     <None Include="Properties\PublishProfiles\p1.pubxml" />
     <None Include="Properties\PublishProfiles\Publicacion.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\chart.bundle.min.js" />
+    <Content Include="Scripts\chart.js" />
+    <Content Include="Scripts\chart.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

@@ -278,7 +278,7 @@ namespace Core.Data.Reportes.Academico
                         + " select a.IdEmpresa, a.IdAlumno, a.PromedioFinal"
                         + " from aca_MatriculaCalificacionParticipacion as a WITH(nolock)"
                         + " where a.IdEmpresa = " + item.IdEmpresa + " and a.IdAlumno = " + item.IdAlumno.ToString()
-                        + " union( "
+                        + " union all ( "
                         + " select b.IdEmpresa, b.IdAlumno, b.PromedioFinal"
                         + " from aca_AnioLectivoCalificacionParticipacionHistorico b"
                         + " where b.IdEmpresa = " + item.IdEmpresa + " and b.IdAlumno = " + item.IdAlumno.ToString()

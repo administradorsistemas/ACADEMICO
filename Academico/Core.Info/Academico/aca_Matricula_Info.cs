@@ -116,6 +116,7 @@ namespace Core.Info.Academico
         public bool ValidaImportacionPreMatricula { get; set; }
         public string NomPlantillaTipo { get; set; }
         public int IdSocioEconomico { get; set; }
+        public int CantEstudiantes { get; set; }
         #endregion
     }
 }

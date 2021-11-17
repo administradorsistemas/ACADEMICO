@@ -398,5 +398,54 @@ namespace Core.Bus.Academico
             }
         }
 
+
+        //DASHBOARD
+        public List<aca_Matricula_Info> Dashboard_EstudiantesGeneral(int IdEmpresa, int IdAnio, int IdSede)
+        {
+            try
+            {
+                return odata.Dashboard_EstudiantesGeneral(IdEmpresa, IdAnio, IdSede);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public List<aca_Matricula_Info> CantEstudiantesActual(int IdEmpresa, int IdAnio, int IdSede)
+        {
+            try
+            {
+                return odata.CantEstudiantesActual(IdEmpresa, IdAnio, IdSede);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public List<aca_Matricula_Info> CantEstudiantesJornada(int IdEmpresa, int IdAnio, int IdSede)
+        {
+            try
+            {
+                return odata.CantEstudiantesJornada(IdEmpresa, IdAnio, IdSede);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public List<aca_Matricula_Info> CantEstudiantesNivel(int IdEmpresa, int IdAnio, int IdSede)
+        {
+            try
+            {
+                return odata.CantEstudiantesNivel(IdEmpresa, IdAnio, IdSede);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

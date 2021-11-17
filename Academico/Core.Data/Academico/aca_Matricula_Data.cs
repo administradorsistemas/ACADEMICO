@@ -1261,5 +1261,199 @@ namespace Core.Data.Academico
                 throw;
             }
         }
+
+        //DASHBOARD
+        public List<aca_Matricula_Info> Dashboard_EstudiantesGeneral(int IdEmpresa, int IdAnio, int IdSede)
+        {
+            try
+            {
+                List<aca_Matricula_Info> Lista = new List<aca_Matricula_Info>();
+                using (SqlConnection connection = new SqlConnection(CadenaDeConexion.GetConnectionString()))
+                {
+                    connection.Open();
+
+                    #region Query
+                    string query = "SELECT TOP 3 AL.Descripcion, COUNT(M.IdMatricula) CantEstudiantes "
+                    +" FROM aca_Matricula M "
+                    +" INNER JOIN aca_AnioLectivo AL ON M.IdEmpresa = AL.IdEmpresa AND M.IdAnio = AL.IdAnio "
+                    +" WHERE M.IdEmpresa = "+ IdEmpresa.ToString()+ " AND M.IdSede = "+ IdSede.ToString()
+                    +" AND NOT EXISTS( "
+                        +" select f.IdEmpresa from aca_AlumnoRetiro as f with(nolock) "
+                        +" where f.IdEmpresa = "+ IdEmpresa.ToString()
+                        +" and f.IdMatricula = M.IdMatricula "
+                        +" and f.Estado = 1 "
+                    +" ) "
+                    +" GROUP BY AL.Descripcion "
+                    +" ORDER BY AL.Descripcion DESC";
+                    #endregion
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.CommandTimeout = 0;
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Lista.Add(new aca_Matricula_Info
+                        {                            
+                            Descripcion = reader["Descripcion"].ToString(),
+                            CantEstudiantes = string.IsNullOrEmpty(reader["CantEstudiantes"].ToString()) ? 0 : Convert.ToInt32(reader["CantEstudiantes"]),
+                        });
+                    }
+                    reader.Close();
+                }
+
+                return Lista;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public List<aca_Matricula_Info> CantEstudiantesActual(int IdEmpresa, int IdAnio, int IdSede)
+        {
+            try
+            {
+                List<aca_Matricula_Info> Lista = new List<aca_Matricula_Info>();
+                using (SqlConnection connection = new SqlConnection(CadenaDeConexion.GetConnectionString()))
+                {
+                    connection.Open();
+
+                    #region Query
+                    string query = "SELECT CASE WHEN P.pe_sexo='SEXO_MAS' THEN 'MASCULINO' ELSE 'FEMENINO' END Sexo, COUNT(M.IdMatricula) CantEstudiantes "
+                    + " FROM aca_Matricula M "
+                    + " INNER JOIN aca_AnioLectivo AL ON M.IdEmpresa = AL.IdEmpresa AND M.IdAnio = AL.IdAnio "
+                    + " INNER JOIN aca_Alumno A ON M.IdEmpresa=A.IdEmpresa AND M.IdAlumno=A.IdAlumno "
+                    + " INNER JOIN tb_persona P ON A.IdPersona = P.IdPersona "
+                    + " WHERE M.IdEmpresa = " + IdEmpresa.ToString() + " AND M.IdSede = " + IdSede.ToString() + " AND M.IdAnio = " + IdAnio.ToString()
+                    + " AND NOT EXISTS( "
+                        + " select f.IdEmpresa from aca_AlumnoRetiro as f with(nolock) "
+                        + " where f.IdEmpresa = " + IdEmpresa.ToString()
+                        + " and f.IdMatricula = M.IdMatricula "
+                        + " and f.Estado = 1 "
+                    + " ) "
+                    + " GROUP BY P.pe_sexo ";
+                    #endregion
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.CommandTimeout = 0;
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Lista.Add(new aca_Matricula_Info
+                        {
+                            Descripcion = reader["Sexo"].ToString(),
+                            CantEstudiantes = string.IsNullOrEmpty(reader["CantEstudiantes"].ToString()) ? 0 : Convert.ToInt32(reader["CantEstudiantes"]),
+                        });
+                    }
+                    reader.Close();
+                }
+
+                return Lista;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public List<aca_Matricula_Info> CantEstudiantesJornada(int IdEmpresa, int IdAnio, int IdSede)
+        {
+            try
+            {
+                List<aca_Matricula_Info> Lista = new List<aca_Matricula_Info>();
+                using (SqlConnection connection = new SqlConnection(CadenaDeConexion.GetConnectionString()))
+                {
+                    connection.Open();
+
+                    #region Query
+                    string query = "SELECT NJ.NomJornada,NJ.OrdenJornada, COUNT(M.IdMatricula) CantEstudiantes "
+                    + " FROM aca_Matricula M "
+                    + " INNER JOIN aca_AnioLectivo AL ON M.IdEmpresa = AL.IdEmpresa AND M.IdAnio = AL.IdAnio "
+                    + " INNER JOIN aca_AnioLectivo_NivelAcademico_Jornada NJ ON M.IdEmpresa = NJ.IdEmpresa AND M.IdAnio = NJ.IdAnio "
+                    + " AND M.IdSede = NJ.IdSede AND M.IdNivel = NJ.IdNivel AND M.IdJornada = NJ.IdJornada "
+                    + " WHERE M.IdEmpresa = " + IdEmpresa.ToString() + " AND M.IdSede = " + IdSede.ToString() + " AND M.IdAnio = " + IdAnio.ToString()
+                    + " AND NOT EXISTS( "
+                        + " select f.IdEmpresa from aca_AlumnoRetiro as f with(nolock) "
+                        + " where f.IdEmpresa = 1 "
+                        + " and f.IdMatricula = M.IdMatricula "
+                        + " and f.Estado = 1 "
+                    + " ) "
+                    + " GROUP BY NJ.NomJornada,NJ.OrdenJornada "
+                    + " ORDER BY NJ.OrdenJornada ";
+                    #endregion
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.CommandTimeout = 0;
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Lista.Add(new aca_Matricula_Info
+                        {
+                            NomJornada = reader["NomJornada"].ToString(),
+                            CantEstudiantes = string.IsNullOrEmpty(reader["CantEstudiantes"].ToString()) ? 0 : Convert.ToInt32(reader["CantEstudiantes"]),
+                        });
+                    }
+                    reader.Close();
+                }
+
+                return Lista;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public List<aca_Matricula_Info> CantEstudiantesNivel(int IdEmpresa, int IdAnio, int IdSede)
+        {
+            try
+            {
+                List<aca_Matricula_Info> Lista = new List<aca_Matricula_Info>();
+                using (SqlConnection connection = new SqlConnection(CadenaDeConexion.GetConnectionString()))
+                {
+                    connection.Open();
+
+                    #region Query
+                    string query = "SELECT SN.NomNivel,SN.OrdenNivel, COUNT(M.IdMatricula) CantEstudiantes "
+                    + " FROM aca_Matricula M "
+                    + " INNER JOIN aca_AnioLectivo AL ON M.IdEmpresa = AL.IdEmpresa AND M.IdAnio = AL.IdAnio "
+                    + " INNER JOIN aca_AnioLectivo_Sede_NivelAcademico SN ON M.IdEmpresa=SN.IdEmpresa AND M.IdAnio=SN.IdAnio  "
+                    + " AND M.IdSede=SN.IdSede AND M.IdNivel=SN.IdNivel "
+                    + " WHERE M.IdEmpresa = " + IdEmpresa.ToString() + " AND M.IdSede = " + IdSede.ToString() + " AND M.IdAnio = " + IdAnio.ToString()
+                    + " AND NOT EXISTS( "
+                        + " select f.IdEmpresa from aca_AlumnoRetiro as f with(nolock) "
+                        + " where f.IdEmpresa = 1 "
+                        + " and f.IdMatricula = M.IdMatricula "
+                        + " and f.Estado = 1 "
+                    + " ) "
+                    + " GROUP BY SN.NomNivel,SN.OrdenNivel "
+                    + " ORDER BY SN.OrdenNivel ";
+                    #endregion
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.CommandTimeout = 0;
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Lista.Add(new aca_Matricula_Info
+                        {
+                            NomNivel = reader["NomNivel"].ToString(),
+                            CantEstudiantes = string.IsNullOrEmpty(reader["CantEstudiantes"].ToString()) ? 0 : Convert.ToInt32(reader["CantEstudiantes"]),
+                        });
+                    }
+                    reader.Close();
+                }
+
+                return Lista;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
