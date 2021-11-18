@@ -1290,12 +1290,14 @@ namespace Core.Data.Academico
                     SqlCommand command = new SqlCommand(query, connection);
                     command.CommandTimeout = 0;
                     SqlDataReader reader = command.ExecuteReader();
+                    var Secuencia = 1;
                     while (reader.Read())
                     {
                         Lista.Add(new aca_Matricula_Info
                         {                            
                             Descripcion = reader["Descripcion"].ToString(),
                             CantEstudiantes = string.IsNullOrEmpty(reader["CantEstudiantes"].ToString()) ? 0 : Convert.ToInt32(reader["CantEstudiantes"]),
+                            IdAlumno = Secuencia++
                         });
                     }
                     reader.Close();
@@ -1338,12 +1340,14 @@ namespace Core.Data.Academico
                     SqlCommand command = new SqlCommand(query, connection);
                     command.CommandTimeout = 0;
                     SqlDataReader reader = command.ExecuteReader();
+                    var Secuencia = 1;
                     while (reader.Read())
                     {
                         Lista.Add(new aca_Matricula_Info
                         {
                             Descripcion = reader["Sexo"].ToString(),
                             CantEstudiantes = string.IsNullOrEmpty(reader["CantEstudiantes"].ToString()) ? 0 : Convert.ToInt32(reader["CantEstudiantes"]),
+                            IdAlumno = Secuencia++
                         });
                     }
                     reader.Close();
@@ -1387,12 +1391,14 @@ namespace Core.Data.Academico
                     SqlCommand command = new SqlCommand(query, connection);
                     command.CommandTimeout = 0;
                     SqlDataReader reader = command.ExecuteReader();
+                    var Secuencia = 1;
                     while (reader.Read())
                     {
                         Lista.Add(new aca_Matricula_Info
                         {
                             NomJornada = reader["NomJornada"].ToString(),
                             CantEstudiantes = string.IsNullOrEmpty(reader["CantEstudiantes"].ToString()) ? 0 : Convert.ToInt32(reader["CantEstudiantes"]),
+                            IdAlumno = Secuencia++
                         });
                     }
                     reader.Close();
@@ -1436,12 +1442,14 @@ namespace Core.Data.Academico
                     SqlCommand command = new SqlCommand(query, connection);
                     command.CommandTimeout = 0;
                     SqlDataReader reader = command.ExecuteReader();
+                    var Secuencia = 1;
                     while (reader.Read())
                     {
                         Lista.Add(new aca_Matricula_Info
                         {
                             NomNivel = reader["NomNivel"].ToString(),
                             CantEstudiantes = string.IsNullOrEmpty(reader["CantEstudiantes"].ToString()) ? 0 : Convert.ToInt32(reader["CantEstudiantes"]),
+                            IdAlumno = Secuencia++
                         });
                     }
                     reader.Close();

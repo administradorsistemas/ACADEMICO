@@ -4500,6 +4500,7 @@
     <Content Include="AdminLTE\bower_components\datatables.net-bs\License.txt" />
     <Content Include="AdminLTE\bower_components\datatables.net\js\jquery.dataTables.js" />
     <Content Include="AdminLTE\bower_components\datatables.net\js\jquery.dataTables.min.js" />
+    <Content Include="AdminLTE\bower_components\datatables.net\js\sum%28%29.js" />
     <Content Include="AdminLTE\bower_components\datatables.net\License.txt" />
     <Content Include="AdminLTE\bower_components\eve-raphael\e.html" />
     <Content Include="AdminLTE\bower_components\eve-raphael\eve.js" />

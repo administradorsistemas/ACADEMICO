@@ -16,22 +16,54 @@
     @Html.HiddenFor(q => q.IdSede, new { @id = "IdSede" })
     @Html.HiddenFor(q => q.IdTransaccionSession, new { @id = "IdTransaccionSession" })
 
+    @*<style>
+        .table thead, .table tfoot{
+            background-color:#196F3D;
+            color:azure
+        }
+    </style>*@
     <div class="row">
         <div class="col-md-12">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group" style="text-align:center">
                     <canvas class="canvas" id="CantEstudiantesGeneral-chart"></canvas>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <table id="Table_EstudiantesGeneral" class="table table-responsive dataTable dataTables_paginate">
+                    <thead>
+                        <tr role="row">
+                            <th class="sorting_asc" tabindex="0" aria-sort="ascending">#</th>
+                            <th class="sorting" tabindex="0">Año Lectivo</th>
+                            <th class="sorting" tabindex="0">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="col-md-3">
                 <div class="form-group">
                     <canvas class="canvas" id="CantEstudiantesActual-chart"></canvas>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <canvas class="canvas" id="CantEstudiantesJornada-chart"></canvas>
-                </div>
+            <div class="col-md-3">
+                <table id="Table_EstudiantesActual" class="table table-responsive dataTable dataTables_paginate">
+                    <thead>
+                        <tr role="row">
+                            <th class="sorting_asc" tabindex="0" aria-sort="ascending">#</th>
+                            <th class="sorting" tabindex="0">Sexo</th>
+                            <th class="sorting" tabindex="0">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                        <tr role="row">
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
     </div>
@@ -46,14 +78,39 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="col-md-6">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <canvas class="canvas" id="CantEstudiantesJornada-chart"></canvas>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <table id="Table_EstudiantesJornada" class="table table-responsive dataTable dataTables_paginate">
+                    <thead>
+                        <tr role="row">
+                            <th class="sorting_asc" tabindex="0" aria-sort="ascending">#</th>
+                            <th class="sorting" tabindex="0">Jornada</th>
+                            <th class="sorting" tabindex="0">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="col-md-3">
                 <div class="form-group">
                     <canvas class="canvas" id="CantEstudiantesNivel-chart"></canvas>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                </div>
+            <div class="col-md-3">
+                <table id="Table_EstudiantesNivel" class="table table-responsive dataTable dataTables_paginate">
+                    <thead>
+                        <tr role="row">
+                            <th class="sorting_asc" tabindex="0" aria-sort="ascending">#</th>
+                            <th class="sorting" tabindex="0">Nivel</th>
+                            <th class="sorting" tabindex="0">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -66,6 +123,48 @@
         CantEstudiantesActual();
         CantEstudiantesJornada();
         CantEstudiantesNivel();
+
+        $('#Table_EstudiantesGeneral').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        });
+
+        $('#Table_EstudiantesActual').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': true,
+            'info': true,
+            'autoWidth': true,
+            'drawCallback': function () {
+                var api = this.api();
+                $(api.column(2).footer()).html(
+                  api.column(2, { page: 'current' }).data().sum()
+                );
+            }
+        });
+
+        $('#Table_EstudiantesJornada').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        })
+
+        $('#Table_EstudiantesNivel').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        })
     })
 
 
@@ -93,6 +192,14 @@
                 var Border = [];
 
                 $.each(data, function (index, value) {
+                    var detalle = "";
+                    detalle += "<tr>" +
+                                "<td>" + value.IdAlumno + "</td>" +
+                                "<td>" + value.Descripcion + "</td>" +
+                                "<td>" + value.CantEstudiantes + "</td>" +
+                                "</tr>";
+                    $("#Table_EstudiantesGeneral tbody").append(detalle)
+
                     if (index < NumRows) {
                         Etiquetas.push(value.Descripcion);
                         Valores.push(value.CantEstudiantes);
@@ -108,7 +215,7 @@
                         labels: Etiquetas,
                         datasets:
                             [{
-                                label: 'ESTUDIANTES POR AÑO LECTIVO',
+                                label: 'ESTUDIANTES POR AÑO',
                                 data: Valores,
                                 backgroundColor: colorRGBFijos(1),
                                 borderColor: colorRGBFijos(1),
@@ -130,7 +237,7 @@
                             },
                             title: {
                                 display: true,
-                                text: 'ESTUDIANTES POR AÑO LECTIVO'
+                                text: 'ESTUDIANTES POR AÑO LECTIVO (ULTIMOS 3 AÑOS)'
                             }
                         },
                         scales: {
@@ -175,6 +282,14 @@
                 var Border = [];
 
                 $.each(data, function (index, value) {
+                    var detalle = "";
+                    detalle += "<tr>" +
+                                "<td>" + value.IdAlumno + "</td>" +
+                                "<td>" + value.Descripcion + "</td>" +
+                                "<td>" + value.CantEstudiantes + "</td>" +
+                                "</tr>";
+                    $("#Table_EstudiantesActual tbody").append(detalle)
+
                     if (index < NumRows) {
                         Etiquetas.push(value.Descripcion);
                         Valores.push(value.CantEstudiantes);
@@ -216,7 +331,7 @@
                             },
                             title: {
                                 display: true,
-                                text: 'ESTUDIANTES POR SEXO'
+                                text: 'ESTUDIANTES POR SEXO (AÑO ACTUAL)'
                             }
                         },
                         scales: {
@@ -261,6 +376,14 @@
                 var Border = [];
               
                 $.each(data, function (index, value) {
+                    var detalle = "";
+                    detalle += "<tr>" +
+                                "<td>" + value.IdAlumno + "</td>" +
+                                "<td>" + value.NomJornada+ "</td>" +
+                                "<td>" + value.CantEstudiantes + "</td>" +
+                                "</tr>";
+                    $("#Table_EstudiantesJornada tbody").append(detalle)
+
                     if (index < NumRows) {
                         Etiquetas.push(value.NomJornada);
                         Valores.push(value.CantEstudiantes);
@@ -302,7 +425,7 @@
                             },
                             title: {
                                 display: true,
-                                text: 'ESTUDIANTES POR JORNADA'
+                                text: 'ESTUDIANTES POR JORNADA (AÑO ACTUAL)'
                             }
                         },
                         scales: {
@@ -347,6 +470,14 @@
                 var Border = [];
           
                 $.each(data, function (index, value) {
+                    var detalle = "";
+                    detalle += "<tr>" +
+                                "<td>" + value.IdAlumno + "</td>" +
+                                "<td>" + value.NomNivel + "</td>" +
+                                "<td>" + value.CantEstudiantes + "</td>" +
+                                "</tr>";
+                    $("#Table_EstudiantesNivel tbody").append(detalle)
+
                     if (index < NumRows) {
                         Etiquetas.push(value.NomNivel);
                         Valores.push(value.CantEstudiantes);
@@ -354,7 +485,7 @@
                 })
                 var CantEstudiantesNivel_Chart = document.getElementById('CantEstudiantesNivel-chart').getContext('2d');
                 var chartEl = document.getElementById("CantEstudiantesNivel-chart");
-                chartEl.height = 400;
+                chartEl.height = 300;
 
                 var chart = new Chart(CantEstudiantesNivel_Chart, {
                     type: 'bar',
@@ -384,7 +515,7 @@
                             },
                             title: {
                                 display: true,
-                                text: 'ESTUDIANTES POR NIVEL'
+                                text: 'ESTUDIANTES POR NIVEL (AÑO ACTUAL)'
                             }
                         },
                         scales: {
