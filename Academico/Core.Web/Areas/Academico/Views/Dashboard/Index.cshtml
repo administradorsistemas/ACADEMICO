@@ -114,6 +114,42 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <div class="form-group">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <canvas class="canvas" id="CantEstudiantesAdmision-chart"></canvas>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <table id="Table_EstudiantesAdmision" class="table table-responsive dataTable dataTables_paginate">
+                    <thead>
+                        <tr role="row">
+                            <th class="sorting_asc" tabindex="0" aria-sort="ascending">#</th>
+                            <th class="sorting" tabindex="0">Estado</th>
+                            <th class="sorting" tabindex="0">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                        <tr role="row">
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
 }
 
 
@@ -123,22 +159,23 @@
         CantEstudiantesActual();
         CantEstudiantesJornada();
         CantEstudiantesNivel();
+        CantEstudiantesAdmision();
 
         $('#Table_EstudiantesGeneral').DataTable({
-            'paging': true,
+            'paging': false,
             'lengthChange': false,
             'searching': false,
             'ordering': true,
-            'info': true,
-            'autoWidth': false
+            'info': false,
+            'autoWidth': true
         });
 
         $('#Table_EstudiantesActual').DataTable({
-            'paging': true,
+            'paging': false,
             'lengthChange': false,
             'searching': false,
             'ordering': true,
-            'info': true,
+            'info': false,
             'autoWidth': true,
             'drawCallback': function () {
                 var api = this.api();
@@ -149,22 +186,37 @@
         });
 
         $('#Table_EstudiantesJornada').DataTable({
-            'paging': true,
+            'paging': false,
             'lengthChange': false,
             'searching': false,
             'ordering': true,
-            'info': true,
-            'autoWidth': false
+            'info': false,
+            'autoWidth': true
         })
 
         $('#Table_EstudiantesNivel').DataTable({
-            'paging': true,
+            'paging': false,
             'lengthChange': false,
             'searching': false,
             'ordering': true,
-            'info': true,
-            'autoWidth': false
+            'info': false,
+            'autoWidth': true
         })
+
+        $('#Table_EstudiantesAdmision').DataTable({
+            'paging': false,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': true,
+            'info': false,
+            'autoWidth': true,
+            'drawCallback': function () {
+                var api = this.api();
+                $(api.column(2).footer()).html(
+                  api.column(2, { page: 'current' }).data().sum()
+                );
+            }
+        });
     })
 
 
@@ -207,7 +259,7 @@
                 })
                 var CantEstudiantesGeneral_Chart = document.getElementById('CantEstudiantesGeneral-chart').getContext('2d');
                 var chartEl = document.getElementById("CantEstudiantesGeneral-chart");
-                chartEl.height = 300;
+                chartEl.height = 250;
 
                 var chart = new Chart(CantEstudiantesGeneral_Chart, {
                     type: 'bar',
@@ -297,7 +349,7 @@
                 })
                 var CantEstudiantesActual_Chart = document.getElementById('CantEstudiantesActual-chart').getContext('2d');
                 var chartEl = document.getElementById("CantEstudiantesActual-chart");
-                chartEl.height = 300;
+                chartEl.height = 250;
 
                 var chart = new Chart(CantEstudiantesActual_Chart, {
                     type: 'pie',
@@ -334,15 +386,15 @@
                                 text: 'ESTUDIANTES POR SEXO (AÑO ACTUAL)'
                             }
                         },
-                        scales: {
-                            xAxes: [{
-                                ticks: {
-                                    autoSkip: false,
-                                    maxRotation: 90,
-                                    minRotation: 90
-                                }
-                            }]
-                        }
+                        //scales: {
+                        //    xAxes: [{
+                        //        ticks: {
+                        //            autoSkip: false,
+                        //            maxRotation: 90,
+                        //            minRotation: 90
+                        //        }
+                        //    }]
+                        //}
                     }
                 });
             },
@@ -374,7 +426,7 @@
                 var Valores = [];
                 var Background = [];
                 var Border = [];
-              
+
                 $.each(data, function (index, value) {
                     var detalle = "";
                     detalle += "<tr>" +
@@ -391,7 +443,7 @@
                 })
                 var CantEstudiantesJornada_Chart = document.getElementById('CantEstudiantesJornada-chart').getContext('2d');
                 var chartEl = document.getElementById("CantEstudiantesJornada-chart");
-                chartEl.height = 300;
+                chartEl.height = 250;
 
                 var chart = new Chart(CantEstudiantesJornada_Chart, {
                     type: 'pie',
@@ -428,15 +480,15 @@
                                 text: 'ESTUDIANTES POR JORNADA (AÑO ACTUAL)'
                             }
                         },
-                        scales: {
-                            xAxes: [{
-                                ticks: {
-                                    autoSkip: false,
-                                    maxRotation: 90,
-                                    minRotation: 90
-                                }
-                            }]
-                        }
+                        //scales: {
+                        //    xAxes: [{
+                        //        ticks: {
+                        //            autoSkip: false,
+                        //            maxRotation: 90,
+                        //            minRotation: 90
+                        //        }
+                        //    }]
+                        //}
                     }
                 });
             },
@@ -445,7 +497,7 @@
             }
         });
     };
-    
+
     function CantEstudiantesNivel() {
         var datos = {
             IdEmpresa: $("#IdEmpresa").val(),
@@ -468,7 +520,7 @@
                 var Valores = [];
                 var Background = [];
                 var Border = [];
-          
+
                 $.each(data, function (index, value) {
                     var detalle = "";
                     detalle += "<tr>" +
@@ -485,7 +537,7 @@
                 })
                 var CantEstudiantesNivel_Chart = document.getElementById('CantEstudiantesNivel-chart').getContext('2d');
                 var chartEl = document.getElementById("CantEstudiantesNivel-chart");
-                chartEl.height = 300;
+                chartEl.height = 250;
 
                 var chart = new Chart(CantEstudiantesNivel_Chart, {
                     type: 'bar',
@@ -527,6 +579,101 @@
                                 }
                             }]
                         }
+                    }
+                });
+            },
+            error: function (error) {
+
+            }
+        });
+    };
+
+    function CantEstudiantesAdmision() {
+        var datos = {
+            IdEmpresa: $("#IdEmpresa").val(),
+            IdAnio: $("#IdAnio").val(),
+            IdSede: $("#IdSede").val(),
+        }
+
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify(datos),
+            url: '@Url.Action("CantEstudiantesAdmision", "Dashboard")',
+            async: false,
+            bDeferRender: true,
+            bProcessing: true,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var NumRows = data.length;
+                var Etiquetas = [];
+                var Valores = [];
+                var Background = [];
+                var Border = [];
+
+                $.each(data, function (index, value) {
+                    var detalle = "";
+                    detalle += "<tr>" +
+                                "<td>" + value.IdAlumno + "</td>" +
+                                "<td>" + value.Descripcion + "</td>" +
+                                "<td>" + value.CantEstudiantes + "</td>" +
+                                "</tr>";
+                    $("#Table_EstudiantesAdmision tbody").append(detalle)
+
+                    if (index < NumRows) {
+                        Etiquetas.push(value.Descripcion);
+                        Valores.push(value.CantEstudiantes);
+                    }
+                })
+                var CantEstudiantesAdmision_Chart = document.getElementById('CantEstudiantesAdmision-chart').getContext('2d');
+                var chartEl = document.getElementById("CantEstudiantesAdmision-chart");
+                chartEl.height = 250;
+
+                var chart = new Chart(CantEstudiantesAdmision_Chart, {
+                    type: 'pie',
+                    data: {
+                        labels: Etiquetas,
+                        datasets:
+                            [{
+                                label: 'ADMISIONES',
+                                data: Valores,
+                                //backgroundColor: colorRGBFijos(2),
+                                //borderColor: colorRGBFijos(2),
+                                //borderWidth: 2
+                                backgroundColor: [
+                                'rgba(41, 128, 185 )',
+                                'rgba(39, 174, 96 )',
+                                'rgba(93, 109, 126 )'
+                                ],
+                            }]
+                    },
+                    options: {
+                        responsive: false,
+                        animation: {
+                            radius: {
+                                duration: 400,
+                                easing: 'linear',
+                                loop: (context) => context.active
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: 'ADMISIONES'
+                            }
+                        },
+                        //scales: {
+                        //    xAxes: [{
+                        //        ticks: {
+                        //            autoSkip: false,
+                        //            maxRotation: 90,
+                        //            minRotation: 90
+                        //        }
+                        //    }]
+                        //}
                     }
                 });
             },

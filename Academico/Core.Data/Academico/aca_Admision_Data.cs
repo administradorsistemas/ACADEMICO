@@ -910,5 +910,50 @@ namespace Core.Data.Academico
                 throw;
             }
         }
+
+        //DASHBOARD
+        public List<aca_Admision_Info> Dashboard_Admisiones(int IdEmpresa)
+        {
+            try
+            {
+                List<aca_Admision_Info> Lista = new List<aca_Admision_Info>();
+                using (SqlConnection connection = new SqlConnection(CadenaDeConexion.GetConnectionString()))
+                {
+                    connection.Open();
+
+                    #region Query
+                    string query = "declare @IdAnioAdmision int; "
+                        +" select @IdAnioAdmision = MAX(IdAnio) from aca_AnioLectivo where IdEmpresa = "+IdEmpresa.ToString()+" ; "
+                        +" select c.Codigo, COUNT(a.IdAdmision) CantEstudiantes "
+                        +"  from aca_Admision a "
+                        +" inner join aca_Catalogo c on c.IdCatalogo = a.IdCatalogoESTADM "
+                        + " where a.IdEmpresa = " + IdEmpresa.ToString() + " and a.IdAnio = @IdAnioAdmision "
+                        + " group by c.Codigo ";
+                    #endregion
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.CommandTimeout = 0;
+                    SqlDataReader reader = command.ExecuteReader();
+                    var Secuencia = 1;
+                    while (reader.Read())
+                    {
+                        Lista.Add(new aca_Admision_Info
+                        {
+                            Descripcion = reader["Codigo"].ToString(),
+                            CantEstudiantes = string.IsNullOrEmpty(reader["CantEstudiantes"].ToString()) ? 0 : Convert.ToInt32(reader["CantEstudiantes"]),
+                            IdAlumno = Secuencia++
+                        });
+                    }
+                    reader.Close();
+                }
+
+                return Lista;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

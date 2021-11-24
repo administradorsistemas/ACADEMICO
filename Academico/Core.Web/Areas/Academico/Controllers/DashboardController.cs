@@ -17,6 +17,7 @@ namespace Core.Web.Areas.Academico.Controllers
         aca_AnioLectivo_Bus bus_anio = new aca_AnioLectivo_Bus();
         string mensaje = string.Empty;
         aca_Menu_x_seg_usuario_Bus bus_permisos = new aca_Menu_x_seg_usuario_Bus();
+        aca_Admision_Bus bus_admision = new aca_Admision_Bus();
         #endregion
 
         public ActionResult Index()
@@ -69,6 +70,12 @@ namespace Core.Web.Areas.Academico.Controllers
         public JsonResult CantEstudiantesNivel(int IdEmpresa = 0, int IdAnio = 0, int IdSede = 0)
         {
             var lstEstudiantes = bus_matricula.CantEstudiantesNivel(IdEmpresa, IdAnio, IdSede);
+            return Json(lstEstudiantes, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CantEstudiantesAdmision(int IdEmpresa = 0, int IdAnio = 0, int IdSede = 0)
+        {
+            var lstEstudiantes = bus_admision.Dashboard_Admisiones(IdEmpresa);
             return Json(lstEstudiantes, JsonRequestBehavior.AllowGet);
         }
         #endregion

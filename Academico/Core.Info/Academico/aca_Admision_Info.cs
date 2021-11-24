@@ -443,6 +443,7 @@ namespace Core.Info.Academico
         public int IdCatalogoPAREN_OtroFamiliar { get; set; }
 
         public string IdUsuarioSesion { get; set; }
+        public int CantEstudiantes { get; set; }
         #endregion
     }
 }

@@ -151,5 +151,18 @@ namespace Core.Bus.Academico
                 throw;
             }
         }
+
+        //DASHBOARD
+        public List<aca_Admision_Info> Dashboard_Admisiones(int IdEmpresa)
+        {
+            try
+            {
+                return odata.Dashboard_Admisiones(IdEmpresa);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }
