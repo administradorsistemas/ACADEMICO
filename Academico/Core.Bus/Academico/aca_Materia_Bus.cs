@@ -84,23 +84,27 @@ namespace Core.Bus.Academico
                     {
                         foreach (var item in lst_anios)
                         {
-                            var lst_curso_materia = odata_curso_materia.getList_Update(info.IdEmpresa, item.IdAnio, info.IdMateria);
-                            if (lst_curso_materia.Count > 0)
+                            //var info_anio_curso = odata_anio.getInfo(info.IdEmpresa, item.IdAnio);
+                            if (item.EnCurso == true)
                             {
-                                foreach (var info_curso_materia in lst_curso_materia)
+                                var lst_curso_materia = odata_curso_materia.getList_Update(info.IdEmpresa, item.IdAnio, info.IdMateria);
+                                if (lst_curso_materia.Count > 0)
                                 {
-                                    info_curso_materia.NomMateria = info.NomMateria;
-                                    info_curso_materia.EsObligatorio = info.EsObligatorio;
-                                    info_curso_materia.OrdenMateria = info.OrdenMateria;
-                                    info_curso_materia.OrdenMateriaArea = info.OrdenMateriaArea;
-                                    info_curso_materia.OrdenMateriaGrupo = info.OrdenMateriaGrupo;
-                                    info_curso_materia.NomMateriaArea = info.NomMateriaArea;
-                                    info_curso_materia.NomMateriaGrupo = info.NomMateriaGrupo;
-                                    info_curso_materia.IdCatalogoTipoCalificacion = info.IdCatalogoTipoCalificacion;
-                                    info_curso_materia.PromediarGrupo = info.PromediarGrupo;
-                                }
+                                    foreach (var info_curso_materia in lst_curso_materia)
+                                    {
+                                        info_curso_materia.NomMateria = info.NomMateria;
+                                        info_curso_materia.EsObligatorio = info.EsObligatorio;
+                                        info_curso_materia.OrdenMateria = info.OrdenMateria;
+                                        info_curso_materia.OrdenMateriaArea = info.OrdenMateriaArea;
+                                        info_curso_materia.OrdenMateriaGrupo = info.OrdenMateriaGrupo;
+                                        info_curso_materia.NomMateriaArea = info.NomMateriaArea;
+                                        info_curso_materia.NomMateriaGrupo = info.NomMateriaGrupo;
+                                        info_curso_materia.IdCatalogoTipoCalificacion = info.IdCatalogoTipoCalificacion;
+                                        info_curso_materia.PromediarGrupo = info.PromediarGrupo;
+                                    }
 
-                                odata_curso_materia.modificarDB(lst_curso_materia);
+                                    odata_curso_materia.modificarDB(lst_curso_materia);
+                                }
                             }
                         }
                     }

@@ -96,16 +96,20 @@ namespace Core.Bus.Academico
                     {
                         foreach (var item in lst_anios)
                         {
-                            var lst_curso_materia = odata_curso_materia.getList_Update_Area(info.IdEmpresa, item.IdAnio, info.IdMateriaArea);
-                            if (lst_curso_materia.Count > 0)
+                            //var info_anio_curso = odata_anio.getInfo(info.IdEmpresa, item.IdAnio);
+                            if (item.EnCurso == true)
                             {
-                                foreach (var info_curso_materia in lst_curso_materia)
+                                var lst_curso_materia = odata_curso_materia.getList_Update_Area(info.IdEmpresa, item.IdAnio, info.IdMateriaArea);
+                                if (lst_curso_materia.Count > 0)
                                 {
-                                    info_curso_materia.NomMateriaArea = info.NomMateriaArea;
-                                    info_curso_materia.OrdenMateriaArea = info.OrdenMateriaArea;
-                                }
+                                    foreach (var info_curso_materia in lst_curso_materia)
+                                    {
+                                        info_curso_materia.NomMateriaArea = info.NomMateriaArea;
+                                        info_curso_materia.OrdenMateriaArea = info.OrdenMateriaArea;
+                                    }
 
-                                return (odata_curso_materia.modificarDB(lst_curso_materia));
+                                    return (odata_curso_materia.modificarDB(lst_curso_materia));
+                                }
                             }
                         }
                     }

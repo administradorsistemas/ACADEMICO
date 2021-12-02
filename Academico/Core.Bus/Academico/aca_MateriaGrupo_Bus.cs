@@ -73,18 +73,22 @@ namespace Core.Bus.Academico
                     {
                         foreach (var item in lst_anios)
                         {
-                            var lst_curso_materia = odata_curso_materia.getList_Update_Grupo(info.IdEmpresa, item.IdAnio, info.IdMateriaGrupo);
-                            if (lst_curso_materia.Count > 0)
+                            //var info_anio_curso = odata_anio.getInfo(info.IdEmpresa, item.IdAnio);
+                            if (item.EnCurso==true)
                             {
-                                foreach (var info_curso_materia in lst_curso_materia)
+                                var lst_curso_materia = odata_curso_materia.getList_Update_Grupo(info.IdEmpresa, item.IdAnio, info.IdMateriaGrupo);
+                                if (lst_curso_materia.Count > 0)
                                 {
-                                    info_curso_materia.NomMateriaGrupo = info.NomMateriaGrupo;
-                                    info_curso_materia.OrdenMateriaGrupo = info.OrdenMateriaGrupo;
-                                    info_curso_materia.PromediarGrupo = info.PromediarGrupo;
-                                }
+                                    foreach (var info_curso_materia in lst_curso_materia)
+                                    {
+                                        info_curso_materia.NomMateriaGrupo = info.NomMateriaGrupo;
+                                        info_curso_materia.OrdenMateriaGrupo = info.OrdenMateriaGrupo;
+                                        info_curso_materia.PromediarGrupo = info.PromediarGrupo;
+                                    }
 
-                                odata_curso_materia.modificarDB(lst_curso_materia);
-                            }
+                                    odata_curso_materia.modificarDB(lst_curso_materia);
+                                }
+                            }                            
                         }
                     }
                 }
