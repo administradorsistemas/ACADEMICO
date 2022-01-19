@@ -73,7 +73,7 @@ namespace Core.Web.Areas.Academico.Controllers
             List<aca_MatriculaCalificacion_Info> lst_calificacion = new List<aca_MatriculaCalificacion_Info>();
             List<aca_MatriculaConducta_Info> lst_conducta = new List<aca_MatriculaConducta_Info>();
 
-            lst_calificacion = bus_calificacion.GetList_PaseAnio(model.IdEmpresa, model.IdAnio, model.IdSede, model.IdNivel, model.IdJornada, model.IdCurso, model.IdParalelo, model.IdAlumno);
+            lst_calificacion = bus_calificacion.GetList_PaseAnio(model.IdEmpresa, model.IdSede, model.IdAnio, model.IdNivel, model.IdJornada, model.IdCurso, model.IdParalelo, model.IdAlumno);
             var info_anio = bus_anio.GetInfo(model.IdEmpresa, model.IdAnio);
             List<aca_MatriculaCalificacionParcial_Info> ListaCalificacionParcial = new List<aca_MatriculaCalificacionParcial_Info>();
             if (lista.Count() > 0)
