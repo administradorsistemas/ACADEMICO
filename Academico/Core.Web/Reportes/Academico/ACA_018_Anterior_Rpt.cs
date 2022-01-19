@@ -3,25 +3,26 @@ using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using DevExpress.XtraReports.UI;
-using Core.Bus.Reportes.Academico;
-using Core.Info.Reportes.Academico;
-using System.Collections.Generic;
-using Core.Bus.General;
 using Core.Bus.Academico;
+using Core.Bus.General;
+using Core.Bus.Reportes.Academico;
+using System.Collections.Generic;
+using Core.Info.Reportes.Academico;
 using System.Linq;
 
-namespace Core.Web.Reportes.Academico
+namespace Core.Web.Reportes
 {
-    public partial class ACA_018_Rpt : DevExpress.XtraReports.UI.XtraReport
+    public partial class ACA_018_Anterior_Rpt : DevExpress.XtraReports.UI.XtraReport
     {
         public string usuario { get; set; }
         public string empresa { get; set; }
-        public ACA_018_Rpt()
+
+        public ACA_018_Anterior_Rpt()
         {
             InitializeComponent();
         }
 
-        private void ACA_0188_Rpt_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        private void ACA_018_Anterior_Rpt_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
         {
             lbl_fecha.Text = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
             lbl_usuario.Text = usuario;
@@ -60,7 +61,6 @@ namespace Core.Web.Reportes.Academico
                 //Rector.Text = sede.NombreRector;
                 //Secretaria.Text = sede.NombreSecretaria;
             }
-
         }
 
         private void fotoAlumno_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
@@ -81,6 +81,7 @@ namespace Core.Web.Reportes.Academico
                 //var Imagen = new Bitmap(URLString);
                 fotoAlumno.ImageUrl = URLString.ToString();
             }
+            
         }
     }
 }

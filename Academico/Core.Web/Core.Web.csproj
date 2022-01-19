@@ -407,6 +407,12 @@
     <Compile Include="Reportes\Academico\ACA_014_Asistencia_Rpt.Designer.cs">
       <DependentUpon>ACA_014_Asistencia_Rpt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reportes\Academico\ACA_018_Rpt.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Academico\ACA_018_Rpt.Designer.cs">
+      <DependentUpon>ACA_018_Rpt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reportes\Academico\ACA_034_General_Rpt.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -839,11 +845,11 @@
     <Compile Include="Reportes\Academico\ACA_017_Rpt.Designer.cs">
       <DependentUpon>ACA_017_Rpt.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reportes\Academico\ACA_018_Rpt.cs">
+    <Compile Include="Reportes\Academico\ACA_018_Anterior_Rpt.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reportes\Academico\ACA_018_Rpt.Designer.cs">
-      <DependentUpon>ACA_018_Rpt.cs</DependentUpon>
+    <Compile Include="Reportes\Academico\ACA_018_Anterior_Rpt.Designer.cs">
+      <DependentUpon>ACA_018_Anterior_Rpt.cs</DependentUpon>
     </Compile>
     <Compile Include="Reportes\Academico\ACA_019_Rpt.cs">
       <SubType>Component</SubType>
@@ -9995,6 +10001,9 @@
     <EmbeddedResource Include="Reportes\Academico\ACA_014_Asistencia_Rpt.resx">
       <DependentUpon>ACA_014_Asistencia_Rpt.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Academico\ACA_018_Rpt.resx">
+      <DependentUpon>ACA_018_Rpt.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reportes\Academico\ACA_034_General_Rpt.resx">
       <DependentUpon>ACA_034_General_Rpt.cs</DependentUpon>
     </EmbeddedResource>
@@ -10211,8 +10220,8 @@
     <EmbeddedResource Include="Reportes\Academico\ACA_017_Rpt.resx">
       <DependentUpon>ACA_017_Rpt.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reportes\Academico\ACA_018_Rpt.resx">
-      <DependentUpon>ACA_018_Rpt.cs</DependentUpon>
+    <EmbeddedResource Include="Reportes\Academico\ACA_018_Anterior_Rpt.resx">
+      <DependentUpon>ACA_018_Anterior_Rpt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\Academico\ACA_019_Rpt.resx">
       <DependentUpon>ACA_019_Rpt.cs</DependentUpon>
