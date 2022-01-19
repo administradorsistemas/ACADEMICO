@@ -112,7 +112,7 @@ namespace Core.Data.Reportes.Academico
                     reader.Close();
                 }
 
-                Lista.ForEach(q=> { q.CalificacionNull = (q.Promedio == null ? 1 : 0); q.PromedioString = Convert.ToString(q.Promedio); });
+                Lista.ForEach(q => { q.CalificacionNull = (q.Promedio == null ? 1 : 0); q.PromedioString = Convert.ToString(q.Promedio); });
 
                 var ListaAlumos = Lista.GroupBy(q => new
                 {
@@ -219,10 +219,10 @@ namespace Core.Data.Reportes.Academico
                 }).ToList();
 
                 ListaPromedioNivel.ForEach(q => { q.PromedioCalculado = (q.CalificacionNull == 0 ? q.PromedioCalculado : (decimal?)null); q.SumaGeneral = (q.CalificacionNull == 0 ? q.SumaGeneral : (decimal?)null); });
-                ListaPromedioNivel.ForEach(q=>q.PromedioString = Convert.ToString(q.PromedioString));
+                ListaPromedioNivel.ForEach(q => q.PromedioString = Convert.ToString(q.PromedioString));
 
                 var ListaPromedio = new List<ACA_075_Info>();
-                var lst_Promedio= new List<ACA_075_Info>();
+                var lst_Promedio = new List<ACA_075_Info>();
                 foreach (var item in ListaPromedioNivel)
                 {
                     lst_Promedio.Add(new ACA_075_Info
@@ -386,12 +386,15 @@ namespace Core.Data.Reportes.Academico
                     NomCurso = q.Key.NomCurso,
                     NomParalelo = q.Key.NomParalelo,
                     OrdenNivelCal = q.Key.OrdenNivelCal,
-                    NivelCal = (q.Key.OrdenNivelCal == 5 ? "30% BAS" : "40% BACH"),
+                    //  NivelCal = (q.Key.OrdenNivelCal == 5 ? "30% BAS" : "40% BACH"),
+                    NivelCal = (q.Key.OrdenNivelCal == 5 ? "35% BAS" : "35% BACH"),
                     CalificacionNull = 0,
                     SumaGeneral = (decimal?)null,
                     PromedioCalculado = (decimal?)null,
-                    Promedio = (q.Key.OrdenNivelCal == 5 ? Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.30)), 2,MidpointRounding.AwayFromZero ) : Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.40)), 2, MidpointRounding.AwayFromZero)),
-                    PromedioString = (q.Key.OrdenNivelCal == 5 ? Convert.ToString(Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.30)), 2, MidpointRounding.AwayFromZero)) : Convert.ToString(Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.40)), 2, MidpointRounding.AwayFromZero)))
+                    //Promedio = (q.Key.OrdenNivelCal == 5 ? Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.30)), 2,MidpointRounding.AwayFromZero ) : Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.40)), 2, MidpointRounding.AwayFromZero)),
+                    Promedio = (q.Key.OrdenNivelCal == 5 ? Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.35)), 2, MidpointRounding.AwayFromZero) : Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.35)), 2, MidpointRounding.AwayFromZero)),
+                    //PromedioString = (q.Key.OrdenNivelCal == 5 ? Convert.ToString(Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.30)), 2, MidpointRounding.AwayFromZero)) : Convert.ToString(Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.40)), 2, MidpointRounding.AwayFromZero)))
+                    PromedioString = (q.Key.OrdenNivelCal == 5 ? Convert.ToString(Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.35)), 2, MidpointRounding.AwayFromZero)) : Convert.ToString(Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.35)), 2, MidpointRounding.AwayFromZero)))
                 }).ToList();
                 ListaPromedio.AddRange(lst_PromPorNiveles);
                 #endregion
@@ -475,7 +478,7 @@ namespace Core.Data.Reportes.Academico
                 {
                     var nota_30 = ListaPromedio.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdAlumno == item.IdAlumno && q.NivelCal == "30% BAS").FirstOrDefault();
                     var nota_40 = ListaPromedio.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdAlumno == item.IdAlumno && q.NivelCal == "40% BACH").FirstOrDefault();
-                    var nota_30G = ListaPromedio.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdAlumno == item.IdAlumno && q.NivelCal == "30% GRADO").FirstOrDefault();                    
+                    var nota_30G = ListaPromedio.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdAlumno == item.IdAlumno && q.NivelCal == "30% GRADO").FirstOrDefault();
 
                     var Promedio = (nota_30 == null ? 0 : (nota_30.Promedio == null ? 0 : nota_30.Promedio)) + (nota_40 == null ? 0 : (nota_40.Promedio == null ? 0 : nota_40.Promedio)) + (nota_30G == null ? 0 : (nota_30G.Promedio == null ? 0 : nota_30G.Promedio));
                     var info_Promedio = new ACA_075_Info
@@ -919,13 +922,16 @@ namespace Core.Data.Reportes.Academico
                     NomParalelo = q.Key.NomParalelo,
                     OrdenNivelCal = q.Key.OrdenNivelCal,
                     //NivelCal = q.Key.NivelCal,
-                    NivelCal = (q.Key.OrdenNivelCal == 5 ? "40%" : "30%"),
+                    //  NivelCal = (q.Key.OrdenNivelCal == 5 ? "40%" : "30%"),
+                    NivelCal = (q.Key.OrdenNivelCal == 5 ? "35%" : "35%"),
                     OrdenCursoCal = 200,
                     CalificacionNull = 0,
                     SumaGeneral = (decimal?)null,
                     PromedioCalculado = (decimal?)null,
-                    Promedio = (q.Key.OrdenNivelCal == 5 ? Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.40)), 2, MidpointRounding.AwayFromZero) : Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.30)), 2, MidpointRounding.AwayFromZero)),
-                    PromedioString = (q.Key.OrdenNivelCal == 5 ? Convert.ToString(Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.40)), 2, MidpointRounding.AwayFromZero)) : Convert.ToString(Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.30)), 2, MidpointRounding.AwayFromZero)))
+                    //                    Promedio = (q.Key.OrdenNivelCal == 5 ? Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.40)), 2, MidpointRounding.AwayFromZero) : Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.30)), 2, MidpointRounding.AwayFromZero)),
+                    Promedio = (q.Key.OrdenNivelCal == 5 ? Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.35)), 2, MidpointRounding.AwayFromZero) : Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.35)), 2, MidpointRounding.AwayFromZero)),
+                    //                    PromedioString = (q.Key.OrdenNivelCal == 5 ? Convert.ToString(Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.40)), 2, MidpointRounding.AwayFromZero)) : Convert.ToString(Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.30)), 2, MidpointRounding.AwayFromZero)))
+                    PromedioString = (q.Key.OrdenNivelCal == 5 ? Convert.ToString(Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.35)), 2, MidpointRounding.AwayFromZero)) : Convert.ToString(Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.35)), 2, MidpointRounding.AwayFromZero)))
                 }).ToList();
                 ListaPromedio.AddRange(lst_PromPorNiveles);
                 #endregion
@@ -1216,8 +1222,10 @@ namespace Core.Data.Reportes.Academico
                 var ListaPromedioFinal = new List<ACA_075_Info>();
                 foreach (var item in ListaAlumos)
                 {
-                    var nota_40 = Lista.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdAlumno == item.IdAlumno && q.NivelCal == "40%").FirstOrDefault();
-                    var nota_30 = Lista.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdAlumno == item.IdAlumno && q.NivelCal == "30%").FirstOrDefault();
+                    //var nota_40 = Lista.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdAlumno == item.IdAlumno && q.NivelCal == "40%").FirstOrDefault();
+                    //var nota_30 = Lista.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdAlumno == item.IdAlumno && q.NivelCal == "30%").FirstOrDefault();
+                    var nota_40 = Lista.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdAlumno == item.IdAlumno && q.NivelCal == "35%").FirstOrDefault();
+                    var nota_30 = Lista.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdAlumno == item.IdAlumno && q.NivelCal == "35%").FirstOrDefault();
                     var nota_20 = Lista.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdAlumno == item.IdAlumno && q.NivelCal == "10%").FirstOrDefault();
                     var nota_10 = Lista.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdAlumno == item.IdAlumno && q.NivelCal == "20%").FirstOrDefault();
 
@@ -1663,13 +1671,16 @@ namespace Core.Data.Reportes.Academico
                     NomParalelo = q.Key.NomParalelo,
                     OrdenNivelCal = q.Key.OrdenNivelCal,
                     //NivelCal = q.Key.NivelCal,
-                    NivelCal = (q.Key.OrdenNivelCal == 5 ? "40%" : "30%"),
+                    //NivelCal = (q.Key.OrdenNivelCal == 5 ? "40%" : "30%"),
+                    NivelCal = (q.Key.OrdenNivelCal == 5 ? "35%" : "35%"),
                     OrdenCursoCal = 200,
                     CalificacionNull = 0,
                     SumaGeneral = (decimal?)null,
                     PromedioCalculado = (decimal?)null,
-                    Promedio = (q.Key.OrdenNivelCal == 5 ? Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.40)), 2, MidpointRounding.AwayFromZero) : Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.30)), 2, MidpointRounding.AwayFromZero)),
-                    PromedioString = (q.Key.OrdenNivelCal == 5 ? Convert.ToString(Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.40)), 2, MidpointRounding.AwayFromZero)) : Convert.ToString(Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.30)), 2, MidpointRounding.AwayFromZero)))
+                    //Promedio = (q.Key.OrdenNivelCal == 5 ? Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.40)), 2, MidpointRounding.AwayFromZero) : Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.30)), 2, MidpointRounding.AwayFromZero)),
+                    Promedio = (q.Key.OrdenNivelCal == 5 ? Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.35)), 2, MidpointRounding.AwayFromZero) : Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.35)), 2, MidpointRounding.AwayFromZero)),
+                    //PromedioString = (q.Key.OrdenNivelCal == 5 ? Convert.ToString(Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.40)), 2, MidpointRounding.AwayFromZero)) : Convert.ToString(Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.30)), 2, MidpointRounding.AwayFromZero)))
+                    PromedioString = (q.Key.OrdenNivelCal == 5 ? Convert.ToString(Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.35)), 2, MidpointRounding.AwayFromZero)) : Convert.ToString(Math.Round((Convert.ToDecimal(q.Key.Promedio) * Convert.ToDecimal(0.35)), 2, MidpointRounding.AwayFromZero)))
                 }).ToList();
                 ListaPromedio.AddRange(lst_PromPorNiveles);
                 #endregion
@@ -1764,7 +1775,7 @@ namespace Core.Data.Reportes.Academico
                         + " join "
                         + " aca_MatriculaCalificacionParticipacion as b WITH(nolock) on a.IdEmpresa = b.IdEmpresa and a.IdMatricula = b.IdMatricula and a.IdAlumno = b.IdAlumno join "
                         + " aca_AnioLectivo_Jornada_Curso as jc WITH(nolock) on a.IdEmpresa = jc.IdEmpresa and a.IdAnio = jc.IdAnio and a.IdSede = jc.IdSede and a.IdNivel = jc.IdNivel and a.IdJornada = jc.IdJornada and a.IdCurso = jc.IdCurso "
-                        + " where a.IdEmpresa = @IdEmpresa and a.IdAlumno="+item.IdAlumno+" and a.IdNivel = @wIdNivel and jc.OrdenCurso in (@wOrden1, @wOrden2, @wOrden3) "
+                        + " where a.IdEmpresa = @IdEmpresa and a.IdAlumno=" + item.IdAlumno + " and a.IdNivel = @wIdNivel and jc.OrdenCurso in (@wOrden1, @wOrden2, @wOrden3) "
                         + " union all("
                         + " select c.IdEmpresa, c.IdAlumno, "
                         + " case when jc1.OrdenCurso = @wOrden1 then c.PromedioFinal else null end as Promedio1, "
@@ -1917,20 +1928,20 @@ namespace Core.Data.Reportes.Academico
                             };
 
                             var NumCalificaciones = 0;
-                            if (info_participacion_aprobacion.Prom1!=null)
-                            {
-                                NumCalificaciones = NumCalificaciones+1;
-                            }
-                            if(info_participacion_aprobacion.Prom2 != null)
+                            if (info_participacion_aprobacion.Prom1 != null)
                             {
                                 NumCalificaciones = NumCalificaciones + 1;
                             }
-                            if(info_participacion_aprobacion.Prom3 != null)
+                            if (info_participacion_aprobacion.Prom2 != null)
+                            {
+                                NumCalificaciones = NumCalificaciones + 1;
+                            }
+                            if (info_participacion_aprobacion.Prom3 != null)
                             {
                                 NumCalificaciones = NumCalificaciones + 1;
                             }
 
-                            info_participacion_aprobacion.Promedio = (NumCalificaciones>=2 ? Math.Round(Convert.ToDecimal(info_participacion_aprobacion.Promedio), 2, MidpointRounding.AwayFromZero) : (decimal?)null);
+                            info_participacion_aprobacion.Promedio = (NumCalificaciones >= 2 ? Math.Round(Convert.ToDecimal(info_participacion_aprobacion.Promedio), 2, MidpointRounding.AwayFromZero) : (decimal?)null);
                             info_participacion_aprobacion.PromedioString = (NumCalificaciones >= 2 ? Convert.ToString(Math.Round(Convert.ToDecimal(info_participacion_aprobacion.Promedio), 2, MidpointRounding.AwayFromZero)) : null);
 
                             info_participacion.Promedio = (NumCalificaciones >= 2 ? Math.Round(Convert.ToDecimal(info_participacion.Promedio), 2, MidpointRounding.AwayFromZero) : (decimal?)null);
@@ -2023,8 +2034,10 @@ namespace Core.Data.Reportes.Academico
                 var ListaPromedioFinal = new List<ACA_075_Info>();
                 foreach (var item in ListaAlumos)
                 {
-                    var nota_40 = Lista.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdAlumno == item.IdAlumno && q.NivelCal == "40%").FirstOrDefault();
-                    var nota_30 = Lista.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdAlumno == item.IdAlumno && q.NivelCal == "30%").FirstOrDefault();
+                    //var nota_40 = Lista.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdAlumno == item.IdAlumno && q.NivelCal == "40%").FirstOrDefault();
+                    //var nota_30 = Lista.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdAlumno == item.IdAlumno && q.NivelCal == "30%").FirstOrDefault();
+                    var nota_40 = Lista.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdAlumno == item.IdAlumno && q.NivelCal == "35%").FirstOrDefault();
+                    var nota_30 = Lista.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdAlumno == item.IdAlumno && q.NivelCal == "35%").FirstOrDefault();
                     var nota_20 = Lista.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdAlumno == item.IdAlumno && q.NivelCal == "10%").FirstOrDefault();
                     var nota_10 = Lista.Where(q => q.IdEmpresa == item.IdEmpresa && q.IdAlumno == item.IdAlumno && q.NivelCal == "20%").FirstOrDefault();
 
