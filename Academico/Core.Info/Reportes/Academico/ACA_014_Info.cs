@@ -94,6 +94,7 @@ namespace Core.Info.Reportes.Academico
         public int NoMostrarPromedioQ2 { get; set; }
         public int NoMostrarPromedioQuim { get; set; }
         public int NoMostrarPromedioFinal { get; set; }
+        public int NoMostrarPF { get; set; }
         #endregion
     }
 }

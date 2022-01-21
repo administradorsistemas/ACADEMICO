@@ -1,4 +1,5 @@
-﻿using Core.Data.Base;
+﻿using Core.Data.Academico;
+using Core.Data.Base;
 using Core.Info.Helps;
 using Core.Info.Reportes.Academico;
 using System;
@@ -12,11 +13,13 @@ namespace Core.Data.Reportes.Academico
 {
     public class ACA_014_Data
     {
+        aca_AnioLectivo_Data odata_anio = new aca_AnioLectivo_Data();
         public List<ACA_014_Info> get_list(int IdEmpresa, int IdAnio, int IdSede, int IdNivel, int IdJornada, int IdCurso, int IdParalelo, int IdCatalogoParcial, decimal IdAlumno, bool MostrarRetirados, bool MostrarPromedios)
         {
             try
             {
-
+                var info_anio = odata_anio.getInfo(IdEmpresa, IdAnio);
+                double PromedioMinimoParcial = (info_anio==null ? 0 : info_anio.PromedioMinimoPromocion==null ? 0 : Convert.ToDouble(info_anio.PromedioMinimoPromocion));
                 List<ACA_014_Info> Lista = new List<ACA_014_Info>();
                 using (SqlConnection connection = new SqlConnection(CadenaDeConexion.GetConnectionString()))
                 {
@@ -275,6 +278,7 @@ namespace Core.Data.Reportes.Academico
                     q.NoMostrarPromedioQ1 = q.PromedioFinalQ1 == null ? 1 : 0;
                     q.NoMostrarPromedioQ2 = q.PromedioFinalQ2 == null ? 1 : 0;
                     q.NoMostrarPromedioQuim = q.PromedioQuimestres_PF == null ? 1 : 0;
+                    q.NoMostrarPF = (q.IdCatalogoTipoCalificacion ==null ?  1 : (Convert.ToInt32(q.IdCatalogoTipoCalificacion) == Convert.ToInt32(cl_enumeradores.eCatalogoTipoCalificacion.CUANTI) ? q.PromedioFinal == null ? 1 : (Convert.ToDouble(q.PromedioFinal)< PromedioMinimoParcial ? 1 : 0) : 0));
                     q.NoMostrarPromedioFinal = q.PromedioFinal == null ? 1 : 0;
                     q.CalificacionP4 = (IdCatalogoParcial == Convert.ToInt32(cl_enumeradores.eTipoCatalogoAcademico.QUIM2) ? q.CalificacionP4 : null);
                     q.CalificacionP5 = (IdCatalogoParcial == Convert.ToInt32(cl_enumeradores.eTipoCatalogoAcademico.QUIM2) ? q.CalificacionP5 : null);
@@ -417,6 +421,7 @@ namespace Core.Data.Reportes.Academico
                              NoMostrarPromedioQ2 = a.NoMostrarPromedioQ2,
                              NoMostrarPromedioQuim = a.NoMostrarPromedioQuim,
                              NoMostrarPromedioFinal = a.NoMostrarPromedioFinal,
+                             NoMostrarPF = a.NoMostrarPF,
                              PromedioGrupoQ1Double = b.PromedioGrupoQ1Double == null ? (decimal?)null : b.PromedioGrupoQ1Double ?? 0,
                              PromedioGrupoQ2Double = b.PromedioGrupoQ2Double == null ? (decimal?)null : b.PromedioGrupoQ2Double ?? 0,
                              PromedioQuimestresGrupoDouble = b.PromedioQuimestresGrupoDouble == null ? (decimal?)null : b.PromedioQuimestresGrupoDouble ?? 0,
@@ -523,7 +528,7 @@ namespace Core.Data.Reportes.Academico
                              NoMostrarPromedioQ2 = a.NoMostrarPromedioQ2,
                              NoMostrarPromedioQuim = a.NoMostrarPromedioQuim,
                              NoMostrarPromedioFinal = a.NoMostrarPromedioFinal,
-
+                             NoMostrarPF = a.NoMostrarPF,
                              PromedioGrupoQ1Double = a.PromedioGrupoQ1Double,
                              PromedioGrupoQ2Double = a.PromedioGrupoQ2Double,
                              PromedioQuimestresGrupoDouble = a.PromedioQuimestresGrupoDouble,
