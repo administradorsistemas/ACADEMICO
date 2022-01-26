@@ -133,12 +133,12 @@
                     @Html.TextBoxFor(q => q.contrasena_admin, new { @class = "form-control", @id = "contrasena_admin" })
                 </div>
             </div>
-        </div>
-    </div>
-
-    @*<div class="row">
-        <div class="col-md-12">
-            <div class="col-md-12">
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label for="label">&nbsp;</label>
+                </div>
+            </div>
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="IdMenu">Menú inicio de sesión</label>
                     @Html.DropDownListFor(q => q.IdMenu, new SelectList(ViewBag.lst_menu, "IdMenu", "DescripcionMenu_combo", Model.IdMenu == null ? 0 : Model.IdMenu), new { @class = "form-control" })
@@ -146,8 +146,7 @@
                 </div>
             </div>
         </div>
-    </div>*@
-
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-12">
@@ -164,29 +163,29 @@
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
     }
-                    }
+}
 
-<script>
-    ValidarSuperAdmin();
-
-    $("#es_super_admin").change(function () {
+    <script>
         ValidarSuperAdmin();
-    });
 
-    function OnSelectedEmpresaChanged() {
-        GridViewPartial_Usuario_x_Sede.GetEditor("IdSede").PerformCallback();
-    }
-    function SedeComboBox_BeginCallback(s, e) {
-        e.customArgs["var_IdEmpresa"] = IdEmpresa.GetValue();
-    }
-    function ValidarSuperAdmin() {
-        var admin = es_super_admin.GetValue();
-        if (admin == true) {
-            $("#div_admin").show();
-        }
-        else {
-            $("#div_admin").hide();
-        }
-    }
+        $("#es_super_admin").change(function () {
+            ValidarSuperAdmin();
+        });
 
-</script>
+        function OnSelectedEmpresaChanged() {
+            GridViewPartial_Usuario_x_Sede.GetEditor("IdSede").PerformCallback();
+        }
+        function SedeComboBox_BeginCallback(s, e) {
+            e.customArgs["var_IdEmpresa"] = IdEmpresa.GetValue();
+        }
+        function ValidarSuperAdmin() {
+            var admin = es_super_admin.GetValue();
+            if (admin == true) {
+                $("#div_admin").show();
+            }
+            else {
+                $("#div_admin").hide();
+            }
+        }
+
+    </script>

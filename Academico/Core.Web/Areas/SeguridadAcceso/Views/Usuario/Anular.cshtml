@@ -119,6 +119,18 @@
                     @Html.TextBoxFor(q => q.contrasena_admin, new { @class = "form-control", @id = "contrasena_admin" })
                 </div>
             </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label for="label">&nbsp;</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="IdMenu">Menú inicio de sesión</label>
+                    @Html.DropDownListFor(q => q.IdMenu, new SelectList(ViewBag.lst_menu, "IdMenu", "DescripcionMenu_combo", Model.IdMenu == null ? 0 : Model.IdMenu), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(q => q.IdMenu, "", new { @class = "text-danger" })
+                </div>
+            </div>
         </div>
     </div>    
     @*<div class="row">
