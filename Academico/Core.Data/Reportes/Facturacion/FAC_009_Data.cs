@@ -21,6 +21,7 @@ namespace Core.Data.Reportes.Facturacion
 
                 using (EntitiesReportes db = new EntitiesReportes())
                 {
+                    db.SetCommandTimeOut(6000); // by Acueva 2022-01-31
                     var lst = db.VWFAC_009.Where(q => q.IdEmpresa == IdEmpresa && IdTipoNota <= q.IdTipoNota && q.IdTipoNota <= IdTipoNotaFin && FechaIni <= q.fecha_cruce && q.fecha_cruce <= FechaFin).ToList();
                     foreach (var item in lst)
                     {

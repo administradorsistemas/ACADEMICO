@@ -26,7 +26,11 @@ namespace Core.Data.Base
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+        public void SetCommandTimeOut(int TimeOut) // by acueva 2022-01-31
+        {
+            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = TimeOut;
+        }
+
         public virtual DbSet<fa_TerminoPago> fa_TerminoPago { get; set; }
         public virtual DbSet<fa_cliente> fa_cliente { get; set; }
         public virtual DbSet<fa_catalogo> fa_catalogo { get; set; }

@@ -17,6 +17,7 @@ namespace Core.Data.CuentasPorCobrar
 
                 using (EntitiesCuentasPorCobrar Context = new EntitiesCuentasPorCobrar())
                 {
+                    Context.SetCommandTimeOut(6000);
                     var lst = Context.vwcxc_cartera_x_cobrar.Where(q=> q.IdEmpresa == IdEmpresa
                              && q.IdSucursal == IdSucursal                        
                              && q.IdCliente == (FiltrarPorCliente == true ? IdCliente : q.IdCliente)
@@ -73,6 +74,7 @@ namespace Core.Data.CuentasPorCobrar
 
                 using (EntitiesCuentasPorCobrar Context = new EntitiesCuentasPorCobrar())
                 {
+                    Context.SetCommandTimeOut(6000);
                     var lst = Context.vwcxc_cartera_x_cobrar.Where(q => q.IdEmpresa == IdEmpresa
                              && q.IdSucursal == IdSucursal && q.IdAlumno == IdAlumno).ToList();
 
@@ -215,6 +217,7 @@ namespace Core.Data.CuentasPorCobrar
 
                 using (EntitiesCuentasPorCobrar Context = new EntitiesCuentasPorCobrar())
                 {
+                    Context.SetCommandTimeOut(6000); // by Acueva 2022-01-31
                     Lista = (from q in Context.vwcxc_cartera_x_cobrar
                              where q.IdEmpresa == IdEmpresa
                              select new cxc_cobro_det_Info

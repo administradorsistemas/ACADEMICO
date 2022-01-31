@@ -81,6 +81,7 @@ namespace Core.Data.Contabilidad
                 ct_cbtecble_Info info = new ct_cbtecble_Info();
                 using (EntitiesContabilidad Context = new EntitiesContabilidad())
                 {
+                    Context.SetCommandTimeOut(6500); // By Acueva 2022-01-31
                     ct_cbtecble Entity = Context.ct_cbtecble.FirstOrDefault(q => q.IdEmpresa == IdEmpresa && q.IdTipoCbte == IdTipoCbte &&q.IdCbteCble == IdCbteCble);
                     if (Entity == null) return null;
                     info = new ct_cbtecble_Info

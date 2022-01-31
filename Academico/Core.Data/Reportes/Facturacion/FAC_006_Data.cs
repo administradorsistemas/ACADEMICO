@@ -23,6 +23,7 @@ namespace Core.Data.Reportes.Facturacion
                 List<FAC_006_Info> Lista;
                 using (EntitiesReportes Context = new EntitiesReportes())
                 {
+                    Context.SetCommandTimeOut(6000); // ByAcueva 2022-01-31
                     Lista = (from q in Context.SPFAC_006(IdEmpresa, IdSucursalIni, IdSucursalFin, IdAlumnoIni, IdAlumnoFin, fecha_ini, fecha_fin, MostrarAnulados)
                              select new FAC_006_Info
                              {

@@ -22,6 +22,7 @@ namespace Core.Data.Reportes.Facturacion
                 List<FAC_005_Info> Lista = new List<FAC_005_Info>();
                 using (EntitiesReportes db = new EntitiesReportes())
                 {
+                    db.SetCommandTimeOut(6000);// By Acueva 2022-01-31
                     var lst = db.SPFAC_005(IdEmpresa, FechaDesde, FechaHasta, CreDeb, NaturalezaNota).ToList();
                     lst = lst.Where(q => IdTipoNotaIni <= q.IdTipoNota && q.IdTipoNota <= IdTipoNotaFin).ToList();
                     foreach (var q in lst)
