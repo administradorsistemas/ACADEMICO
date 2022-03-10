@@ -143,7 +143,7 @@ namespace Core.Data.Reportes.Facturacion
                     + "dbo.aca_AnioLectivo AS A2 ON A1.IdEmpresa = A2.IdEmpresa AND A1.IdAnio = A2.IdAnio ON CursoParalelo.IdParalelo = A1.IdParalelo AND CursoParalelo.IdEmpresa = A1.IdEmpresa AND CursoParalelo.IdAnio = A1.IdAnio AND "
                     + "CursoParalelo.IdSede = A1.IdSede AND CursoParalelo.IdNivel = A1.IdNivel AND CursoParalelo.IdJornada = A1.IdJornada AND CursoParalelo.IdCurso = A1.IdCurso LEFT OUTER JOIN "
                     + "dbo.aca_Plantilla AS A3 ON A1.IdEmpresa = A3.IdEmpresa AND A1.IdAnio = A3.IdAnio AND A1.IdPlantilla = A3.IdPlantilla "
-                    + "WHERE(A2.EnCurso = 1)) AS e ON c.IdEmpresa = e.IdEmpresa AND c.IdAlumno = e.IdAlumno INNER JOIN "
+                    + "WHERE(A2.EnCurso = 1 or A2.EnCurso = 0)) AS e ON c.IdEmpresa = e.IdEmpresa AND c.IdAlumno = e.IdAlumno INNER JOIN " // by Acueva añadi 2022-03-10 or A2.EnCurso = 0 
                     + "dbo.aca_Alumno AS f ON f.IdEmpresa = c.IdEmpresa AND f.IdAlumno = c.IdAlumno INNER JOIN "
                     + "dbo.tb_persona AS p ON f.IdPersona = p.IdPersona "
                     + "WHERE(c.IdAlumno IS NOT NULL) "

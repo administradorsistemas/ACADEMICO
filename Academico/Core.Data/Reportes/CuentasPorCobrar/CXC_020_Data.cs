@@ -185,14 +185,21 @@ namespace Core.Data.Reportes.Contabilidad
             + " SET @oINGVespertina = ABS(@oINGVespertina)"
             + ""
             + ""
-
-       + " select @oSaldoInicial AS SaldoInicial, @oFacturas as Facturas, @oNotasDebito as NotasDeDebito, @oSaldoInicial + @oFacturas + @oNotasDebito as SumanDebe, @oNotasCredito as NotasCredito, @ONotasCreditoPagoAnticipado as PagoAnticipado, @oNotasCredito - @ONotasCreditoPagoAnticipado as NetoNotaCredito, @oCobros as Cobros, "
-        + " @oSaldoInicial + @oFacturas + @oNotasDebito - @oNotasCredito + @ONotasCreditoPagoAnticipado - @oCobros AS SaldoNeto, @oSaldoAcreedorFinal SaldoAcreedorFinal, "
-        + " @oSaldoInicial + @oFacturas + @oNotasDebito - @oNotasCredito + @ONotasCreditoPagoAnticipado - @oCobros + @oSaldoAcreedorFinal as SaldoFinal, @oSaldoFinal SaldoCalculado, "
-        + " dbo.BankersRounding(@oSaldoInicial + @oFacturas + @oNotasDebito - @oNotasCredito + @ONotasCreditoPagoAnticipado - @oCobros + @oSaldoAcreedorFinal - @oSaldoFinal, 2) Diferencia, "
-        + " @oCXCMatutina CXCMatutina, @oCXCVespertina CXCVespertina, @oCXCDeudasAnteriores CXCDeudasAnteriores, @oCXCAnticipados CXCAnticipados, @oCXCMatutina + @oCXCVespertina + @oCXCDeudasAnteriores + @oCXCAnticipados as SaldoContableCXC,"
-        + " (@oCXCMatutina + @oCXCVespertina + @oCXCDeudasAnteriores + @oCXCAnticipados) - (@oSaldoInicial + @oFacturas + @oNotasDebito - @oNotasCredito + @ONotasCreditoPagoAnticipado - @oCobros) as DiferenciaCXC,"
-        + " @oINGMatutina oINGMatutina, @oINGVespertina oINGVespertina, @oINGMatutina + @oINGVespertina as TotalIngresos, (@oINGMatutina + @oINGVespertina) - @oFacturas as DiferenciaIngresos "
+        //    + " select @oSaldoInicial AS SaldoInicial, @oFacturas as Facturas, @oNotasDebito as NotasDeDebito, @oSaldoInicial + @oFacturas + @oNotasDebito as SumanDebe, @oNotasCredito as NotasCredito, @ONotasCreditoPagoAnticipado as PagoAnticipado, @oNotasCredito - @ONotasCreditoPagoAnticipado as NetoNotaCredito, @oCobros as Cobros, "
+        //+ " @oSaldoInicial + @oFacturas + @oNotasDebito - @oNotasCredito + @ONotasCreditoPagoAnticipado - @oCobros AS SaldoNeto, @oSaldoAcreedorFinal SaldoAcreedorFinal, "
+        //+ " @oSaldoInicial + @oFacturas + @oNotasDebito - @oNotasCredito + @ONotasCreditoPagoAnticipado - @oCobros + @oSaldoAcreedorFinal as SaldoFinal, @oSaldoFinal SaldoCalculado, "
+        //+ " dbo.BankersRounding(@oSaldoInicial + @oFacturas + @oNotasDebito - @oNotasCredito + @ONotasCreditoPagoAnticipado - @oCobros + @oSaldoAcreedorFinal - @oSaldoFinal, 2) Diferencia, "
+        //+ " @oCXCMatutina CXCMatutina, @oCXCVespertina CXCVespertina, @oCXCDeudasAnteriores CXCDeudasAnteriores, @oCXCAnticipados CXCAnticipados, @oCXCMatutina + @oCXCVespertina + @oCXCDeudasAnteriores + @oCXCAnticipados as SaldoContableCXC,"
+        //+ " (@oCXCMatutina + @oCXCVespertina + @oCXCDeudasAnteriores + @oCXCAnticipados) - (@oSaldoInicial + @oFacturas + @oNotasDebito - @oNotasCredito + @ONotasCreditoPagoAnticipado - @oCobros) as DiferenciaCXC,"
+        //+ " @oINGMatutina oINGMatutina, @oINGVespertina oINGVespertina, @oINGMatutina + @oINGVespertina as TotalIngresos, (@oINGMatutina + @oINGVespertina) - @oFacturas as DiferenciaIngresos "
+        // ******************  PARA QUE NO SALGA EN LAS SUMAS VALORES NULL EN LAS SUMATORIAS SE AÑADIO LAS 7 LINEAS DE ABAJO  **************************** BY ACUEVA 2022-03-10
+       + " select ISNULL(@oSaldoInicial,0) AS SaldoInicial, ISNULL(@oFacturas,0) as Facturas, ISNULL(@oNotasDebito,0) as NotasDeDebito, ISNULL(@oSaldoInicial,0) + ISNULL(@oFacturas,0) + ISNULL(@oNotasDebito,0) as SumanDebe, ISNULL(@oNotasCredito,0) as NotasCredito, ISNULL(@ONotasCreditoPagoAnticipado,0) as PagoAnticipado, ISNULL(@oNotasCredito,0) - ISNULL(@ONotasCreditoPagoAnticipado,0) as NetoNotaCredito, ISNULL(@oCobros,0) as Cobros, "
+        + " ISNULL(@oSaldoInicial,0) + ISNULL(@oFacturas,0) + ISNULL(@oNotasDebito,0) - ISNULL(@oNotasCredito,0) + ISNULL(@ONotasCreditoPagoAnticipado,0) - ISNULL(@oCobros,0) AS SaldoNeto, ISNULL(@oSaldoAcreedorFinal,0) SaldoAcreedorFinal, "
+        + " ISNULL(@oSaldoInicial,0) + ISNULL(@oFacturas,0) + ISNULL(@oNotasDebito,0) - ISNULL(@oNotasCredito,0) + ISNULL(@ONotasCreditoPagoAnticipado,0) - ISNULL(@oCobros,0) + ISNULL(@oSaldoAcreedorFinal,0) as SaldoFinal, ISNULL(@oSaldoFinal,0) SaldoCalculado, "
+        + " dbo.BankersRounding(ISNULL(@oSaldoInicial,0) + ISNULL(@oFacturas,0) + ISNULL(@oNotasDebito,0) - ISNULL(@oNotasCredito,0) + ISNULL(@ONotasCreditoPagoAnticipado,0) - ISNULL(@oCobros,0) + ISNULL(@oSaldoAcreedorFinal,0) - ISNULL(@oSaldoFinal,0), 2) Diferencia, "
+        + " ISNULL(@oCXCMatutina,0) CXCMatutina, ISNULL(@oCXCVespertina,0) CXCVespertina, ISNULL(@oCXCDeudasAnteriores,0) CXCDeudasAnteriores, ISNULL(@oCXCAnticipados,0) CXCAnticipados, ISNULL(@oCXCMatutina,0) + ISNULL(@oCXCVespertina,0) + ISNULL(@oCXCDeudasAnteriores,0) + ISNULL(@oCXCAnticipados,0) as SaldoContableCXC,"
+        + " (ISNULL(@oCXCMatutina,0) + ISNULL(@oCXCVespertina,0) + ISNULL(@oCXCDeudasAnteriores,0) + ISNULL(@oCXCAnticipados,0)) - (ISNULL(@oSaldoInicial,0) + ISNULL(@oFacturas,0) + ISNULL(@oNotasDebito,0) - ISNULL(@oNotasCredito,0) + ISNULL(@ONotasCreditoPagoAnticipado,0) - ISNULL(@oCobros,0)) as DiferenciaCXC,"
+        + " ISNULL(@oINGMatutina,0) oINGMatutina, ISNULL(@oINGVespertina,0) oINGVespertina, ISNULL(@oINGMatutina,0) + ISNULL(@oINGVespertina,0) as TotalIngresos, (ISNULL(@oINGMatutina,0) + ISNULL(@oINGVespertina,0)) - ISNULL(@oFacturas,0) as DiferenciaIngresos "
         ;
 
                     #endregion
